@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  string: 
+  klasa: false
+  wychowawca_id: 1
+  klasa_id: 1
+
+two:
+  string: 
+  klasa: false
+  wychowawca_id: 1
+  klasa_id: 1

@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  imie: MyString
+  nazwisko: 
+  pesel: MyString
+  nr_legitymacji: MyString
+  rodzic_id: 1
+  chlopiec: false
+
+two:
+  imie: MyString
+  nazwisko: 
+  pesel: MyString
+  nr_legitymacji: MyString
+  rodzic_id: 1
+  chlopiec: false

@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  nazwa: MyString
+  semestr_id: 1
+  active: false
+
+two:
+  nazwa: MyString
+  semestr_id: 1
+  active: false

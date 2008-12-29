@@ -25,19 +25,23 @@ class BortMigration < ActiveRecord::Migration
     
     # Create Users Table
     create_table :users do |t|
-      t.string :login, :limit => 40
-      t.string :identity_url      
-      t.string :name, :limit => 100, :default => '', :null => true
-      t.string :email, :limit => 100
-      t.string :crypted_password, :limit => 40
-      t.string :salt, :limit => 40
-      t.string :remember_token, :limit => 40
-      t.string :activation_code, :limit => 40
-      t.string :state, :null => false, :default => 'passive'      
+      t.string   :login, :limit => 40
+      t.string   :identity_url      
+      t.string   :name, :limit => 100, :default => '', :null => true
+      t.string   :email, :limit => 100
+      t.string   :crypted_password, :limit => 40
+      t.string   :salt, :limit => 40
+      t.string   :remember_token, :limit => 40
+      t.string   :activation_code, :limit => 40
+      t.string   :state, :null => false, :default => 'passive'      
       t.datetime :remember_token_expires_at
       t.datetime :activated_at
       t.datetime :deleted_at
       t.timestamps
+      
+      t.boolean  :destroyed, :default => false
+      t.integer  :edited_by
+      t.text     :editors_stamp
     end
     
     add_index :users, :login, :unique => true
@@ -66,7 +70,7 @@ class BortMigration < ActiveRecord::Migration
     # Create default admin user
     user = User.create do |u|
       u.login = 'admin'
-      u.password = u.password_confirmation = 'chester'
+      u.password = u.password_confirmation = 'admin'
       u.email = APP_CONFIG[:admin_email]
     end
     

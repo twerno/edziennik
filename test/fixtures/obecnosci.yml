@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  wartosc: 1
+  uczne_id: 1
+  lista_id: 1
+  lekcja_id: 1
+
+two:
+  wartosc: 1
+  uczne_id: 1
+  lista_id: 1
+  lekcja_id: 1

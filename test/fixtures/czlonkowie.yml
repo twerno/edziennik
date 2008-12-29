@@ -1,0 +1,9 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  uczen_id: 1
+  grupa_id: 1
+
+two:
+  uczen_id: 1
+  grupa_id: 1

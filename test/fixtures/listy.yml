@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  grupa_id: 1
+  nauczyciel_id: 1
+  semestr_id: 1
+  przedmiot_id: 1
+
+two:
+  grupa_id: 1
+  nauczyciel_id: 1
+  semestr_id: 1
+  przedmiot_id: 1

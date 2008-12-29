@@ -9,7 +9,118 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080929171348) do
+ActiveRecord::Schema.define(:version => 20081229215815) do
+
+  create_table "archives", :force => true do |t|
+    t.string   "class_name"
+    t.string   "class_id"
+    t.boolean  "class_destroyed"
+    t.integer  "edited_by"
+    t.text     "editors_stamp"
+    t.text     "body"
+    t.datetime "body_updated_at"
+    t.datetime "created_at"
+  end
+
+  add_index "archives", ["class_id"], :name => "index_archives_on_class_id"
+
+  create_table "czlonkowie", :force => true do |t|
+    t.integer  "uczen_id"
+    t.integer  "grupa_id"
+    t.boolean  "destroyed",     :default => false
+    t.integer  "edited_by"
+    t.text     "editors_stamp"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "godziny", :force => true do |t|
+    t.string   "nazwa"
+    t.time     "begin"
+    t.time     "end"
+    t.boolean  "destroyed",     :default => false
+    t.integer  "edited_by"
+    t.text     "editors_stamp"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "grupy", :force => true do |t|
+    t.string   "nazwa"
+    t.boolean  "klasa"
+    t.integer  "grupa_id"
+    t.integer  "nauczyciel_id"
+    t.integer  "aktualny_semestr"
+    t.integer  "pierwszy_semestr"
+    t.integer  "ostatni_semestr"
+    t.boolean  "destroyed",        :default => false
+    t.integer  "edited_by"
+    t.text     "editors_stamp"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "lekcje", :force => true do |t|
+    t.integer  "godzina_id"
+    t.integer  "lista_id"
+    t.integer  "plan_id"
+    t.date     "data"
+    t.boolean  "destroyed",     :default => false
+    t.integer  "edited_by"
+    t.text     "editors_stamp"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "listy", :force => true do |t|
+    t.integer  "grupa_id"
+    t.integer  "nauczyciel_id"
+    t.integer  "semestr_id"
+    t.integer  "przedmiot_id"
+    t.boolean  "destroyed",     :default => false
+    t.integer  "edited_by"
+    t.text     "editors_stamp"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "nauczyciele", :force => true do |t|
+    t.string   "imie"
+    t.string   "nazwisko"
+    t.integer  "user_id"
+    t.integer  "pnjt"
+    t.boolean  "destroyed",     :default => false
+    t.integer  "edited_by"
+    t.text     "editors_stamp"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "obecnosci", :force => true do |t|
+    t.integer  "wartosc"
+    t.integer  "uczne_id"
+    t.integer  "lista_id"
+    t.integer  "lekcja_id"
+    t.boolean  "destroyed",     :default => false
+    t.integer  "edited_by"
+    t.text     "editors_stamp"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "oceny", :force => true do |t|
+    t.integer  "wartosc_oceny"
+    t.integer  "typ_oceny"
+    t.integer  "uczen_id"
+    t.integer  "lista_id"
+    t.integer  "lekcja_id"
+    t.integer  "nauczyciel_id"
+    t.boolean  "destroyed",     :default => false
+    t.integer  "edited_by"
+    t.text     "editors_stamp"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "open_id_authentication_associations", :force => true do |t|
     t.integer "issued"
@@ -34,6 +145,50 @@ ActiveRecord::Schema.define(:version => 20080929171348) do
     t.datetime "updated_at"
   end
 
+  create_table "plany", :force => true do |t|
+    t.string   "nazwa"
+    t.integer  "semestr_id"
+    t.boolean  "active"
+    t.boolean  "destroyed",     :default => false
+    t.integer  "edited_by"
+    t.text     "editors_stamp"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "pnjts", :force => true do |t|
+    t.integer  "nauczyciel_id"
+    t.integer  "przedmiot_id"
+    t.boolean  "destroyed",     :default => false
+    t.integer  "edited_by"
+    t.text     "editors_stamp"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "przedmioty", :force => true do |t|
+    t.string   "nazwa"
+    t.integer  "pnjt_id"
+    t.boolean  "destroyed",     :default => false
+    t.integer  "edited_by"
+    t.text     "editors_stamp"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "rodzice", :force => true do |t|
+    t.string   "imie_ojca"
+    t.string   "imie_matki"
+    t.string   "nazwistko"
+    t.string   "nazwisko_panienskie"
+    t.integer  "user_id"
+    t.boolean  "destroyed",           :default => false
+    t.integer  "edited_by"
+    t.text     "editors_stamp"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "roles", :force => true do |t|
     t.string "name"
   end
@@ -43,6 +198,17 @@ ActiveRecord::Schema.define(:version => 20080929171348) do
     t.integer "user_id"
   end
 
+  create_table "semestry", :force => true do |t|
+    t.string   "nazwa"
+    t.date     "begin"
+    t.date     "end"
+    t.boolean  "destroyed",     :default => false
+    t.integer  "edited_by"
+    t.text     "editors_stamp"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
     t.text     "data"
@@ -50,8 +216,22 @@ ActiveRecord::Schema.define(:version => 20080929171348) do
     t.datetime "updated_at"
   end
 
-  add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
+  add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
+
+  create_table "uczniowie", :force => true do |t|
+    t.string   "imie"
+    t.string   "nazwisko"
+    t.string   "pesel"
+    t.string   "nr_legitymacji"
+    t.integer  "rodzic_id"
+    t.boolean  "chlopiec"
+    t.boolean  "destroyed",      :default => false
+    t.integer  "edited_by"
+    t.text     "editors_stamp"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "login",                     :limit => 40
@@ -68,6 +248,9 @@ ActiveRecord::Schema.define(:version => 20080929171348) do
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "destroyed",                                :default => false
+    t.integer  "edited_by"
+    t.text     "editors_stamp"
   end
 
   add_index "users", ["login"], :name => "index_users_on_login", :unique => true

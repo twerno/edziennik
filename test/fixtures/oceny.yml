@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  wartosc_oceny: 1
+  typ_oceny: 1
+  uczen_id: 1
+  lista_id: 1
+  lekcja_id: 1
+  nauczyciel_id: 1
+
+two:
+  wartosc_oceny: 1
+  typ_oceny: 1
+  uczen_id: 1
+  lista_id: 1
+  lekcja_id: 1
+  nauczyciel_id: 1

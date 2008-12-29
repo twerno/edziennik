@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  godzina_id: 1
+  lista_id: 1
+  plan_id: 1
+  data: 2008-12-29
+
+two:
+  godzina_id: 1
+  lista_id: 1
+  plan_id: 1
+  data: 2008-12-29
