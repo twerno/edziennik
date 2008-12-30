@@ -13,7 +13,7 @@ module Acts
      # this module stores the main function and the two modules for
      # the instance and class functions
      module AddActsAsMethod
-       def acts_as_archive(options = {})
+       def acts_as_external_archive(options = {})
         # Here you can put additional association for the
         # target class.
         # belongs_to :role
@@ -39,16 +39,19 @@ module Acts
         temp = eval(self.class.name.to_s + ".find(" + self.id.to_s + ")") unless self.new_record? ## moze to zmienic, zeby nie odwolywac sie dodatkowo do bazy ? ;)
     
         ##DO ZMIANY PO ZAINSTALOWANIU BORTA 
-        self.edited_by = 33
+        #self.edited_by = 33
         #self.edited_by = current_user.id
-        self.editors_stamp = @editors_stamp
-   
-        wrk1 = self.changed? & !self.new_record?
-        wrk2 = super
+        #self.editors_stamp = @editors_stamp
+        
+        wrk1 = self.changed?
+        wrk2 = !self.new_record?
+        #create_blank self unless !self.new_record?
+        wrk3 = super
 
-        archiving temp unless !(wrk1 & wrk2)
- 
-        wrk2
+        archiving temp unless !(wrk1 & wrk2 & wrk3)
+        create_blank self unless !((wrk1 | !wrk2) & wrk3)
+        
+        wrk3
       end
   
   
@@ -72,15 +75,26 @@ module Acts
       
       ## dodaje objekt do archiwum
       private
-      def archiving temp
+      def create_blank temp
         archive = Archive.new
         archive.class_name      = temp.class.name
         archive.class_id        = temp.id.to_s
+        archive.edited_by       = 33
+        #archive.edited_by      = current_user.id
+        archive.editors_stamp   = @editors_stamp
+        archive.save
+      end
+      
+      private
+      def archiving temp
+        archive = Archive.find(:last, :conditions => ["class_name = ? AND class_id = ?", temp.class.name, temp.id.to_s])
+        #archive.class_name      = temp.class.name
+        #archive.class_id        = temp.id.to_s
         archive.class_destroyed = temp.destroyed        
-        archive.edited_by       = temp.edited_by
-        archive.editors_stamp   = temp.editors_stamp
+        #archive.edited_by       = temp.edited_by
+        #archive.editors_stamp   = temp.editors_stamp
         archive.body            = ""
-        archive.body_updated_at = temp.updated_at
+        #archive.body_updated_at = temp.updated_at
     
         keys = temp.class.columns.collect{|c| c.name}
         for key in ["id", "edited_by", "editors_stamp", "destroyed", "updated_at"]
@@ -101,7 +115,9 @@ module Acts
     
         ## tworzymy pusty zbior
         empty_set = "".to_set
-    
+        #last_one = set[0] unless !(set.size < 2)
+        puts (set.size < 2)
+        set.delete_at 0   unless (set.size < 2)
         ## dla kazdej elementu w zbiorze
         for anything in set
       
@@ -109,9 +125,9 @@ module Acts
         temp               = eval(anything.class_name << ".new")
         temp.id            = anything.class_id
         temp.destroyed     = anything.class_destroyed
-        temp.edited_by     = anything.edited_by
-        temp.editors_stamp = anything.editors_stamp
-        temp.updated_at    = anything.body_updated_at
+        #temp.edited_by     = anything.edited_by
+        #temp.editors_stamp = anything.editors_stamp
+        temp.updated_at    = anything.created_at
       
         #tworzymy liste wszystkich pol w klasie
         keys  = temp.class.columns.collect{|c| c.name}
@@ -125,50 +141,53 @@ module Acts
         end
       
         ## tworzymy liste pol i wartosci z archiwum
-        body_split = anything.body.split @@separator
-        body_fields_names = []
-        body_fields_values= []
-        for i in 0..body_split.size/2-1
-          body_fields_names  += body_split[2*i].to_a
-          value = body_split[2*i+1]
-          body_fields_values += (value.nil? || value.empty?) ? [nil] : value.to_a
-        end
+        if !anything.body.nil? && !anything.body.empty?
+          body_split = anything.body.split @@separator
+          body_fields_names = []
+          body_fields_values= []
+          for i in 0..body_split.size/2-1
+            body_fields_names  += body_split[2*i].to_a
+            value = body_split[2*i+1]
+            body_fields_values += (value.nil? || value.empty?) ? [nil] : value.to_a
+          end
+        
 
-        ## wpisujemy wartosci z archiwum do odpowiednich pol, dbajac o zachowanie typu
-        for key in keys
-          if body_fields_names.include? key
-            case types[keys.index( key)]
-              when "character varying(255)" || "text"
-                  str = body_fields_values[body_fields_names.index( key)]
-                  str.gsub(@@zamiennik, @@separator) unless str.nil?
-                  eval("temp." << key << "= " << ((str.nil?) ? "nil" : "'" << str << "'.to_s"))
-              when "integer"
-                  int = body_fields_values[body_fields_names.index( key)]
-                  #puts int.nil? || int.empty?
-                  int = (int.nil? || int.empty?) ? nil : int
-                  eval("temp." << key << "= '" << ((int.nil?) ? "'" : int <<"'.to_i"))
-              when "boolean"
-                  bool = "nil"
-                  wnk = body_fields_values[body_fields_names.index( key)]       
-                  bool = (wnk == "true") ? "true" : "false" unless wnk.nil? || wnk.empty?
-                  eval("temp." << key << "=" << bool)
-              when "timestamp without time zone"
-                  date = body_fields_values[body_fields_names.index( key)]
-                  eval("temp." << key << "= '" << ((date.nil? || date.empty?) ? "'" : date << "'.to_datetime"))
-              when "date"
-                  date = body_fields_values[body_fields_names.index( key)]
-                  eval("temp." << key << "= '" << ((date.nil? || date.empty?) ? "'" : date << "'.to_date"))
-              when "time without time zone"
-                  date = body_fields_values[body_fields_names.index( key)]
-                  eval("temp." << key << "= '" << ((date.nil? || date.empty?) ? "'" : date << "'.to_time"))
+          ## wpisujemy wartosci z archiwum do odpowiednich pol, dbajac o zachowanie typu
+          for key in keys
+            if body_fields_names.include? key
+              case types[keys.index( key)]
+                when "character varying(255)" || "text"
+                    str = body_fields_values[body_fields_names.index( key)]
+                    str.gsub(@@zamiennik, @@separator) unless str.nil?
+                    eval("temp." << key << "= " << ((str.nil?) ? "nil" : "'" << str << "'.to_s"))
+                when "integer"
+                    int = body_fields_values[body_fields_names.index( key)]
+                    #puts int.nil? || int.empty?
+                    int = (int.nil? || int.empty?) ? nil : int
+                    eval("temp." << key << "= '" << ((int.nil?) ? "'" : int <<"'.to_i"))
+                when "boolean"
+                    bool = "nil"
+                    wnk = body_fields_values[body_fields_names.index( key)]       
+                    bool = (wnk == "true") ? "true" : "false" unless wnk.nil? || wnk.empty?
+                    eval("temp." << key << "=" << bool)
+                when "timestamp without time zone"
+                    date = body_fields_values[body_fields_names.index( key)]
+                    eval("temp." << key << "= '" << ((date.nil? || date.empty?) ? "'" : date << "'.to_datetime"))
+                when "date"
+                    date = body_fields_values[body_fields_names.index( key)]
+                    eval("temp." << key << "= '" << ((date.nil? || date.empty?) ? "'" : date << "'.to_date"))
+                when "time without time zone"
+                    date = body_fields_values[body_fields_names.index( key)]
+                    eval("temp." << key << "= '" << ((date.nil? || date.empty?) ? "'" : date << "'.to_time"))
+                end
               end
             end
+        
+            ## wrzucamy obiekt do zbioru (set)
+            empty_set.add temp
           end
-      
-          ## wrzucamy obiekt do zbioru (set)
-          empty_set.add temp
         end
-    
+        
         ## zwracamy gotowy zbior
         empty_set
       end

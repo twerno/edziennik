@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(:version => 20081229215815) do
     t.text     "body"
     t.datetime "body_updated_at"
     t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "archives", ["class_id"], :name => "index_archives_on_class_id"
@@ -27,9 +28,7 @@ ActiveRecord::Schema.define(:version => 20081229215815) do
   create_table "czlonkowie", :force => true do |t|
     t.integer  "uczen_id"
     t.integer  "grupa_id"
-    t.boolean  "destroyed",     :default => false
-    t.integer  "edited_by"
-    t.text     "editors_stamp"
+    t.boolean  "destroyed",  :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -38,9 +37,7 @@ ActiveRecord::Schema.define(:version => 20081229215815) do
     t.string   "nazwa"
     t.time     "begin"
     t.time     "end"
-    t.boolean  "destroyed",     :default => false
-    t.integer  "edited_by"
-    t.text     "editors_stamp"
+    t.boolean  "destroyed",  :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -54,8 +51,6 @@ ActiveRecord::Schema.define(:version => 20081229215815) do
     t.integer  "pierwszy_semestr"
     t.integer  "ostatni_semestr"
     t.boolean  "destroyed",        :default => false
-    t.integer  "edited_by"
-    t.text     "editors_stamp"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -65,9 +60,7 @@ ActiveRecord::Schema.define(:version => 20081229215815) do
     t.integer  "lista_id"
     t.integer  "plan_id"
     t.date     "data"
-    t.boolean  "destroyed",     :default => false
-    t.integer  "edited_by"
-    t.text     "editors_stamp"
+    t.boolean  "destroyed",  :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -78,8 +71,6 @@ ActiveRecord::Schema.define(:version => 20081229215815) do
     t.integer  "semestr_id"
     t.integer  "przedmiot_id"
     t.boolean  "destroyed",     :default => false
-    t.integer  "edited_by"
-    t.text     "editors_stamp"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -89,9 +80,7 @@ ActiveRecord::Schema.define(:version => 20081229215815) do
     t.string   "nazwisko"
     t.integer  "user_id"
     t.integer  "pnjt"
-    t.boolean  "destroyed",     :default => false
-    t.integer  "edited_by"
-    t.text     "editors_stamp"
+    t.boolean  "destroyed",  :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -101,9 +90,7 @@ ActiveRecord::Schema.define(:version => 20081229215815) do
     t.integer  "uczne_id"
     t.integer  "lista_id"
     t.integer  "lekcja_id"
-    t.boolean  "destroyed",     :default => false
-    t.integer  "edited_by"
-    t.text     "editors_stamp"
+    t.boolean  "destroyed",  :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -116,8 +103,6 @@ ActiveRecord::Schema.define(:version => 20081229215815) do
     t.integer  "lekcja_id"
     t.integer  "nauczyciel_id"
     t.boolean  "destroyed",     :default => false
-    t.integer  "edited_by"
-    t.text     "editors_stamp"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -149,9 +134,7 @@ ActiveRecord::Schema.define(:version => 20081229215815) do
     t.string   "nazwa"
     t.integer  "semestr_id"
     t.boolean  "active"
-    t.boolean  "destroyed",     :default => false
-    t.integer  "edited_by"
-    t.text     "editors_stamp"
+    t.boolean  "destroyed",  :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -160,8 +143,6 @@ ActiveRecord::Schema.define(:version => 20081229215815) do
     t.integer  "nauczyciel_id"
     t.integer  "przedmiot_id"
     t.boolean  "destroyed",     :default => false
-    t.integer  "edited_by"
-    t.text     "editors_stamp"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -169,9 +150,7 @@ ActiveRecord::Schema.define(:version => 20081229215815) do
   create_table "przedmioty", :force => true do |t|
     t.string   "nazwa"
     t.integer  "pnjt_id"
-    t.boolean  "destroyed",     :default => false
-    t.integer  "edited_by"
-    t.text     "editors_stamp"
+    t.boolean  "destroyed",  :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -183,8 +162,6 @@ ActiveRecord::Schema.define(:version => 20081229215815) do
     t.string   "nazwisko_panienskie"
     t.integer  "user_id"
     t.boolean  "destroyed",           :default => false
-    t.integer  "edited_by"
-    t.text     "editors_stamp"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -202,9 +179,7 @@ ActiveRecord::Schema.define(:version => 20081229215815) do
     t.string   "nazwa"
     t.date     "begin"
     t.date     "end"
-    t.boolean  "destroyed",     :default => false
-    t.integer  "edited_by"
-    t.text     "editors_stamp"
+    t.boolean  "destroyed",  :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -227,8 +202,6 @@ ActiveRecord::Schema.define(:version => 20081229215815) do
     t.integer  "rodzic_id"
     t.boolean  "chlopiec"
     t.boolean  "destroyed",      :default => false
-    t.integer  "edited_by"
-    t.text     "editors_stamp"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -7,5 +7,5 @@ class Uczen < ActiveRecord::Base
   has_many   :grupy, :through => :czlonkowie
   
   
-  acts_as_archive
+  acts_as_external_archive
 end

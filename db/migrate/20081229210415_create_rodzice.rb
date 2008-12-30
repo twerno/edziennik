@@ -8,8 +8,8 @@ class CreateRodzice < ActiveRecord::Migration
       t.integer :user_id
 
       t.boolean  :destroyed, :default => false
-      t.integer  :edited_by
-      t.text     :editors_stamp
+      #t.integer  :edited_by
+      #t.text     :editors_stamp
 
       t.timestamps
     end

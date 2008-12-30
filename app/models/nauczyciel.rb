@@ -7,5 +7,5 @@ class Nauczyciel < ActiveRecord::Base
   has_many   :listy
 
   
-  acts_as_archive
+  acts_as_external_archive
 end

@@ -9,8 +9,8 @@ class CreateUczniowie < ActiveRecord::Migration
       t.boolean  :chlopiec
       
       t.boolean  :destroyed, :default => false
-      t.integer  :edited_by
-      t.text     :editors_stamp
+      #t.integer  :edited_by
+      #t.text     :editors_stamp
 
       t.timestamps
     end

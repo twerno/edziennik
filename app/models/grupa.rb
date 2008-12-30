@@ -4,5 +4,5 @@ class Grupa < ActiveRecord::Base
   has_many :uczniowie, :through => :czlonkowie  ##
   belongs_to :nauczyciel
   
-  acts_as_archive
+  acts_as_external_archive
 end

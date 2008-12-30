@@ -5,5 +5,5 @@ class Ocena < ActiveRecord::Base
   belongs_to :lekcja
 #  belongs_to :przedmiot, :through => :listy
   
-  acts_as_archive
+  acts_as_external_archive
 end

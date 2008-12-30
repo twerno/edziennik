@@ -5,8 +5,8 @@ class CreatePnjts < ActiveRecord::Migration
       t.integer :przedmiot_id
 
       t.boolean  :destroyed, :default => false
-      t.integer  :edited_by
-      t.text     :editors_stamp
+      #t.integer  :edited_by
+      #t.text     :editors_stamp
 
       t.timestamps
     end

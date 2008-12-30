@@ -6,8 +6,8 @@ class CreateGodziny < ActiveRecord::Migration
       t.time :end
 
       t.boolean  :destroyed, :default => false
-      t.integer  :edited_by
-      t.text     :editors_stamp
+      #t.integer  :edited_by
+      #t.text     :editors_stamp
 
       t.timestamps
     end

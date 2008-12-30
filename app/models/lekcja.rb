@@ -6,5 +6,5 @@ class Lekcja < ActiveRecord::Base
   has_many :obecnosci
   has_many :oceny
   
-  acts_as_archive
+  acts_as_external_archive
 end

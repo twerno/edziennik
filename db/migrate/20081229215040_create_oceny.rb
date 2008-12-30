@@ -9,8 +9,8 @@ class CreateOceny < ActiveRecord::Migration
       t.integer :nauczyciel_id
 
       t.boolean  :destroyed, :default => false
-      t.integer  :edited_by
-      t.text     :editors_stamp
+      #t.integer  :edited_by
+      #t.text     :editors_stamp
 
       t.timestamps
     end
