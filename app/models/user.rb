@@ -25,11 +25,30 @@ class User < ActiveRecord::Base
   has_one :nauczyciel
   has_one :rodzic
   has_one :uczen
+  
+  #acts_as_external_archive
 
   # HACK HACK HACK -- how to do attr_accessible from here?
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
   attr_accessible :login, :email, :name, :password, :password_confirmation, :identity_url
+
+#  def nauczyciel
+#    Nauczyciel.find(:all, "user_id = ?", self.id)
+#  end
+#  
+#  def uczen
+#    Uczen.find(:all, "user_id = ?", self.id)
+#  end
+#  
+#  def rodzic
+#    Rodzic.find(:all, "user_id = ?", self.id)
+#  end
+
+  def new_random_password str
+    self.password= Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{str}--")[0,6]
+    self.password_confirmation = self.password
+  end
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   def self.authenticate(login, password)

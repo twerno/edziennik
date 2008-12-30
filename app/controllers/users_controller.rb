@@ -51,6 +51,7 @@ class UsersController < ApplicationController
     end
     
     if @user.errors.empty?
+      @user.activate! #nie ma aktywacji emailowej ;)
       successful_creation(@user)
     else
       failed_creation

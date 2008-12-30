@@ -1,0 +1,19 @@
+<h1>New nauczyciel</h1>
+
+<% form_for(@nauczyciel) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :imie %><br />
+    <%= f.text_field :imie %>
+  </p>
+  <p>
+    <%= f.label :nazwisko %><br />
+    <%= f.text_field :nazwisko %>
+  </p>
+  <p>
+    <%= f.submit "Create" %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', nauczyciele_path %>

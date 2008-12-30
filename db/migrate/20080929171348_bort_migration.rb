@@ -40,6 +40,7 @@ class BortMigration < ActiveRecord::Migration
       t.timestamps
       
       t.boolean  :destroyed, :default => false
+      #t.string   :class_name
       #t.integer  :edited_by
       #t.text     :editors_stamp
     end

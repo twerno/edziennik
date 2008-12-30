@@ -1,0 +1,22 @@
+<h1>Listing nauczyciele</h1>
+
+<table>
+  <tr>
+    <th>Imie</th>
+    <th>Nazwisko</th>
+  </tr>
+
+<% for nauczyciel in @nauczyciele %>
+  <tr>
+    <td><%=h nauczyciel.imie %></td>
+    <td><%=h nauczyciel.nazwisko %></td>
+    <td><%= link_to 'Show', nauczyciel %></td>
+    <td><%= link_to 'Edit', edit_nauczyciel_path(nauczyciel) %></td>
+    <td><%= link_to 'Destroy', nauczyciel, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New nauczyciel', new_nauczyciel_path %>

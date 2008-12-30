@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081229215815) do
+ActiveRecord::Schema.define(:version => 20081230130737) do
 
   create_table "archives", :force => true do |t|
     t.string   "class_name"
@@ -202,6 +202,7 @@ ActiveRecord::Schema.define(:version => 20081229215815) do
     t.string   "nr_legitymacji"
     t.integer  "rodzic_id"
     t.boolean  "chlopiec"
+    t.integer  "user_id"
     t.boolean  "destroyed",      :default => false
     t.datetime "created_at"
     t.datetime "updated_at"

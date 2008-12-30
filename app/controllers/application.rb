@@ -14,5 +14,9 @@ class ApplicationController < ActionController::Base
   def record_not_found
     render :file => File.join(RAILS_ROOT, 'public', '404.html'), :status => 404
   end
+  
+  def get_editors_stamp
+    "ip|!|" << request.env["REMOTE_ADDR"].to_s << "|!|req|!|" << request.env["HTTP_USER_AGENT"].to_s << "|!|"
+  end
 end
 

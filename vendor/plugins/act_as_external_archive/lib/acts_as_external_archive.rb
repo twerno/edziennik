@@ -70,6 +70,10 @@ module Acts
       def set_editors_stamp stamp
         @editors_stamp ||= stamp
       end
+      
+      def set_current_user user
+        @current_user ||= user
+      end
   
   
       ## zwraca wszystkie 
@@ -89,9 +93,7 @@ module Acts
         archive = Archive.new
         archive.class_name      = temp.class.name
         archive.class_id        = temp.id.to_s
-        archive.edited_by       = 33
-        ##DO ZMIANY PO ZAINSTALOWANIU BORTA 
-        #archive.edited_by      = current_user.id
+        archive.edited_by       = (@current_user.nil?) ? nil : @current_user.id
         archive.editors_stamp   = @editors_stamp
         archive.save
       end
@@ -126,8 +128,8 @@ module Acts
     
         ## tworzymy pusty zbior
         empty_set = "".to_set
-        last_one = set[0] unless !(set.size < 2)
-        puts (set.size < 2)
+        #last_one = set[0] unless !(set.size < 2)
+        #puts (set.size < 2)
         set.delete_at 0   unless (set.size < 2)
         ## dla kazdej elementu w zbiorze
         for anything in set

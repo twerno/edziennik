@@ -12,6 +12,14 @@ class CreateNauczyciele < ActiveRecord::Migration
 
       t.timestamps
     end
+    
+    nauczyciel = Nauczyciel.new do |n|
+      n.imie = 'admin'
+      n.nazwisko = 'admin'
+      n.user_id = 1
+    end
+    
+    nauczyciel.save
   end
 
   def self.down
