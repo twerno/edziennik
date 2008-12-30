@@ -4,6 +4,7 @@ class CreateSemestry < ActiveRecord::Migration
       t.string :nazwa
       t.date :begin
       t.date :end
+      t.boolean :aktualny
 
       t.boolean  :destroyed, :default => false
       #t.integer  :edited_by

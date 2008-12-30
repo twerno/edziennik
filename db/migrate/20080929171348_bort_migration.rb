@@ -40,8 +40,8 @@ class BortMigration < ActiveRecord::Migration
       t.timestamps
       
       t.boolean  :destroyed, :default => false
-      t.integer  :edited_by
-      t.text     :editors_stamp
+      #t.integer  :edited_by
+      #t.text     :editors_stamp
     end
     
     add_index :users, :login, :unique => true

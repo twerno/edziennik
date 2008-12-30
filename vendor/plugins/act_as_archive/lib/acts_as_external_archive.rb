@@ -37,21 +37,26 @@ module Acts
       ## umiejszcza objekt w archiwum przed jego zapisaniem 
       def save
         temp = eval(self.class.name.to_s + ".find(" + self.id.to_s + ")") unless self.new_record? ## moze to zmienic, zeby nie odwolywac sie dodatkowo do bazy ? ;)
-    
-        ##DO ZMIANY PO ZAINSTALOWANIU BORTA 
-        #self.edited_by = 33
-        #self.edited_by = current_user.id
-        #self.editors_stamp = @editors_stamp
         
         wrk1 = self.changed?
         wrk2 = !self.new_record?
-        #create_blank self unless !self.new_record?
         wrk3 = super
 
         archiving temp unless !(wrk1 & wrk2 & wrk3)
         create_blank self unless !((wrk1 | !wrk2) & wrk3)
         
         wrk3
+      end
+  
+      
+      def current_with_desc
+        archive = Archive.find(:last, :conditions => ["class_name = ? AND class_id = ?", self.class.name, self.id.to_s])
+        { :class           => self,
+          :edited_by       => archive.edited_by,
+          #:editors_stamp   => archive.editors_stamp,
+          :editors_ip      => archive.editors_stamp.to_s.split(@@separator)[1],
+          :editors_browser => archive.editors_stamp.to_s.split(@@separator)[3]
+        }
       end
   
   
@@ -69,9 +74,14 @@ module Acts
   
       ## zwraca wszystkie 
       def archives
+        @@desc = 0
         rebuild_from_archive Archive.find(:all, :conditions => ["class_name = ? AND class_id = ?", self.class.name, self.id.to_s])
       end
-      
+   
+      def archives_with_desc
+        @@desc = 1
+        rebuild_from_archive Archive.find(:all, :conditions => ["class_name = ? AND class_id = ?", self.class.name, self.id.to_s])
+      end
       
       ## dodaje objekt do archiwum
       private
@@ -80,6 +90,7 @@ module Acts
         archive.class_name      = temp.class.name
         archive.class_id        = temp.id.to_s
         archive.edited_by       = 33
+        ##DO ZMIANY PO ZAINSTALOWANIU BORTA 
         #archive.edited_by      = current_user.id
         archive.editors_stamp   = @editors_stamp
         archive.save
@@ -115,7 +126,7 @@ module Acts
     
         ## tworzymy pusty zbior
         empty_set = "".to_set
-        #last_one = set[0] unless !(set.size < 2)
+        last_one = set[0] unless !(set.size < 2)
         puts (set.size < 2)
         set.delete_at 0   unless (set.size < 2)
         ## dla kazdej elementu w zbiorze
@@ -184,12 +195,25 @@ module Acts
             end
         
             ## wrzucamy obiekt do zbioru (set)
-            empty_set.add temp
+            if @@desc == 0
+              empty_set.add temp
+            else
+              empty_set.add [{:class => temp,
+                              :edited_by => anything.edited_by,
+                              #:editors_stamp => anything.editors_stamp,
+                              :editors_ip => anything.editors_stamp.to_s.split(@@separator)[1],
+                              :editors_browser => anything.editors_stamp.to_s.split(@@separator)[3]
+                             }].to_a
+            end
           end
         end
         
         ## zwracamy gotowy zbior
-        empty_set
+        if @@desc == 0
+          empty_set.to_a
+        else
+          empty_set.to_a.flatten
+        end  
       end
       
 

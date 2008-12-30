@@ -179,6 +179,7 @@ ActiveRecord::Schema.define(:version => 20081229215815) do
     t.string   "nazwa"
     t.date     "begin"
     t.date     "end"
+    t.boolean  "aktualny"
     t.boolean  "destroyed",  :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -222,8 +223,6 @@ ActiveRecord::Schema.define(:version => 20081229215815) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "destroyed",                                :default => false
-    t.integer  "edited_by"
-    t.text     "editors_stamp"
   end
 
   add_index "users", ["login"], :name => "index_users_on_login", :unique => true
