@@ -1,0 +1,12 @@
+  <% @all = Czlonek.existing.find(:all, :conditions => ["grupa_id = ?", @grupa.id]) %>
+    <% for uczen in Uczen.all %>
+		<table>
+			<tr> <% new = Czlonek.existing.find(:all, :conditions => ["grupa_id = ? AND uczen_id = ?", @grupa.id, uczen.id]).empty?%>
+				<td><input id="<%= (new) ? 'new' : 'existing' %>_czlonek<%= uczen.id.to_s %>" value="on" name="<%= (new) ? 'new' : 'existing' %>_czlonek[<%= uczen.id.to_s %>]" type="checkbox" <%= (new) ? '' : 'checked' %>/></td>
+			    <td><%=h uczen.imie %></td>
+			    <td><%=h uczen.nazwisko %></td>
+			    <td><%=h uczen.nr_legitymacji %></td>
+			    <td><%=h (uczen.chlopiec) ? 'Chłopiec' : 'Dziewczynka' %></td>
+			  </tr>
+		</table>
+	<% end %>
