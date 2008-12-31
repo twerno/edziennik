@@ -1,0 +1,28 @@
+<p>
+  <b>Nazwa:</b>
+  <%=h @grupa.nazwa %>
+</p>
+
+<p>
+  <b>Klasa:</b>
+  <%=h @grupa.klasa %>
+</p>
+
+<p>
+  <b>Pierwszy semestr:</b>
+  <%=h @grupa.pierwszy_semestr %>
+</p>
+
+<p>
+  <b>Aktualny semestr:</b>
+  <%=h @grupa.aktualny_semestr %>
+</p>
+
+<p>
+  <b>Ostatni semestr:</b>
+  <%=h @grupa.ostatni_semestr %>
+</p>
+
+
+<%= link_to 'Edit', edit_grupa_path(@grupa) %> |
+<%= link_to 'Back', grupy_path %>

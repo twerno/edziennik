@@ -1,0 +1,28 @@
+<h1>Listing uczniowie</h1>
+
+<table>
+  <tr>
+    <th>Imie</th>
+    <th>Nazwisko</th>
+    <th>Pesel</th>
+    <th>Nr legitymacji</th>
+    <th>Chlopiec</th>
+  </tr>
+
+<% for uczen in @uczniowie %>
+  <tr>
+    <td><%=h uczen.imie %></td>
+    <td><%=h uczen.nazwisko %></td>
+    <td><%=h uczen.pesel %></td>
+    <td><%=h uczen.nr_legitymacji %></td>
+    <td><%=h uczen.chlopiec %></td>
+    <td><%= link_to 'Show', uczen %></td>
+    <td><%= link_to 'Edit', edit_uczen_path(uczen) %></td>
+    <td><%= link_to 'Destroy', uczen, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New uczen', new_uczen_path %>

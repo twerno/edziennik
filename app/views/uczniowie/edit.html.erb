@@ -1,0 +1,32 @@
+<h1>Editing uczen</h1>
+
+<% form_for(@uczen) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :imie %><br />
+    <%= f.text_field :imie %>
+  </p>
+  <p>
+    <%= f.label :nazwisko %><br />
+    <%= f.text_field :nazwisko %>
+  </p>
+  <p>
+    <%= f.label :pesel %><br />
+    <%= f.text_field :pesel %>
+  </p>
+  <p>
+    <%= f.label :nr_legitymacji %><br />
+    <%= f.text_field :nr_legitymacji %>
+  </p>
+  <p>
+    <%= f.label :chlopiec %><br />
+    <%= f.check_box :chlopiec %>
+  </p>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @uczen %> |
+<%= link_to 'Back', uczniowie_path %>

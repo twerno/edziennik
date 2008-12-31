@@ -2,7 +2,8 @@ class CreateGrupy < ActiveRecord::Migration
   def self.up
     create_table :grupy do |t|
       t.string  :nazwa
-      t.boolean :klasa            ## jesli grupa jest klasa to TRUE
+      t.boolean :klasa, :default => true
+                                  ## jesli grupa jest klasa to TRUE
       t.integer :grupa_id         ## jesli jest to grupa dzielaca klase
                                   ## to mamy tu id klasy, ktora dzieli
                                   ## jesli jest to grupa miedzyklasowa

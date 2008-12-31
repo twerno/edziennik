@@ -1,0 +1,28 @@
+<p>
+  <b>Imie:</b>
+  <%=h @uczen.imie %>
+</p>
+
+<p>
+  <b>Nazwisko:</b>
+  <%=h @uczen.nazwisko %>
+</p>
+
+<p>
+  <b>Pesel:</b>
+  <%=h @uczen.pesel %>
+</p>
+
+<p>
+  <b>Nr legitymacji:</b>
+  <%=h @uczen.nr_legitymacji %>
+</p>
+
+<p>
+  <b>Chlopiec:</b>
+  <%=h @uczen.chlopiec %>
+</p>
+
+
+<%= link_to 'Edit', edit_uczen_path(@uczen) %> |
+<%= link_to 'Back', uczniowie_path %>

@@ -46,7 +46,8 @@ class User < ActiveRecord::Base
 #  end
 
   def new_random_password str
-    self.password= Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{str}--")[0,6]
+    #self.password= Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{str}--")[0,6]  ## slabe
+    self.password = Base64.encode64(Digest::SHA1.digest("#{rand(1<<64)}/#{Time.now.to_f}/#{Process.pid}/#{str}"))[0..7]
     self.password_confirmation = self.password
   end
 

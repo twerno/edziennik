@@ -1,7 +1,7 @@
 class Nauczyciel < ActiveRecord::Base
   belongs_to :user
-  belongs_to :grupa  #wychowawca
-  has_many   :pnjts
+  has_one    :grupa  #wychowawca
+  has_many   :pnjts  #PRZEDMIOT-NAUCZYCIEL JOIN MODEL
   has_many   :przedmioty, :through => :pnjts
   has_many   :oceny
   has_many   :listy

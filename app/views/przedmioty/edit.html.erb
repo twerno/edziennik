@@ -1,0 +1,16 @@
+<h1>Editing przedmiot</h1>
+
+<% form_for(@przedmiot) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :nazwa %><br />
+    <%= f.text_field :nazwa %>
+  </p>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @przedmiot %> |
+<%= link_to 'Back', przedmioty_path %>

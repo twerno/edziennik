@@ -1,0 +1,18 @@
+<p>
+  <b>Nazwa:</b>
+  <%=h @godzina.nazwa %>
+</p>
+
+<p>
+  <b>Begin:</b>
+  <%=h @godzina.begin %>
+</p>
+
+<p>
+  <b>End:</b>
+  <%=h @godzina.end %>
+</p>
+
+
+<%= link_to 'Edit', edit_godzina_path(@godzina) %> |
+<%= link_to 'Back', godziny_path %>

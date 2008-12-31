@@ -1,0 +1,24 @@
+<h1>Editing godzina</h1>
+
+<% form_for(@godzina) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :nazwa %><br />
+    <%= f.text_field :nazwa %>
+  </p>
+  <p>
+    <%= f.label :begin %><br />
+    <%= f.datetime_select :begin %>
+  </p>
+  <p>
+    <%= f.label :end %><br />
+    <%= f.datetime_select :end %>
+  </p>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @godzina %> |
+<%= link_to 'Back', godziny_path %>
