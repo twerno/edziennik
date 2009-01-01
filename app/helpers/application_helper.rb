@@ -17,4 +17,8 @@ module ApplicationHelper
     messages
   end
   
+  def płeć arg
+    (arg) ? 'Chlopiec' : 'Dziewczynka'
+  end
+  
 end

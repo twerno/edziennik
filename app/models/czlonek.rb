@@ -7,4 +7,5 @@ class Czlonek < ActiveRecord::Base
   named_scope :existing , :conditions => ["destroyed = ?", false]
   named_scope :destroyed, :conditions => ["destroyed = ?", true]
   #named_scope :klasa, :include => :grupa, :conditions => ["grupa.klasa = ?", true]
+  named_scope :u, lambda { |*args| {:conditions => ["uczen_id = ?", args[0]]} }
 end
