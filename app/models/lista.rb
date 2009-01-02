@@ -3,6 +3,7 @@ class Lista < ActiveRecord::Base
   belongs_to :nauczyciel
   belongs_to :semestr
   belongs_to :przedmiot
+  belongs_to :lekcja
   
   has_many :oceny
   has_many :obecnosci

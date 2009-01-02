@@ -2,7 +2,7 @@ class PrzedmiotyController < ApplicationController
   # GET /przedmioty
   # GET /przedmioty.xml
   def index
-    @przedmioty = Przedmiot.existing.find(:all)
+    @przedmioty = Przedmiot.existing.find(:all, :order => :nazwa)
 
     respond_to do |format|
       format.html # index.html.erb

@@ -52,9 +52,7 @@ class Nauczyciel < ActiveRecord::Base
 
 
     for key in (kandydaci.nil? || kandydaci.empty?) ? {} : kandydaci.keys
-      c = Pnjt.new
-      c.przedmiot_id = key.to_i
-      c.nauczyciel_id = self.id
+      c = Pnjt.new :przedmiot_id => key.to_i, :nauczyciel_id => self.id
       c.set_editors_stamp editors_stamp
       c.set_current_user current_user
       c.save

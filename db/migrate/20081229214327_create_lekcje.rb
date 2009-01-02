@@ -2,7 +2,7 @@ class CreateLekcje < ActiveRecord::Migration
   def self.up
     create_table :lekcje do |t|
       t.integer :godzina_id
-      t.integer :lista_id
+      #t.integer :lista_id
       t.integer :plan_id
       t.date :data
 

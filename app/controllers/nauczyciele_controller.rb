@@ -2,7 +2,7 @@ class NauczycieleController < ApplicationController
   # GET /nauczyciele
   # GET /nauczyciele.xml
   def index
-    @nauczyciele = Nauczyciel.existing.find(:all)
+    @nauczyciele = Nauczyciel.existing.find(:all, :order => :nazwisko)
 
     respond_to do |format|
       format.html # index.html.erb
