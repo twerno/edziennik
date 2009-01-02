@@ -1,6 +1,6 @@
-<h1>New godzina</h1>
+<h1>New semestr</h1>
 
-<% form_for(@godzina) do |f| %>
+<% form_for(@semestr) do |f| %>
   <%= f.error_messages %>
 
   <p>
@@ -9,15 +9,19 @@
   </p>
   <p>
     <%= f.label :begin %><br />
-    <%= f.time_select :begin %>
+    <%= f.date_select :begin %>
   </p>
   <p>
     <%= f.label :end %><br />
-    <%= f.time_select :end %>
+    <%= f.date_select :end %>
+  </p>
+  <p>
+    <%= f.label :aktualny %><br />
+    <%= f.check_box :aktualny %>
   </p>
   <p>
     <%= f.submit "Create" %>
   </p>
 <% end %>
 
-<%= link_to 'Back', godziny_path %>
+<%= link_to 'Back', semestry_path %>

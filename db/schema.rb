@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(:version => 20090102152424) do
 
   create_table "grupy", :force => true do |t|
     t.string   "nazwa"
-    t.boolean  "klasa"
+    t.boolean  "klasa",            :default => true
     t.integer  "grupa_id"
     t.integer  "nauczyciel_id"
     t.integer  "aktualny_semestr"
@@ -57,7 +57,6 @@ ActiveRecord::Schema.define(:version => 20090102152424) do
 
   create_table "lekcje", :force => true do |t|
     t.integer  "godzina_id"
-    t.integer  "lista_id"
     t.integer  "plan_id"
     t.date     "data"
     t.boolean  "destroyed",  :default => false
@@ -70,6 +69,7 @@ ActiveRecord::Schema.define(:version => 20090102152424) do
     t.integer  "nauczyciel_id"
     t.integer  "semestr_id"
     t.integer  "przedmiot_id"
+    t.integer  "lekcja_id"
     t.boolean  "destroyed",     :default => false
     t.datetime "created_at"
     t.datetime "updated_at"

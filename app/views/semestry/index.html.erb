@@ -1,0 +1,26 @@
+<h1>Listing semestry</h1>
+
+<table>
+  <tr>
+    <th>Nazwa</th>
+    <th>Begin</th>
+    <th>End</th>
+    <th>Aktualny</th>
+  </tr>
+
+<% for semestr in @semestry %>
+  <tr>
+    <td><%=h semestr.nazwa %></td>
+    <td><%=h semestr.begin %></td>
+    <td><%=h semestr.end %></td>
+    <td><%=h semestr.aktualny %></td>
+    <td><%= link_to 'Show', semestr %></td>
+    <td><%= link_to 'Edit', edit_semestr_path(semestr) %></td>
+    <td><%= link_to 'Destroy', semestr, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New semestr', new_semestr_path %>

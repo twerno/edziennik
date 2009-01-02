@@ -1,0 +1,23 @@
+<p>
+  <b>Nazwa:</b>
+  <%=h @semestr.nazwa %>
+</p>
+
+<p>
+  <b>Begin:</b>
+  <%=h @semestr.begin %>
+</p>
+
+<p>
+  <b>End:</b>
+  <%=h @semestr.end %>
+</p>
+
+<p>
+  <b>Aktualny:</b>
+  <%=h @semestr.aktualny %>
+</p>
+
+
+<%= link_to 'Edit', edit_semestr_path(@semestr) %> |
+<%= link_to 'Back', semestry_path %>

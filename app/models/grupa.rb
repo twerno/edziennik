@@ -22,9 +22,9 @@ class Grupa < ActiveRecord::Base
     czlonkowie = (czlonkowie.nil?) ? {} : czlonkowie
     
     all.each do |key|
-      key.set_editors_stamp editors_stamp unless !(czlonkowie[key.przedmiot_id.to_s]).nil?
-      key.set_current_user current_user unless !(czlonkowie[key.przedmiot_id.to_s]).nil?
-      key.destroy unless !(czlonkowie[key.uczen_id.to_s]).nil?
+      key.set_editors_stamp editors_stamp unless !(czlonkowie[key.uczen_id.to_s]).nil?
+      key.set_current_user                unless !(czlonkowie[key.uczen_id.to_s]).nil?
+      key.destroy                         unless !(czlonkowie[key.uczen_id.to_s]).nil?
     end
     
     

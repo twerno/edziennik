@@ -55,13 +55,9 @@ class GrupyController < ApplicationController
 
     respond_to do |format|
       if @grupa.save
-        g = Grupa.new
-        g.nazwa = "Dziewczęta"
-        g.grupa_id = @grupa.id
+        g = Grupa.new :nazwa => "Dziewczęta", :grupa_id => @grupa.id
         g.save
-        g = Grupa.new
-        g.nazwa = "Chłopcy"
-        g.grupa_id = @grupa.id
+        g = Grupa.new :nazwa => "Chłopcy", :grupa_id => @grupa.id
         g.save
         @grupa.zarzadzaj_grupa params[:new_czlonek], params[:existing_czlonek], get_editors_stamp, current_user
         flash[:notice] = 'Grupa was successfully created.'
@@ -80,15 +76,20 @@ class GrupyController < ApplicationController
     @grupa = Grupa.new(params[:grupa])
     @grupa.set_editors_stamp get_editors_stamp
     @grupa.set_current_user  current_user
+    @grupa.klasa = true
 
     respond_to do |format|
       if @grupa.save
+        g = Grupa.new :nazwa => "Dziewczęta", :grupa_id => @grupa.id
+        g.save
+        g = Grupa.new :nazwa => "Chłopcy", :grupa_id => @grupa.id
+        g.save
         @grupa.zarzadzaj_grupa params[:new_czlonek], params[:existing_czlonek], get_editors_stamp, current_user
         flash[:notice] = 'Grupa was successfully created.'
         format.html { redirect_to(@grupa) }
         format.xml  { render :xml => @grupa, :status => :created, :location => @grupa }
       else
-        format.html { render :action => "new" }
+        format.html { render :action => "nowa_klasa" }
         format.xml  { render :xml => @grupa.errors, :status => :unprocessable_entity }
       end
     end
@@ -111,7 +112,7 @@ class GrupyController < ApplicationController
 
     respond_to do |format|
       if @grupa.save
-        @grupa.zarzadzaj_grupa params[:new_czlonek], params[:existing_czlonek]
+        @grupa.zarzadzaj_grupa params[:new_czlonek], params[:existing_czlonek], get_editors_stamp, current_user
         flash[:notice] = 'Grupa was successfully created.'
         format.html { redirect_to(@grupa) }
         format.xml  { render :xml => @grupa, :status => :created, :location => @grupa }
@@ -131,7 +132,7 @@ class GrupyController < ApplicationController
 
     respond_to do |format|
       if @grupa.update_attributes(params[:grupa])
-        @grupa.zarzadzaj_grupa params[:new_czlonek], params[:existing_czlonek]
+        @grupa.zarzadzaj_grupa params[:new_czlonek], params[:existing_czlonek], get_editors_stamp, current_user
         flash[:notice] = 'Grupa was successfully updated.'
         format.html { redirect_to(@grupa) }
         format.xml  { head :ok }
@@ -146,6 +147,7 @@ class GrupyController < ApplicationController
   # DELETE /grupy/1.xml
   def destroy
     @grupa = Grupa.find(params[:id])
+    #destroy wszystkie grupy
     @grupa.destroy
 
     respond_to do |format|

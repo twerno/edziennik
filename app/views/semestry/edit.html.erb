@@ -1,0 +1,28 @@
+<h1>Editing semestr</h1>
+
+<% form_for(@semestr) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :nazwa %><br />
+    <%= f.text_field :nazwa %>
+  </p>
+  <p>
+    <%= f.label :begin %><br />
+    <%= f.date_select :begin %>
+  </p>
+  <p>
+    <%= f.label :end %><br />
+    <%= f.date_select :end %>
+  </p>
+  <p>
+    <%= f.label :aktualny %><br />
+    <%= f.check_box :aktualny %>
+  </p>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @semestr %> |
+<%= link_to 'Back', semestry_path %>
