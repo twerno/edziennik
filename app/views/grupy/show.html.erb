@@ -4,11 +4,6 @@
 </p>
 
 <p>
-  <b>Klasa:</b>
-  <%=h @grupa.klasa %>
-</p>
-
-<p>
   <b>Pierwszy semestr:</b>
   <%=h @grupa.pierwszy_semestr %>
 </p>
@@ -22,7 +17,9 @@
   <b>Ostatni semestr:</b>
   <%=h @grupa.ostatni_semestr %>
 </p>
+<%= render :partial => 'grupy', :locals => {:grupa => @grupa} %>
 
+<%= link_to 'New grupa', "/grupy/" << @grupa.id.to_s << "/nowa_grupa" %>
 
 <%= link_to 'Edit', edit_grupa_path(@grupa) %> |
 <%= link_to 'Back', grupy_path %>

@@ -8,10 +8,6 @@
     <%= f.text_field :nazwa %>
   </p>
   <p>
-    <%= f.label :klasa %><br />
-    <%= f.check_box :klasa %>
-  </p>
-  <p>
     <%= f.label :pierwszy_semestr %><br />
     <%= f.text_field :pierwszy_semestr %>
   </p>
@@ -23,11 +19,10 @@
     <%= f.label :ostatni_semestr %><br />
     <%= f.text_field :ostatni_semestr %>
   </p>
-	
-	<%= render :partial => 'zarzadzaj_czlonkami_grupy' %>
+  
+  <%= render :partial => 'wychowawca' %>
 
-
-    <%= f.submit "Create" %>
+    <%= f.submit "Create", :action => :klasa_create %>
 <% end %>
 
 <%= link_to 'Back', grupy_path %>

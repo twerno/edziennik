@@ -48,13 +48,13 @@ class NauczycieleController < ApplicationController
     respond_to do |format|
       if @nauczyciel.save
 
-        if @user.errors.empty?
-          @user.activate! #nie ma aktywacji emailowej ;)
+        #if @user.errors.empty?
+         # @user.activate! #nie ma aktywacji emailowej ;)
 
           #successful_creation(@user)
-        else
+        #else
           #failed_creation
-        end
+        #end
         flash[:notice] = 'Nauczyciel was successfully created.'
         
         format.html { redirect_to(@nauczyciel) }

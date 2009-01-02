@@ -31,11 +31,5 @@ class Grupa < ActiveRecord::Base
       c.save
     end
   end
-  
-  
-#  def save
-#    puts "sssssssssss"
-#    super
-#  end
 
 end

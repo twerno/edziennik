@@ -1,0 +1,10 @@
+  <table>
+	<% for nauczyciel in Nauczyciel.nie_wychowawca+@grupa.nauczyciel.to_a %>
+				<% new = (@grupa.nauczyciel.nil?) || @grupa.nauczyciel == nauczyciel %>
+			<tr>
+				<td><%= radio_button :grupa, :nauczyciel_id, nauczyciel.id %>
+		    	<td><%=h nauczyciel.imie %></td>
+		    	<td><%=h nauczyciel.nazwisko %></td>
+		  	</tr>
+	<% end %>
+</table>

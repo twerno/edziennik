@@ -1,0 +1,14 @@
+<h1>New grupa</h1>
+
+<% form_for(@grupa) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :nazwa %><br />
+    <%= f.text_field :nazwa %>
+  </p>
+  <%= render :partial => 'zarzadzaj_czlonkami_grupy' %>
+
+
+    <%= f.submit "Create" %>
+<% end %>

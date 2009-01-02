@@ -1,0 +1,9 @@
+<% for g in grupa.grupy %>
+	<p><%=h g.nazwa %>
+	<% if g.nazwa != "Chłopcy" && g.nazwa != "Dziewczęta" %>
+		<%= link_to 'Show', g %>
+		<%= link_to 'Edit', edit_grupa_path(g) %>
+		<%= link_to 'Destroy', g, :confirm => 'Are you sure?', :method => :delete %>
+	<% end %>
+	</p>
+<% end %>
