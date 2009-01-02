@@ -16,18 +16,24 @@ class Grupa < ActiveRecord::Base
   named_scope :grupy_klasy, lambda { |*args| {:conditions => ["klasa = ? AND grupa_id = ?", true, args[0].to_i]}}
   
 
-  def zarzadzaj_grupa kandydaci, czlonkowie
+  def zarzadzaj_grupa kandydaci, czlonkowie, editors_stamp, current_user
     all = Czlonek.existing.find(:all, :conditions => ["grupa_id = ?", self.id])
-      
+    
+    czlonkowie = (czlonkowie.nil?) ? {} : czlonkowie
+    
     all.each do |key|
-        key.destroy unless !(czlonkowie[key.uczen_id.to_s]).nil?
-    end unless czlonkowie.nil? || czlonkowie.empty?
+      key.set_editors_stamp editors_stamp unless !(czlonkowie[key.przedmiot_id.to_s]).nil?
+      key.set_current_user current_user unless !(czlonkowie[key.przedmiot_id.to_s]).nil?
+      key.destroy unless !(czlonkowie[key.uczen_id.to_s]).nil?
+    end
     
     
     for key in (kandydaci.nil? || kandydaci.empty?) ? {} : kandydaci.keys
       c = Czlonek.new
       c.uczen_id = key.to_i
       c.grupa_id = self.id
+      c.set_editors_stamp editors_stamp
+      c.set_current_user current_user      
       c.save
     end
   end

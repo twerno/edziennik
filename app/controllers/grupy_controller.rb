@@ -63,7 +63,7 @@ class GrupyController < ApplicationController
         g.nazwa = "Chłopcy"
         g.grupa_id = @grupa.id
         g.save
-        @grupa.zarzadzaj_grupa params[:new_czlonek], params[:existing_czlonek]
+        @grupa.zarzadzaj_grupa params[:new_czlonek], params[:existing_czlonek], get_editors_stamp, current_user
         flash[:notice] = 'Grupa was successfully created.'
         format.html { redirect_to(@grupa) }
         format.xml  { render :xml => @grupa, :status => :created, :location => @grupa }
@@ -83,7 +83,7 @@ class GrupyController < ApplicationController
 
     respond_to do |format|
       if @grupa.save
-        @grupa.zarzadzaj_grupa params[:new_czlonek], params[:existing_czlonek]
+        @grupa.zarzadzaj_grupa params[:new_czlonek], params[:existing_czlonek], get_editors_stamp, current_user
         flash[:notice] = 'Grupa was successfully created.'
         format.html { redirect_to(@grupa) }
         format.xml  { render :xml => @grupa, :status => :created, :location => @grupa }

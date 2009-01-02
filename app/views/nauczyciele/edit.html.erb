@@ -11,6 +11,15 @@
     <%= f.label :nazwisko %><br />
     <%= f.text_field :nazwisko %>
   </p>
+  
+  	<% for przedmiot in Przedmiot.all %>
+		<% new = Pnjt.existing.find(:all, :conditions => ["nauczyciel_id = ? AND przedmiot_id = ?", @nauczyciel.id, przedmiot.id]).empty? %>
+		<p>
+			<input id="<%= (new) ? 'new' : 'existing' %>_nauczyciel<%= przedmiot.id.to_s %>" value="on" name="<%= (new) ? 'new' : 'existing' %>_nauczyciel[<%= przedmiot.id.to_s %>]" type="checkbox" <%= (new) ? '' : 'checked' %>/>
+	    	<%=h przedmiot.nazwa %>
+	  	</p>
+	<% end %>
+
   <p>
     <%= f.submit "Update" %>
   </p>

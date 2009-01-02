@@ -2,7 +2,7 @@ class NauczycieleController < ApplicationController
   # GET /nauczyciele
   # GET /nauczyciele.xml
   def index
-    @nauczyciele = Nauczyciel.find(:all)
+    @nauczyciele = Nauczyciel.existing.find(:all)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -47,16 +47,8 @@ class NauczycieleController < ApplicationController
 
     respond_to do |format|
       if @nauczyciel.save
-
-        #if @user.errors.empty?
-         # @user.activate! #nie ma aktywacji emailowej ;)
-
-          #successful_creation(@user)
-        #else
-          #failed_creation
-        #end
         flash[:notice] = 'Nauczyciel was successfully created.'
-        
+        @nauczyciel.zarzadzaj_grupa params[:new_nauczyciel], params[:existing_nauczyciel], get_editors_stamp, current_user
         format.html { redirect_to(@nauczyciel) }
         format.xml  { render :xml => @nauczyciel, :status => :created, :location => @nauczyciel }
       else
@@ -70,9 +62,12 @@ class NauczycieleController < ApplicationController
   # PUT /nauczyciele/1.xml
   def update
     @nauczyciel = Nauczyciel.find(params[:id])
-
+    @nauczyciel.set_editors_stamp get_editors_stamp
+    @nauczyciel.set_current_user current_user
+    
     respond_to do |format|
       if @nauczyciel.update_attributes(params[:nauczyciel])
+        @nauczyciel.zarzadzaj_grupa params[:new_nauczyciel], params[:existing_nauczyciel], get_editors_stamp, current_user
         flash[:notice] = 'Nauczyciel was successfully updated.'
         format.html { redirect_to(@nauczyciel) }
         format.xml  { head :ok }
@@ -87,6 +82,13 @@ class NauczycieleController < ApplicationController
   # DELETE /nauczyciele/1.xml
   def destroy
     @nauczyciel = Nauczyciel.find(params[:id])
+    @nauczyciel.set_editors_stamp get_editors_stamp
+    @nauczyciel.set_current_user current_user
+    @nauczyciel.pnjts.each do |pnjt|
+          pnjt.set_editors_stamp get_editors_stamp
+          pnjt.set_current_user current_user
+          pnjt.destroy
+    end
     @nauczyciel.destroy
 
     respond_to do |format|

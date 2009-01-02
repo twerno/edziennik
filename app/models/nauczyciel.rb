@@ -1,7 +1,7 @@
 class Nauczyciel < ActiveRecord::Base
   belongs_to :user
   has_one    :grupa  #wychowawca
-  has_many   :pnjts  #PRZEDMIOT-NAUCZYCIEL JOIN MODEL
+  has_many   :pnjts     , :dependent => :destroy  #PRZEDMIOT-NAUCZYCIEL JOIN MODEL
   has_many   :przedmioty, :through => :pnjts
   has_many   :oceny
   has_many   :listy
@@ -37,4 +37,28 @@ class Nauczyciel < ActiveRecord::Base
       
     end
   end
+  
+  
+  def zarzadzaj_grupa kandydaci, czlonkowie, editors_stamp, current_user
+    all = Pnjt.existing.find(:all, :conditions => ["nauczyciel_id = ?", self.id])
+
+    czlonkowie = (czlonkowie.nil?) ? {} : czlonkowie
+
+    all.each do |key|
+        key.set_editors_stamp editors_stamp unless !(czlonkowie[key.przedmiot_id.to_s]).nil?
+        key.set_current_user current_user unless !(czlonkowie[key.przedmiot_id.to_s]).nil?
+        key.destroy unless !(czlonkowie[key.przedmiot_id.to_s]).nil?
+    end 
+
+
+    for key in (kandydaci.nil? || kandydaci.empty?) ? {} : kandydaci.keys
+      c = Pnjt.new
+      c.przedmiot_id = key.to_i
+      c.nauczyciel_id = self.id
+      c.set_editors_stamp editors_stamp
+      c.set_current_user current_user
+      c.save
+    end
+  end
+  
 end

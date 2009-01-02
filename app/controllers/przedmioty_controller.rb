@@ -2,7 +2,7 @@ class PrzedmiotyController < ApplicationController
   # GET /przedmioty
   # GET /przedmioty.xml
   def index
-    @przedmioty = Przedmiot.find(:all)
+    @przedmioty = Przedmiot.existing.find(:all)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -74,7 +74,14 @@ class PrzedmiotyController < ApplicationController
   # DELETE /przedmioty/1
   # DELETE /przedmioty/1.xml
   def destroy
-    @przedmiot = Przedmiot.find(params[:id])
+    @przedmiot = Nauczyciel.find(params[:id])
+    @przedmiot.set_editors_stamp get_editors_stamp
+    @przedmiot.set_current_user current_user
+    @przedmiot.pnjts.each do |pnjt|
+          pnjt.set_editors_stamp get_editors_stamp
+          pnjt.set_current_user current_user
+          pnjt.destroy
+    end
     @przedmiot.destroy
 
     respond_to do |format|
