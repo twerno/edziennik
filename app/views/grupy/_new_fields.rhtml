@@ -1,0 +1,11 @@
+
+<%= f.error_messages %>
+<p>
+	Przedmioty klasy <%= @grupa.nazwa%>:
+</p>
+<div id="listy">
+  	<%= render :partial => 'lista', :collection => Lista.existing.find_all_by_grupa_id(@grupa.id).to_a %>
+</div>
+
+<p><%= add_lista_link "Dodaj Przedmiot" %></p>
+

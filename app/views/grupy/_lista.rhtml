@@ -1,0 +1,24 @@
+<div class="lista">
+<% fields_for_lista(lista) do |lista_form| %>
+
+	<table>
+		<tr>
+			<td> Semestr: </td>
+			<td> <%= lista_form.select "semestr_id", Semestr.existing.find(:all, :order => :begin).collect{|c| [c.nazwa, c.id]} %> </td>
+		</tr>
+		
+		<tr>
+			<td> Przedmiot: </td>
+			<td><%= lista_form.select "przedmiot_id", Przedmiot.existing.find(:all, :order => :nazwa).collect{|c| [c.nazwa, c.id]} %>  </td>
+		</tr>
+		<tr>
+			<td> Nauczyciel: </td>
+			<td> <%= lista_form.select "nauczyciel_id", Nauczyciel.existing.find(:all, :order => :nazwisko).collect{|c| [c.nazwisko+" "+c.imie, c.id]} %> </td>
+		</tr>
+		<tr>
+			<td> <%= link_to_function "usuń", "$(this).up('.lista').remove()" %> </td>
+		</tr>
+	</table>
+
+<% end %>
+</div>

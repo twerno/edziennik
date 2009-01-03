@@ -55,9 +55,13 @@ class GrupyController < ApplicationController
 
     respond_to do |format|
       if @grupa.save
-        g = Grupa.new :nazwa => "Dziewczęta", :grupa_id => @grupa.id
+        g = Grupa.new :nazwa => "Dziewczęta", :grupa_id => @grupa.id, :klasa => false
+        g.set_editors_stamp get_editors_stamp
+        g.set_current_user  current_user
         g.save
-        g = Grupa.new :nazwa => "Chłopcy", :grupa_id => @grupa.id
+        g = Grupa.new :nazwa => "Chłopcy", :grupa_id => @grupa.id, :klasa => false
+        g.set_editors_stamp get_editors_stamp
+        g.set_current_user  current_user
         g.save
         @grupa.zarzadzaj_grupa params[:new_czlonek], params[:existing_czlonek], get_editors_stamp, current_user
         flash[:notice] = 'Grupa was successfully created.'
@@ -76,15 +80,17 @@ class GrupyController < ApplicationController
     @grupa = Grupa.new(params[:grupa])
     @grupa.set_editors_stamp get_editors_stamp
     @grupa.set_current_user  current_user
-    @grupa.klasa = true
+    #@grupa.klasa = true
 
     respond_to do |format|
       if @grupa.save
-        g = Grupa.new :nazwa => "Dziewczęta", :grupa_id => @grupa.id
-        g.save
-        g = Grupa.new :nazwa => "Chłopcy", :grupa_id => @grupa.id
-        g.save
-        @grupa.zarzadzaj_grupa params[:new_czlonek], params[:existing_czlonek], get_editors_stamp, current_user
+        if @grupa.klasa
+          g = Grupa.new :nazwa => "Dziewczęta", :grupa_id => @grupa.id, :klasa => false
+          g.save
+          g = Grupa.new :nazwa => "Chłopcy", :grupa_id => @grupa.id, :klasa => false
+          g.save
+          @grupa.zarzadzaj_grupa params[:new_czlonek], params[:existing_czlonek], get_editors_stamp, current_user
+        end  
         flash[:notice] = 'Grupa was successfully created.'
         format.html { redirect_to(@grupa) }
         format.xml  { render :xml => @grupa, :status => :created, :location => @grupa }
@@ -97,6 +103,7 @@ class GrupyController < ApplicationController
 
   def nowa_grupa
     @grupa = Grupa.new
+    @klasa = Grupa.find(params[:id])
     @uczniowie = Uczen.all
     
     respond_to do |format|
@@ -126,6 +133,7 @@ class GrupyController < ApplicationController
   # PUT /grupy/1
   # PUT /grupy/1.xml
   def update
+    params[:grupa][:existing_lista_attributes] ||= {}
     @grupa = Grupa.find(params[:id])
     @grupa.set_editors_stamp get_editors_stamp
     @grupa.set_current_user  current_user
@@ -142,17 +150,43 @@ class GrupyController < ApplicationController
       end
     end
   end
+  
+  def przedmioty
+    @grupa = Grupa.find(params[:id])
+  end
 
   # DELETE /grupy/1
   # DELETE /grupy/1.xml
   def destroy
     @grupa = Grupa.find(params[:id])
+    @grupa.set_editors_stamp get_editors_stamp
+    @grupa.set_current_user  current_user
     #destroy wszystkie grupy
     @grupa.destroy
 
     respond_to do |format|
       format.html { redirect_to(grupy_url) }
       format.xml  { head :ok }
+    end
+  end
+  
+  def createaa
+    params[:grupa][:existing_lista_attributes] ||= {}
+    @grupa = Grupa.find(params[:grupa][:grupa_id])
+    @grupa.set_editors_stamp get_editors_stamp
+    @grupa.set_current_user  current_user
+    @grupa.set get_editors_stamp, current_user
+
+    respond_to do |format|
+      if @grupa.update_attributes(params[:grupa])
+        #@grupa.save_listy
+        flash[:notice] = 'Grupa was successfully updated.'
+        format.html { redirect_to(@grupa) }
+        format.xml  { head :ok }
+      else
+        format.html { render :action => "edit" }
+        format.xml  { render :xml => @grupa.errors, :status => :unprocessable_entity }
+      end
     end
   end
 end

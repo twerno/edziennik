@@ -3,6 +3,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.nowa_klasa '/grupy/nowa_klasa', :controller => 'grupy', :action => 'nowa_klasa'
   map.nowa_grupa '/grupy/:id/nowa_grupa', :controller => 'grupy', :action => 'nowa_grupa'
+  map.przedmioty '/grupy/:id/przedmioty', :controller => 'grupy', :action => 'przedmioty'
   
   
   map.resources :grupy

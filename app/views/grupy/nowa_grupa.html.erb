@@ -1,8 +1,9 @@
 <h1>New grupa</h1>
-
+<% %>
 <% form_for(@grupa) do |f| %>
   <%= f.error_messages %>
-
+  <%= f.hidden_field :klasa, :value => :false %>
+  <%= f.hidden_field :grupa_id, :value => @klasa.id %>
   <p>
     <%= f.label :nazwa %><br />
     <%= f.text_field :nazwa %>

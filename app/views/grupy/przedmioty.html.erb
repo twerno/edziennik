@@ -1,0 +1,9 @@
+
+
+	<% form_for :grupa, :url => { :action => "createaa" } do |f| %>
+      <%= f.hidden_field :grupa_id, :value => @grupa.id %>
+<input id="action" value=update" type="hidden" />
+	  <%= render :partial => 'new_fields', :locals => { :f => f } %>
+
+  	<p><%= submit_tag "Dodaj" %></p>
+	<% end %>

@@ -16,18 +16,26 @@ class Grupa < ActiveRecord::Base
   named_scope :grupy_klasy, lambda { |*args| {:conditions => ["klasa = ? AND grupa_id = ?", true, args[0].to_i]}}
   
 
+  @@editors_stamp = ""
+  @@user = ""
+  
+  def set editors_stamp, user
+    @@editors_stamp = editors_stamp
+    @@user = user
+  end
+
   def zarzadzaj_grupa kandydaci, czlonkowie, editors_stamp, current_user
     all = Czlonek.existing.find(:all, :conditions => ["grupa_id = ?", self.id])
     
     czlonkowie = (czlonkowie.nil?) ? {} : czlonkowie
     
     all.each do |key|
-      key.set_editors_stamp editors_stamp unless !(czlonkowie[key.uczen_id.to_s]).nil?
-      key.set_current_user                unless !(czlonkowie[key.uczen_id.to_s]).nil?
-      key.destroy                         unless !(czlonkowie[key.uczen_id.to_s]).nil?
+      (key.set_editors_stamp editors_stamp #unless !(czlonkowie[key.uczen_id.to_s]).nil?
+      key.set_current_user                #unless !(czlonkowie[key.uczen_id.to_s]).nil?
+      key.destroy          )               unless !(czlonkowie[key.uczen_id.to_s]).nil?
     end
-    
-    
+
+
     for key in (kandydaci.nil? || kandydaci.empty?) ? {} : kandydaci.keys
       c = Czlonek.new
       c.uczen_id = key.to_i
@@ -35,6 +43,49 @@ class Grupa < ActiveRecord::Base
       c.set_editors_stamp editors_stamp
       c.set_current_user current_user      
       c.save
+    end
+  end
+  
+  after_update :save_listy
+
+
+  def existing_lista_attributes=(lista_attributes)
+    listy.reject(&:new_record?).each do |lista|
+      attributes = lista_attributes[lista.id.to_s]
+      if attributes
+        lista.attributes = attributes
+      else
+        lista.set_editors_stamp @@editors_stamp
+        lista.set_current_user @@user
+        lista.destroy
+      end
+    end
+    save_listy
+  end
+  
+  #def listy
+  # (Lista.existing.find_all_by_grupa_id(self.id).empty?) ? self : Lista.existing.find_all_by_grupa_id(self.id)
+   #self.super(listy)
+  #end
+  
+  def new_lista_attributes=(lista_attributes)
+    lista_attributes.each do |attributes|
+       l = listy.build(attributes)
+       puts l.id
+       #puts l.class.name
+       #sputs Archive.find(:last, :conditions=>["class_name = ?", l.class.name]).id
+       #puts Archive.find(:last, :conditions=["class_id = ? AND class_name = ?", l.id, l.class.name])
+       #a.set_editors_stamp @@editors_stamp
+       #a.set_current_user @@user
+       #a.save
+    end
+  end
+  
+  def save_listy
+    listy.each do |lista|
+      lista.set_editors_stamp @@editors_stamp
+      lista.set_current_user @@user
+      lista.save
     end
   end
 

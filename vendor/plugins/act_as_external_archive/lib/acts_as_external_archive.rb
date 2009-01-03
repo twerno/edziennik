@@ -68,11 +68,11 @@ module Acts
   
   
       def set_editors_stamp stamp
-        @editors_stamp ||= stamp
+        @editors_stamp = stamp
       end
       
       def set_current_user user
-        @current_user ||= user
+        @current_user = user
       end
   
   
