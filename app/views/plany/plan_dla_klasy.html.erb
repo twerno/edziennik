@@ -1,0 +1,30 @@
+<table border = 1>
+	<tr>
+		<td><%=h @klasa.nazwa %></td>
+		<td>Poniedziałek</td>
+		<td>Wtorek</td>
+		<td>Środa</td>
+		<td>Czwartek</td>
+		<td>Piątek</td>
+		<td>Sobota</td>
+		<td>Niedziela</td>
+	</tr><% godz = 1 %>
+	<% for godzina in @godziny %>
+	<tr>
+		<td><%=h godzina.begin.strftime("%H") << ":" << godzina.begin.strftime("%M") %>-<%=h godzina.end.strftime("%H") << ":" << godzina.end.strftime("%M") %></td>
+		<td><%=h nazwa_przedmiotu @plan.id, 1, godz, @klasa.id %></td>
+		<td><%=h nazwa_przedmiotu @plan.id, 2, godz, @klasa.id %></td>
+		<td><%=h nazwa_przedmiotu @plan.id, 3, godz, @klasa.id %></td>
+		<td><%=h nazwa_przedmiotu @plan.id, 4, godz, @klasa.id %></td>
+		<td><%=h nazwa_przedmiotu @plan.id, 5, godz, @klasa.id %></td>
+		<td><%=h nazwa_przedmiotu @plan.id, 6, godz, @klasa.id %></td>
+		<td><%=h nazwa_przedmiotu @plan.id, 7, godz, @klasa.id %></td>
+	</tr>
+	<% godz += 1%>
+	<% end %>
+</table>
+
+	<%= link_to 'Plan', "/plany/"+@plan.id.to_s+"/plan" %> | 
+<% for klasa in Grupa.existing.klasa %>
+	<%= link_to klasa.nazwa, "/plany/"+@plan.id.to_s+"/plan/"+klasa.id.to_s %> | 
+<% end %>

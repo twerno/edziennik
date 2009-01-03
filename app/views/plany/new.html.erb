@@ -1,0 +1,23 @@
+<h1>New plan</h1>
+
+<% form_for(@plan) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :nazwa %><br />
+    <%= f.text_field :nazwa %>
+  </p>
+  <p>
+    <%= f.label :semestr %><br />
+	<%= f.select "semestr_id", Semestr.existing.find(:all, :order => :begin).collect{|c| [c.nazwa, c.id]} %> </td>
+  </p>
+  <p>
+    <%= f.label :active %><br />
+    <%= f.check_box :active %>
+  </p>
+  <p>
+    <%= f.submit "Create" %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', plany_path %>

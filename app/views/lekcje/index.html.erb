@@ -1,0 +1,18 @@
+<h1>Listing lekcje</h1>
+
+<table>
+  <tr>
+  </tr>
+
+<% for lekcja in @lekcje %>
+  <tr>
+    <td><%= link_to 'Show', lekcja %></td>
+    <td><%= link_to 'Edit', edit_lekcja_path(lekcja) %></td>
+    <td><%= link_to 'Destroy', lekcja, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New lekcja', new_lekcja_path %>

@@ -4,7 +4,7 @@ class CreateNauczyciele < ActiveRecord::Migration
       t.string :imie
       t.string :nazwisko
       t.integer :user_id
-      t.integer :pnjt
+      #t.integer :pnjt
 
       t.boolean  :destroyed, :default => false
       #t.integer  :edited_by

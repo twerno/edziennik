@@ -1,0 +1,12 @@
+<h1>Editing lekcja</h1>
+
+<% form_for(@lekcja) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @lekcja %> |
+<%= link_to 'Back', lekcje_path %>

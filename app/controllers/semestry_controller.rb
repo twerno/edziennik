@@ -41,6 +41,8 @@ class SemestryController < ApplicationController
   # POST /semestry.xml
   def create
     @semestr = Semestr.new(params[:semestr])
+    @semestr.set_editors_stamp get_editors_stamp
+    @semestr.set_current_user  current_user
 
     respond_to do |format|
       if @semestr.save
@@ -58,6 +60,8 @@ class SemestryController < ApplicationController
   # PUT /semestry/1.xml
   def update
     @semestr = Semestr.find(params[:id])
+    @semestr.set_editors_stamp get_editors_stamp
+    @semestr.set_current_user  current_user
 
     respond_to do |format|
       if @semestr.update_attributes(params[:semestr])
@@ -75,6 +79,8 @@ class SemestryController < ApplicationController
   # DELETE /semestry/1.xml
   def destroy
     @semestr = Semestr.find(params[:id])
+    @semestr.set_editors_stamp get_editors_stamp
+    @semestr.set_current_user  current_user
     @semestr.destroy
 
     respond_to do |format|

@@ -1,0 +1,18 @@
+<p>
+  <b>Nazwa:</b>
+  <%=h @plan.nazwa %>
+</p>
+
+<p>
+  <b>Semestr:</b>
+  <%=h @plan.semestr.nazwa %>
+</p>
+
+<p>
+  <b>Active:</b>
+  <%=h @plan.active %>
+</p>
+
+
+<%= link_to 'Edit', edit_plan_path(@plan) %> |
+<%= link_to 'Back', plany_path %>

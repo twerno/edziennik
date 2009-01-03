@@ -58,8 +58,9 @@ ActiveRecord::Schema.define(:version => 20090102152424) do
   create_table "lekcje", :force => true do |t|
     t.integer  "godzina_id"
     t.integer  "plan_id"
+    t.integer  "dzien_tygodnia"
     t.date     "data"
-    t.boolean  "destroyed",  :default => false
+    t.boolean  "destroyed",      :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

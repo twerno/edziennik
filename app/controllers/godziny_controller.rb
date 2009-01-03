@@ -41,6 +41,8 @@ class GodzinyController < ApplicationController
   # POST /godziny.xml
   def create
     @godzina = Godzina.new(params[:godzina])
+    @godzina.set_editors_stamp get_editors_stamp
+    @godzina.set_current_user  current_user
 
     respond_to do |format|
       if @godzina.save
@@ -58,6 +60,8 @@ class GodzinyController < ApplicationController
   # PUT /godziny/1.xml
   def update
     @godzina = Godzina.find(params[:id])
+    @godzina.set_editors_stamp get_editors_stamp
+    @godzina.set_current_user  current_user
 
     respond_to do |format|
       if @godzina.update_attributes(params[:godzina])
@@ -75,6 +79,8 @@ class GodzinyController < ApplicationController
   # DELETE /godziny/1.xml
   def destroy
     @godzina = Godzina.find(params[:id])
+    @godzina.set_editors_stamp get_editors_stamp
+    @godzina.set_current_user  current_user
     @godzina.destroy
 
     respond_to do |format|
