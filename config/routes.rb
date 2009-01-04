@@ -2,7 +2,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.plan           'plany/:id/plan',        :controller => 'plany', :action => 'plan'
   map.plan_dla_klasy 'plany/:id/plan/:klasa', :controller => 'plany', :action => 'plan_dla_klasy'
-  map.p_dla_klasy_d  'plany/:id/plan/:klasa/:godzina/:dzien', :controller => 'lekcje', :action => 'plan_dla_klasy'
+  map.wybierz_kom    'plany/:id/plan/:klasa/:dzien/:godzina', :controller => 'plany', :action => 'wybierz_kom'
   map.nowa_klasa     '/grupy/nowa_klasa',     :controller => 'grupy', :action => 'nowa_klasa'
   map.nowa_grupa     '/grupy/:id/nowa_grupa', :controller => 'grupy', :action => 'nowa_grupa'
   map.przedmioty     '/grupy/:id/przedmioty', :controller => 'grupy', :action => 'przedmioty'

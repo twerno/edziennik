@@ -1,0 +1,2 @@
+page.replace_html @div, @l.przedmiot.nazwa
+page[@div].visual_effect :highlight, :duration => 2

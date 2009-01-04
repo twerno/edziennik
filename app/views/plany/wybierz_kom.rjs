@@ -1,0 +1,3 @@
+page[:Lekcja_dzien_tygodnia].value = @dzien
+page[:Lekcja_godzina_id].value = @godzina
+page[@div].visual_effect :highlight, :duration => 2

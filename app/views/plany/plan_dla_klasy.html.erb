@@ -13,18 +13,17 @@
 	<% for godzina in @godziny %>
 	<tr>
 		<td><%=h godzina.begin.strftime("%H") << ":" << godzina.begin.strftime("%M") %>-<%=h godzina.end.strftime("%H") << ":" << godzina.end.strftime("%M") %></td>
-		<td><%=h nazwa_przedmiotu @plan.id, 1, godz, @grupa.id %></td>
-		<td><%=h nazwa_przedmiotu @plan.id, 2, godz, @grupa.id %></td>
-		<td><%=h nazwa_przedmiotu @plan.id, 3, godz, @grupa.id %></td>
-		<td><%=h nazwa_przedmiotu @plan.id, 4, godz, @grupa.id %></td>
-		<td><%=h nazwa_przedmiotu @plan.id, 5, godz, @grupa.id %></td>
-		<td><%=h nazwa_przedmiotu @plan.id, 6, godz, @grupa.id %></td>
-		<td><%=h nazwa_przedmiotu @plan.id, 7, godz, @grupa.id %></td>
+		<td><div id="<%= godz %>-1" <%= onclick_to_remote :url => {:action => :wybierz_kom, :id => @plan.id, :klasa => @grupa.id, :dzien => 1, :godzina => godz } %>><%=h nazwa_przedmiotu @plan.id, 1, godz, @grupa.id %></div></td>
+		<td><div id="<%= godz %>-2" <%= onclick_to_remote :url => {:action => :wybierz_kom, :id => @plan.id, :klasa => @grupa.id, :dzien => 2, :godzina => godz } %>><%=h nazwa_przedmiotu @plan.id, 2, godz, @grupa.id %></div></td>
+		<td><div id="<%= godz %>-3" <%= onclick_to_remote :url => {:action => :wybierz_kom, :id => @plan.id, :klasa => @grupa.id, :dzien => 3, :godzina => godz } %>><%=h nazwa_przedmiotu @plan.id, 3, godz, @grupa.id %></div></td>
+		<td><div id="<%= godz %>-4" <%= onclick_to_remote :url => {:action => :wybierz_kom, :id => @plan.id, :klasa => @grupa.id, :dzien => 4, :godzina => godz } %>><%=h nazwa_przedmiotu @plan.id, 4, godz, @grupa.id %></div></td>
+		<td><div id="<%= godz %>-5" <%= onclick_to_remote :url => {:action => :wybierz_kom, :id => @plan.id, :klasa => @grupa.id, :dzien => 5, :godzina => godz } %>><%=h nazwa_przedmiotu @plan.id, 5, godz, @grupa.id %></div></td>
+		<td><div id="<%= godz %>-6" <%= onclick_to_remote :url => {:action => :wybierz_kom, :id => @plan.id, :klasa => @grupa.id, :dzien => 6, :godzina => godz } %>><%=h nazwa_przedmiotu @plan.id, 6, godz, @grupa.id %></div></td>
+		<td><div id="<%= godz %>-7" <%= onclick_to_remote :url => {:action => :wybierz_kom, :id => @plan.id, :klasa => @grupa.id, :dzien => 7, :godzina => godz } %>><%=h nazwa_przedmiotu @plan.id, 7, godz, @grupa.id %></div></td>
 	</tr>
 	<% godz += 1%>
 	<% end %>
 </table>
-<%= link_to 'dodaj', "/plany/"+@plan.id.to_s+"/plan/"+@grupa.id.to_s+"/1/2"  %>
 
 	<%= link_to 'Plan', "/plany/"+@plan.id.to_s+"/plan" %> | 
 <% for klasa in Grupa.existing.klasa %>
@@ -34,7 +33,7 @@
 <% form_remote_for :Lekcja, :url => {:action => :create_lekcja}, :html => { :id => 'review_form' } do |f| %>
 	<%= f.select "lista_id", Lista.existing.find_all_by_grupa_id(@grupa.id).collect{|c| [c.przedmiot.nazwa, c.id]} %>
 	<%= f.hidden_field :plan_id, :value => @plan.id %>
-	<%= f.hidden_field :dzien_tygodnia, :value => 7 %>
+	<%= f.hidden_field :dzien_tygodnia, :value => 1 %>
 	<%= f.hidden_field :godzina_id, :value => 2 %>
 	<%= f.submit 'create' %>
 <% end %>
