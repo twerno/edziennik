@@ -136,7 +136,7 @@ module Acts
         ## dla kazdej elementu w zbiorze
         for anything in set
         puts anything.id
-        puts empty_set
+        puts set.size
       
       
         ## tworzymy nowy objekt i uzupełniamy, pola ktore sa wymagane w kazdym obiekcie
@@ -214,10 +214,10 @@ module Acts
             end
           end
         end
-        
+        puts empty_set.size
         ## zwracamy gotowy zbior
         if @@desc == 0
-          empty_set.add [self]
+          empty_set.add [self]             ## jesli rekord nie zostal zapisany, to nie wyswietla listy, a jedynie ten jeden rekord
           empty_set.to_a.flatten.reverse
         else
           empty_set.add [current_with_desc]
