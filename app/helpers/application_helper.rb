@@ -32,4 +32,17 @@ module ApplicationHelper
     content_for(:head) { stylesheet_link_tag(*files) }
   end
   
+  
+  ## arg postaci
+  ## nazwa1=wartosc1&nazwa2=wartosc2&...&nazwan=wartoscn
+  ## return:
+  ## {:nazwa1=>wartosc1, ... }
+  def queries_parameters arg
+    a = {}
+    arg.split('&').each do |key|
+      a.merge!({key.split('=')[0] => key.split('=')[1]})
+    end
+    a
+  end
+  
 end
