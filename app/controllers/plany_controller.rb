@@ -122,6 +122,9 @@ class PlanyController < ApplicationController
     @dzien = params[:dzien]
     @godzina=params[:godzina]
     @div    =params[:godzina]+"-"+params[:dzien]
+    
+    @plan    = Plan.find(params[:id])
+    @grupa   = Grupa.find(params[:klasa])
   end
 
   def destroy

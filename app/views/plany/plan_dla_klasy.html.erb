@@ -1,4 +1,3 @@
-
 <table border = 1>
 	<tr>
 		<td><%=h @grupa.nazwa %></td>
@@ -30,12 +29,6 @@
 	<%= link_to klasa.nazwa, "/plany/"+@plan.id.to_s+"/plan/"+klasa.id.to_s %> | 
 <% end %>
 
-<% form_remote_for :Lekcja, :url => {:action => :create_lekcja}, :html => { :id => 'review_form' } do |f| %>
-	<%= f.select "lista_id", Lista.existing.find_all_by_grupa_id(@grupa.id).collect{|c| [c.przedmiot.nazwa, c.id]} %>
-	<%= f.hidden_field :plan_id, :value => @plan.id %>
-	<%= f.hidden_field :dzien_tygodnia, :value => 1 %>
-	<%= f.hidden_field :godzina_id, :value => 2 %>
-	<%= f.submit 'create' %>
-<% end %>
-
-
+<div id="lekcje">
+	<%= render :partial => 'zarzadzaj_lekcjami' %>
+</div>
