@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(:version => 20090102152424) do
 
   create_table "lekcje", :force => true do |t|
     t.integer  "godzina_id"
+    t.integer  "lista_id"
     t.integer  "plan_id"
     t.integer  "dzien_tygodnia"
     t.date     "data"
@@ -70,7 +71,6 @@ ActiveRecord::Schema.define(:version => 20090102152424) do
     t.integer  "nauczyciel_id"
     t.integer  "semestr_id"
     t.integer  "przedmiot_id"
-    t.integer  "lekcja_id"
     t.boolean  "destroyed",     :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -80,7 +80,6 @@ ActiveRecord::Schema.define(:version => 20090102152424) do
     t.string   "imie"
     t.string   "nazwisko"
     t.integer  "user_id"
-    t.integer  "pnjt"
     t.boolean  "destroyed",  :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -150,7 +149,6 @@ ActiveRecord::Schema.define(:version => 20090102152424) do
 
   create_table "przedmioty", :force => true do |t|
     t.string   "nazwa"
-    t.integer  "pnjt_id"
     t.boolean  "destroyed",  :default => false
     t.datetime "created_at"
     t.datetime "updated_at"

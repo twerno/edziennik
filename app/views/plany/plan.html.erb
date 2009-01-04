@@ -1,25 +1,19 @@
 <table border = 1>
-	<tr>
-		<td></td>
-		<td>Poniedziałek</td>
-		<td>Wtorek</td>
-		<td>Środa</td>
-		<td>Czwartek</td>
-		<td>Piątek</td>
-		<td>Sobota</td>
-		<td>Niedziela</td>
+	<tr><td></td>
+		<% for nauczyciel in Nauczyciel.existing %>
+			<td><%=h nauczyciel.imie<<" "<<nauczyciel.nazwisko%></td>
+		<% end %>
 	</tr>
-	<% for godzina in @godziny %>
-	<tr>
-		<td><%=h godzina.begin.strftime("%H") << ":" << godzina.begin.strftime("%M") %>-<%=h godzina.end.strftime("%H") << ":" << godzina.end.strftime("%M") %></td>
-		<td><%= link_to 'Plan', "/plany/"+@plan.id.to_s+"/plan/1/1/1" %></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-	</tr>
+	<% dni_tygodnia = [:Poniedziałek, :Wtorek, :Środa, :Czwartek, :Piątek, :Sobota, :Niedziela] %>
+	<% for dzien in dni_tygodnia %>
+		<% for godzina in @godziny %>
+		<tr>
+			<td><%=h dzien.to_s+" "+godzina.begin.strftime("%H") << ":" << godzina.begin.strftime("%M") %>-<%=h godzina.end.strftime("%H") << ":" << godzina.end.strftime("%M") %></td>
+			<% for nauczyciel in Nauczyciel.existing %>
+				<td>...</td>
+			<% end %>
+		</tr>
+		<% end %>
 	<% end %>
 </table>
 

@@ -1,6 +1,5 @@
 class PlanyController < ApplicationController
-  # GET /plany
-  # GET /plany.xml
+
   def index
     @plany = Plan.existing.find(:all, :order => :nazwa)
 
@@ -10,8 +9,7 @@ class PlanyController < ApplicationController
     end
   end
 
-  # GET /plany/1
-  # GET /plany/1.xml
+
   def show
     @plan = Plan.find(params[:id])
 
@@ -21,8 +19,7 @@ class PlanyController < ApplicationController
     end
   end
 
-  # GET /plany/new
-  # GET /plany/new.xml
+
   def new
     @plan = Plan.new
 
@@ -32,13 +29,12 @@ class PlanyController < ApplicationController
     end
   end
 
-  # GET /plany/1/edit
+
   def edit
     @plan = Plan.find(params[:id])
   end
 
-  # POST /plany
-  # POST /plany.xml
+
   def create
     @plan = Plan.new(params[:plan])
     @plan.set_editors_stamp get_editors_stamp
@@ -57,8 +53,7 @@ class PlanyController < ApplicationController
     end
   end
 
-  # PUT /plany/1
-  # PUT /plany/1.xml
+
   def update
     @plan = Plan.find(params[:id])
     @plan.set_editors_stamp get_editors_stamp
@@ -76,7 +71,8 @@ class PlanyController < ApplicationController
       end
     end
   end
-  
+
+
   def plan
     @plan    = Plan.find(params[:id])
     #@klasa   = Grupa.find(params[:klasa])
@@ -87,11 +83,12 @@ class PlanyController < ApplicationController
   
   def plan_dla_klasy
     @plan    = Plan.find(params[:id])
-    @klasa   = Grupa.find(params[:klasa])
+    @grupa   = Grupa.find(params[:klasa])
     @godziny = Godzina.existing.all
 
   end
-  
+
+
   def plan_dla_klasy_edit
     @godzina = params[:godzina]
     @dzien   = params[:dzien]
@@ -101,8 +98,22 @@ class PlanyController < ApplicationController
     #@lekcje = Lekcje.existing.find_all_by_semestr @plan.semestr
   end
 
-  # DELETE /plany/1
-  # DELETE /plany/1.xml
+  
+  def create_lekcja
+    l = Lekcja.existing.find(:first, :conditions => ["plan_id = ? AND dzien_tygodnia = ? AND godzina_id = ?", params[:Lekcja][:plan_id], params[:Lekcja][:dzien_tygodnia], params[:Lekcja][:godzina_id]])
+    if (l.nil?)
+      l = Lekcja.new(:plan_id => params[:Lekcja][:plan_id], :dzien_tygodnia => params[:Lekcja][:dzien_tygodnia], :godzina_id => params[:Lekcja][:godzina_id], :lista_id => params[:Lekcja][:lista_id]) 
+    else
+      l.lista_id = params[:Lekcja][:lista_id]
+    end
+    l.set_editors_stamp get_editors_stamp
+    l.set_current_user  current_user
+    l.save
+    
+    redirect_to '/plany'
+  end
+
+
   def destroy
     @plan = Plan.find(params[:id])
     @plan.set_editors_stamp get_editors_stamp
@@ -114,7 +125,8 @@ class PlanyController < ApplicationController
       format.xml  { head :ok }
     end
   end
-  
+
+
   private 
   def active plan
     if plan.active

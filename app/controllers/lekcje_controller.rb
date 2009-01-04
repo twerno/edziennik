@@ -84,15 +84,10 @@ class LekcjeController < ApplicationController
   end
   
   def plan_dla_klasy
-    puts Lekcja.existing.find(:all, :conditions => ["godzina_id = ? AND plan_id = ? AND dzien_tygodnia = ? ", params[:godzina], params[:id], params[:dzien]])
-    puts "+===========+"
-    puts params[:godzina]
-    puts params[:id]
-    puts params[:dzien]
-    puts "+===========+"
-    plan2 = (plan.empty?) ? Lekcja.new(:godzina_id => params[:godzina], :plan_id => params[:id], :dzien_tygodnia => params[:dzien]) : plan
-    puts plan2.empty?
-    puts plan2.new_record?
+    lekcja = Lekcja.existing.find(:all, :conditions => ["godzina_id = ? AND dzien_tygodnia = ? AND plan_id = ? AND data = ?", params[:godzina], params[:id], params[:id], nil])
+    @lekcja = (lekcja == []) ? Lekcja.new(:godzina_id => params[:godzina], :plan_id => params[:id], :dzien_tygodnia => params[:dzien]) : lekcja
+#    puts plan.empty?
+ #   puts plan.new_record?
 
   end
 end

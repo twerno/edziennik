@@ -5,7 +5,6 @@ class CreateListy < ActiveRecord::Migration
       t.integer :nauczyciel_id
       t.integer :semestr_id
       t.integer :przedmiot_id
-      t.integer :lekcja_id
 
       t.boolean  :destroyed, :default => false
       #t.integer  :edited_by
