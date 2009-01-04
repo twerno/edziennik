@@ -22,9 +22,10 @@ class User < ActiveRecord::Base
   
   # Relationships
   has_and_belongs_to_many :roles
-  has_one :nauczyciel
-  has_one :rodzic
-  has_one :uczen
+  belongs_to :polymorph, :polymorphic => true
+  #has_one :nauczyciel
+  #has_one :rodzic
+  #has_one :uczen
   
   #acts_as_external_archive
 

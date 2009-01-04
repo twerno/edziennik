@@ -7,7 +7,7 @@ class CreateArchives < ActiveRecord::Migration
       t.integer  :edited_by
       t.text     :editors_stamp
       t.text     :body
-      t.datetime :body_updated_at
+      #t.datetime :body_updated_at
       #t.datetime :created_at
       
       t.timestamps

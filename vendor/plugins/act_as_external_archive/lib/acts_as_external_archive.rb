@@ -79,12 +79,12 @@ module Acts
       ## zwraca wszystkie 
       def archives
         @@desc = 0
-        rebuild_from_archive Archive.find(:all, :conditions => ["class_name = ? AND class_id = ?", self.class.name, self.id.to_s])
+        rebuild_from_archive Archive.find(:all, :conditions => ["class_name = ? AND class_id = ?", self.class.name, self.id.to_s], :order => :id)
       end
    
       def archives_with_desc
         @@desc = 1
-        rebuild_from_archive Archive.find(:all, :conditions => ["class_name = ? AND class_id = ?", self.class.name, self.id.to_s])
+        rebuild_from_archive Archive.find(:all, :conditions => ["class_name = ? AND class_id = ?", self.class.name, self.id.to_s], :order => :id)
       end
       
       ## dodaje objekt do archiwum
@@ -95,6 +95,7 @@ module Acts
         archive.class_id        = temp.id.to_s
         archive.edited_by       = (@current_user.nil?) ? nil : @current_user.id
         archive.editors_stamp   = @editors_stamp
+        archive.class_destroyed = temp.destroyed
         archive.save
       end
       
@@ -128,11 +129,15 @@ module Acts
     
         ## tworzymy pusty zbior
         empty_set = "".to_set
+ 
         #last_one = set[0] unless !(set.size < 2)
         #puts (set.size < 2)
-        set.delete_at 0   unless (set.size < 2)
+        #set.delete_at 0   unless !(set.size < 2)
         ## dla kazdej elementu w zbiorze
         for anything in set
+        puts anything.id
+        puts empty_set
+      
       
         ## tworzymy nowy objekt i uzupełniamy, pola ktore sa wymagane w kazdym obiekcie
         temp               = eval(anything.class_name << ".new")
@@ -198,7 +203,7 @@ module Acts
         
             ## wrzucamy obiekt do zbioru (set)
             if @@desc == 0
-              empty_set.add temp
+              empty_set.add [temp]
             else
               empty_set.add [{:class => temp,
                               :edited_by => anything.edited_by,
@@ -212,12 +217,13 @@ module Acts
         
         ## zwracamy gotowy zbior
         if @@desc == 0
-          empty_set.to_a
+          empty_set.add [self]
+          empty_set.to_a.flatten.reverse
         else
+          empty_set.add [current_with_desc]
           empty_set.to_a.flatten
         end  
       end
-      
 
 
       def self.included(aClass)

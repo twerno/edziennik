@@ -8,6 +8,7 @@
 #   inflect.irregular 'person', 'people'
 #   inflect.uncountable %w( fish sheep )
     inflect.irregular 'czlonek', 'czlonkowie'
+    inflect.irregular 'dziennik', 'dzienniki'
     inflect.irregular 'dyrektor', 'dyrektorzy'
     inflect.irregular 'godzina', 'godziny'
     inflect.irregular 'grupa', 'grupy'

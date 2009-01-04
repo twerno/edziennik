@@ -33,12 +33,14 @@ class BortMigration < ActiveRecord::Migration
       t.string   :salt, :limit => 40
       t.string   :remember_token, :limit => 40
       t.string   :activation_code, :limit => 40
-      t.string   :state, :null => false, :default => 'passive'      
+      t.string   :state, :null => false, :default => 'passive'
       t.datetime :remember_token_expires_at
       t.datetime :activated_at
       t.datetime :deleted_at
       t.timestamps
       
+      t.integer  :polymorph_id
+      t.string   :polymorph_type
       t.boolean  :destroyed, :default => false
       #t.string   :class_name
       #t.integer  :edited_by

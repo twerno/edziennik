@@ -5,7 +5,9 @@ class CreateRodzice < ActiveRecord::Migration
       t.string :imie_matki
       t.string :nazwistko
       t.string :nazwisko_panienskie
-      t.integer :user_id
+      
+      #t.string   :key
+      #t.integer :user_id
 
       t.boolean  :destroyed, :default => false
       #t.integer  :edited_by

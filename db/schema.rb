@@ -79,7 +79,6 @@ ActiveRecord::Schema.define(:version => 20090102152424) do
   create_table "nauczyciele", :force => true do |t|
     t.string   "imie"
     t.string   "nazwisko"
-    t.integer  "user_id"
     t.boolean  "destroyed",  :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -159,7 +158,6 @@ ActiveRecord::Schema.define(:version => 20090102152424) do
     t.string   "imie_matki"
     t.string   "nazwistko"
     t.string   "nazwisko_panienskie"
-    t.integer  "user_id"
     t.boolean  "destroyed",           :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -201,7 +199,6 @@ ActiveRecord::Schema.define(:version => 20090102152424) do
     t.string   "nr_legitymacji"
     t.integer  "rodzic_id"
     t.boolean  "chlopiec"
-    t.integer  "user_id"
     t.boolean  "destroyed",      :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -222,6 +219,8 @@ ActiveRecord::Schema.define(:version => 20090102152424) do
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "polymorph_id"
+    t.string   "polymorph_type"
     t.boolean  "destroyed",                                :default => false
   end
 
