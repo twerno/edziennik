@@ -99,16 +99,30 @@ class PlanyController < ApplicationController
   end
 
   
+
   def create_lekcja
-    @l = Lekcja.existing.find(:first, :conditions => ["plan_id = ? AND dzien_tygodnia = ? AND godzina_id = ?", params[:Lekcja][:plan_id], params[:Lekcja][:dzien_tygodnia], params[:Lekcja][:godzina_id]])
-    if (@l.nil?)
-      @l = Lekcja.new(:plan_id => params[:Lekcja][:plan_id], :dzien_tygodnia => params[:Lekcja][:dzien_tygodnia], :godzina_id => params[:Lekcja][:godzina_id], :lista_id => params[:Lekcja][:lista_id]) 
-    else
-      @l.lista_id = params[:Lekcja][:lista_id]
+    @l = Lekcja.existing.find(:first, :include => :lista, :conditions => ["plan_id = ? AND dzien_tygodnia = ? AND godzina_id = ? AND listy.grupa_id = ?", params[:Lekcja][:plan_id], params[:Lekcja][:dzien_tygodnia], params[:Lekcja][:godzina_id], params[:Lekcja][:grupa_id]])
+    if (params[:Lekcja][:lista_id].to_i > 0)
+      if (@l.nil?)
+        @l = Lekcja.new(:plan_id => params[:Lekcja][:plan_id], :dzien_tygodnia => params[:Lekcja][:dzien_tygodnia], :godzina_id => params[:Lekcja][:godzina_id], :lista_id => params[:Lekcja][:lista_id]) 
+      else
+        @l.lista_id = params[:Lekcja][:lista_id]
+      end
+      @l.set_editors_stamp get_editors_stamp
+      @l.set_current_user  current_user
+      @l.save
+    elsif params[:Lekcja][:lista_id].to_i == -1
+      @l.set_editors_stamp get_editors_stamp
+      @l.set_current_user  current_user     
+      @l.destroy
+      @l = nil
     end
-    @l.set_editors_stamp get_editors_stamp
-    @l.set_current_user  current_user
-    @l.save
+    
+    begin
+      @nazwa = @l.przedmiot.nazwa
+    rescue
+      @nazwa = '&nbsp;'
+    end
     
     @div = params[:Lekcja][:godzina_id]+"-"+params[:Lekcja][:dzien_tygodnia]
     respond_to do |format|
@@ -119,12 +133,13 @@ class PlanyController < ApplicationController
 
 
   def wybierz_kom
-    @dzien = params[:dzien]
-    @godzina=params[:godzina]
-    @div    =params[:godzina]+"-"+params[:dzien]
+    @dzien   = params[:dzien]
+    @godzina = params[:godzina]
+    @div     = params[:godzina]+"-"+params[:dzien]
     
     @plan    = Plan.find(params[:id])
     @grupa   = Grupa.find(params[:klasa])
+    #@id      = Lekcja.existing.find
   end
 
   def destroy
