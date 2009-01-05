@@ -7,7 +7,7 @@ ActionController::Routing::Routes.draw do |map|
   map.nowa_grupa     '/grupy/:id/nowa_grupa', :controller => 'grupy', :action => 'nowa_grupa'
   map.przedmioty     '/grupy/:id/przedmioty', :controller => 'grupy', :action => 'przedmioty'
   map.dzienniki      '/dzienniki/plan',       :controller => 'dzienniki', :action => 'plan'
-  map.dziennik       '/dzienniki/:klasa/:przedmiot', :controller => 'dzienniki', :action => 'show'
+  map.dziennik       '/dzienniki/:parametry', :controller => 'dzienniki', :action => 'show'
   #map.dziennik2       '/dzienniki/p/:klasa', :controller => 'dzienniki', :action => 'show'
 
   map.resources :lekcje

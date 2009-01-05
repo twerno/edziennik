@@ -1,5 +1,5 @@
 <table>
-	<% for uczen in Uczen.all %>
+	<% for uczen in Uczen.existing %>
 		<% if uczen.klasa == [] || uczen.klasa.id == @grupa.id %>
 			<% new = Czlonek.existing.find(:all, :conditions => ["grupa_id = ? AND uczen_id = ?", @grupa.id, uczen.id]).empty?%>
 			<tr>

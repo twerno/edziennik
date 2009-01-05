@@ -2,7 +2,7 @@ class UczniowieController < ApplicationController
   # GET /uczniowie
   # GET /uczniowie.xml
   def index
-    @uczniowie = Uczen.find(:all)
+    @uczniowie = Uczen.existing.find(:all)
 
     respond_to do |format|
       format.html # index.html.erb

@@ -101,7 +101,7 @@ class PlanyController < ApplicationController
   
 
   def create_lekcja
-    @l = Lekcja.existing.find(:first, :include => :lista, :conditions => ["plan_id = ? AND dzien_tygodnia = ? AND godzina_id = ? AND listy.grupa_id = ?", params[:Lekcja][:plan_id], params[:Lekcja][:dzien_tygodnia], params[:Lekcja][:godzina_id], params[:Lekcja][:grupa_id]])
+    @l = Lekcja.existing.find(:first, :include => :lista, :conditions => ["plan_id = ? AND dzien_tygodnia = ? AND godzina_id = ? AND listy.grupa_id = ? AND listy.destroyed = ?", params[:Lekcja][:plan_id], params[:Lekcja][:dzien_tygodnia], params[:Lekcja][:godzina_id], params[:Lekcja][:grupa_id], false])
     if (params[:Lekcja][:lista_id].to_i > 0)
       if (@l.nil?)
         @l = Lekcja.new(:plan_id => params[:Lekcja][:plan_id], :dzien_tygodnia => params[:Lekcja][:dzien_tygodnia], :godzina_id => params[:Lekcja][:godzina_id], :lista_id => params[:Lekcja][:lista_id]) 

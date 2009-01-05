@@ -9,8 +9,8 @@ class Uczen < ActiveRecord::Base
   
   acts_as_external_archive
   
-  named_scope :existing , :conditions => ["destroyed = ?", false]
-  named_scope :destroyed, :conditions => ["destroyed = ?", true]
+  named_scope :existing , :conditions => ["uczniowie.destroyed = ?", false]
+  named_scope :destroyed, :conditions => ["uczniowie.destroyed = ?", true]
   
   #named_scope :nalezy_do, :include => :czlonkowie, :conditions => ["czlonkowie.uczen_id = ?", self.id]
   

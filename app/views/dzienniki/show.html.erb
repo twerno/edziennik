@@ -1,3 +1,17 @@
-<%= @klasa %>
-<%= @przedmiot %>
+Przedmiot : <%= @przedmiot.nazwa.to_s %>
 
+<table border =1>
+<tr>
+	<td></td>
+	<td>Uczniowie</td>
+</tr>
+<% uczen_i = 1 %>
+<% for uczen in @uczniowie %>
+<tr>
+<td><%= uczen_i %></td>	
+<td><%= uczen.nazwisko.to_s+" "+uczen.imie.to_s %></td>	
+	
+</tr>
+<% uczen_i += 1%>
+<% end %>
+</table>

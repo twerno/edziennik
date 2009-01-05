@@ -9,8 +9,8 @@ class Nauczyciel < ActiveRecord::Base
 
   acts_as_external_archive
   
-  named_scope :existing ,   :conditions => ["destroyed = ?", false]
-  named_scope :destroyed,   :conditions => ["destroyed = ?", true]
+  named_scope :existing ,   :conditions => ["nauczyciele.destroyed = ?", false]
+  named_scope :destroyed,   :conditions => ["nauczyciele.destroyed = ?", true]
   named_scope :order_by_nazwisko, :order => :nazwisko
   
   def wychowawca?

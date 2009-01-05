@@ -8,8 +8,8 @@ class Grupa < ActiveRecord::Base
   
   acts_as_external_archive
 
-  named_scope :existing ,   :conditions => ["destroyed = ?", false]
-  named_scope :destroyed,   :conditions => ["destroyed = ?", true]
+  named_scope :existing ,   :conditions => ["grupy.destroyed = ?", false]
+  named_scope :destroyed,   :conditions => ["grupy.destroyed = ?", true]
   
   named_scope :klasa,       :conditions => ["klasa = ?", true]
   named_scope :grupy,       :conditions => ["klasa = ?", false]
@@ -31,7 +31,7 @@ class Grupa < ActiveRecord::Base
     
     all.each do |key|
       (key.set_editors_stamp editors_stamp #unless !(czlonkowie[key.uczen_id.to_s]).nil?
-      key.set_current_user                #unless !(czlonkowie[key.uczen_id.to_s]).nil?
+      key.set_current_user current_user               #unless !(czlonkowie[key.uczen_id.to_s]).nil?
       key.destroy          )               unless !(czlonkowie[key.uczen_id.to_s]).nil?
     end
 
