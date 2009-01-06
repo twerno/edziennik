@@ -21,6 +21,7 @@
     inflect.irregular 'pracownik', 'pracownicy'    
     inflect.irregular 'przedmiot', 'przedmioty'
     inflect.irregular 'rodzic', 'rodzice'
+    inflect.irregular 'rubryka', 'rubryki'
     inflect.irregular 'semestr', 'semestry'
     inflect.irregular 'uczen', 'uczniowie'
  end

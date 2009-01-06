@@ -32,4 +32,9 @@ module ApplicationHelper
     content_for(:head) { stylesheet_link_tag(*files) }
   end
   
+  
+  def Uczniowie collection
+    collection.uniq.sort_by{|s| s.nazwisko.to_s.upcase+" "+s.imie.to_s.upcase}
+  end
+  
 end

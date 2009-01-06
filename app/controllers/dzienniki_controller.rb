@@ -17,17 +17,11 @@ class DziennikiController < ApplicationController
       @lekcje += [[[]]]
       for j in 1..7
         #@lekcje[i]   += [[nil]]
-        puts j
+        #puts j
         @lekcje[i] += [Lekcja.existing.find(:all, :include => :lista, :conditions => ["listy.destroyed = ? AND listy.nauczyciel_id = ? AND listy.semestr_id = ? AND lekcje.godzina_id = ? AND lekcje.dzien_tygodnia = ?", false, @nauczyciel.id, 1, godz.id, j] ).to_a]
       end
       i += 1
     end
-    
-    #@lekcje.delete_at 0
-    
-    puts @lekcje.size
-    puts @lekcje.length
-    puts @lekcje
     
     begin
       @poniedzialek = queries["data"].to_date.at_beginning_of_week
@@ -39,18 +33,25 @@ class DziennikiController < ApplicationController
   end
   
   def show
-    queries = queries_parameters params[:parametry]
+    @queries = queries_parameters params[:parametry]
 
-    @przedmiot = Przedmiot.existing.find(:first, :include => :listy, :conditions => ["listy.destroyed = ? AND listy.przedmiot_id = ? AND listy.grupa_id = ? AND listy.semestr_id = ?", false, queries["przedmiot"], queries["klasa"], queries["semestr"]])
-    @klasa     = Grupa.existing.find_by_id queries["klasa"]
-
+    @przedmiot = Przedmiot.existing.find(:first, :include => :lekcje, :conditions => ["lekcje.id = ? ", @queries["lekcja"]])
+    @klasa     = Grupa.existing.find_by_id @queries["klasa"]
+    @lista     = Lekcja.find(@queries["lekcja"].to_i).lista_id
+    puts "+=======+"
+    puts @lista
+    puts "+=======+"
+    
     begin
-      @poniedzialek = queries["data"].to_date.at_beginning_of_week
+      @poniedzialek = @queries["data"].to_date.at_beginning_of_week
     rescue
       @poniedzialek = Date.today.at_beginning_of_week
     end
     
-    @uczniowie = Uczen.existing.find(:all, :include => :czlonkowie, :conditions => ["czlonkowie.grupa_id = ? AND czlonkowie.destroyed = ?", @klasa.id, false], :order => :nazwisko).sort_by{|s| s.nazwisko.to_s.upcase+" "+s.imie.to_s.upcase}
+    @uczniowie = Uczen.existing.find(:all, :include => :czlonkowie, :conditions => ["czlonkowie.grupa_id = ? AND czlonkowie.destroyed = ?", @klasa.id, false], :order => :nazwisko)
+    
+    
+
     
     if (@przedmiot.nil? || @uczniowie.nil?)
       render( :text => "Wystąpił błąd")
@@ -60,10 +61,6 @@ class DziennikiController < ApplicationController
   
   def sprawdz_obecnosc
     @queries = queries_parameters params[:parametry]
-    
-    #puts params[:parametry]
-    #puts @queries["data"]
-    #puts @queries
     
     @lekcja    = Lekcja.find @queries["lekcja"]
     @data      = @queries["data"].to_date
@@ -78,9 +75,9 @@ class DziennikiController < ApplicationController
     
     params["obecnosci"].each_key do |key|
       u = Uczen.find_by_id key.to_i
-      o = u.obecnosci.find_by_data @queries["data"].to_date
+      o = u.obecnosci.find(:first, :conditions => ["data = ? AND lekcja_id = ? AND uczen_id = ?", @queries["data"], @queries["lekcja"], key.to_i])
       if o.nil? || o.wartosc.to_s != params["obecnosci"][key]
-        o = u.obecnosci.build( :lekcja_id => @queries["lekcja"].to_i, :uczen_id => key.to_i, :data => @queries["data"]) unless !o.nil?
+        o = u.obecnosci.build( :lekcja_id => @queries["lekcja"].to_i, :uczen_id => key.to_i, :data => @queries["data"], :lista_id => Lekcja.find_by_id(@queries["lekcja"].to_i).lista_id ) unless !o.nil?
         o.set_editors_stamp get_editors_stamp
         o.set_current_user  current_user
         o.wartosc = params["obecnosci"][key].to_i

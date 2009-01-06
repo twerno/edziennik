@@ -4,6 +4,7 @@ class Przedmiot < ActiveRecord::Base
   has_many :oceny,       :through => :listy
   has_many :obecnosci,   :through => :listy
   has_many :listy
+  has_many :lekcje,      :through => :listy
   
   acts_as_external_archive
   
