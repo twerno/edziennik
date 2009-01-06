@@ -18,7 +18,8 @@
 		<% for j in 1..@lekcje[i].size-1 %>
 		<td>
 			<% for k in 0..@lekcje[i][j].size-1 %>
-				<%= @lekcje[i][j][k].class.name %>
+				<%= link_to @lekcje[i][j][k].lista.grupa.nazwa + " (" + @lekcje[i][j][k].przedmiot.nazwa[0..7] + ")", 
+                    dziennik_url(:parametry => create_queries({:przedmiot => @lekcje[i][j][k].przedmiot.id, :klasa => @lekcje[i][j][k].lista.grupa_id, :semestr => 1}) ) %>
 			<% end %>
 		</td>
 
