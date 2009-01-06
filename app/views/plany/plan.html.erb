@@ -1,3 +1,8 @@
+<%= link_to 'Plan', "/plany/"+@plan.id.to_s+"/plan" %> | 
+<% for klasa in Grupa.existing.klasa %>
+	<%= link_to klasa.nazwa, "/plany/"+@plan.id.to_s+"/plan/"+klasa.id.to_s %> | 
+<% end %>
+
 <table border = 1>
 	<tr><td></td>
 		<% for nauczyciel in Nauczyciel.existing %>
@@ -16,8 +21,3 @@
 		<% end %>
 	<% end %>
 </table>
-
-	<%= link_to 'Plan', "/plany/"+@plan.id.to_s+"/plan" %> | 
-<% for klasa in Grupa.existing.klasa %>
-	<%= link_to klasa.nazwa, "/plany/"+@plan.id.to_s+"/plan/"+klasa.id.to_s %> | 
-<% end %>

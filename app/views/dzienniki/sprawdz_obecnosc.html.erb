@@ -1,0 +1,17 @@
+<%= @lekcja.przedmiot.nazwa %><br />
+
+<table>
+<% form_for :obecnosci, :url => { :action => "obecnosc_create", :parametry => @parametry } do |f| %>
+<% for uczen in @uczniowie %>
+  <tr>
+  	<% aaa = uczen.obecnosci.find_by_data @queries["data"] %>
+  	<td><%= uczen.id %> <%= uczen.imie %> <%= uczen.nazwisko %></td>
+  	<td>Obecny:    <%= f.radio_button uczen.id, "1", :checked=>"checked" %></td>
+  	<td>Nieobecny: <%= f.radio_button uczen.id, "2", :checked => ((!aaa.nil? && aaa.wartosc == 2 ) ? "checked" : nil) %></td>
+  	<td>Spóźniony: <%= f.radio_button uczen.id, "3", :checked => ((!aaa.nil? && aaa.wartosc == 3 ) ? "checked" : nil) %></td>
+  	<td>Zwolniony/ Usprawiedliwiony: <%= f.radio_button uczen.id, "4", :checked => ((!aaa.nil? && aaa.wartosc == 4 ) ? "checked" : nil) %></td>
+  </tr>
+ <% end %>
+</table>
+<%= f.submit 'akceptuj' %>
+<%end%>

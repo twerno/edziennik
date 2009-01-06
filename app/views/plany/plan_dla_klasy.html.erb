@@ -1,3 +1,8 @@
+<%= link_to 'Plan', "/plany/"+@plan.id.to_s+"/plan" %> | 
+<% for klasa in Grupa.existing.klasa %>
+	<%= link_to klasa.nazwa, "/plany/"+@plan.id.to_s+"/plan/"+klasa.id.to_s %> | 
+<% end %>
+
 <table border = 1>
 	<tr>
 		<td><%=h @grupa.nazwa %></td>
@@ -19,14 +24,6 @@
 	<% godz += 1%>
 	<% end %>
 </table>
-
-<%= hidden_field :plan_id, :value => @plan.id %>
-<%= link_to_remote 'aaaa', :url => {:action => :create_lekcja}%>
-
-	<%= link_to 'Plan', "/plany/"+@plan.id.to_s+"/plan" %> | 
-<% for klasa in Grupa.existing.klasa %>
-	<%= link_to klasa.nazwa, "/plany/"+@plan.id.to_s+"/plan/"+klasa.id.to_s %> | 
-<% end %>
 
 <div id="lekcje">
 	<%= render :partial => 'zarzadzaj_lekcjami' %>

@@ -106,7 +106,10 @@ class PlanyController < ApplicationController
       if (@l.nil?)
         @l = Lekcja.new(:plan_id => params[:Lekcja][:plan_id], :dzien_tygodnia => params[:Lekcja][:dzien_tygodnia], :godzina_id => params[:Lekcja][:godzina_id], :lista_id => params[:Lekcja][:lista_id]) 
       else
-        @l.lista_id = params[:Lekcja][:lista_id]
+        @l.set_editors_stamp get_editors_stamp
+        @l.set_current_user  current_user     
+        @l.destroy
+        @l = Lekcja.new(:plan_id => params[:Lekcja][:plan_id], :dzien_tygodnia => params[:Lekcja][:dzien_tygodnia], :godzina_id => params[:Lekcja][:godzina_id], :lista_id => params[:Lekcja][:lista_id]) 
       end
       @l.set_editors_stamp get_editors_stamp
       @l.set_current_user  current_user
@@ -141,6 +144,7 @@ class PlanyController < ApplicationController
     @grupa   = Grupa.find(params[:klasa])
     #@id      = Lekcja.existing.find
   end
+
 
   def destroy
     @plan = Plan.find(params[:id])

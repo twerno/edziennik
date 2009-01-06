@@ -2,7 +2,7 @@ class CreateObecnosci < ActiveRecord::Migration
   def self.up
     create_table :obecnosci do |t|
       t.integer :wartosc
-      t.integer :uczne_id
+      t.integer :uczen_id
       t.integer :lista_id
       t.integer :lekcja_id
 

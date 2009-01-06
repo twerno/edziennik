@@ -5,4 +5,5 @@ class Godzina < ActiveRecord::Base
   
   named_scope :existing , :conditions => ["godziny.destroyed = ?", false]
   named_scope :destroyed, :conditions => ["godziny.destroyed = ?", true]
+
 end

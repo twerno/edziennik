@@ -32,6 +32,7 @@ class ApplicationController < ActionController::Base
     a
   end
   
+  ## dziala dokladnie odwrotnie niz powyzsza metoda
   def create_queries arg
     a = ""
     arg.each_key do |key|

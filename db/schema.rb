@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090102152424) do
+ActiveRecord::Schema.define(:version => 20090106004651) do
 
   create_table "archives", :force => true do |t|
     t.string   "class_name"
@@ -86,12 +86,13 @@ ActiveRecord::Schema.define(:version => 20090102152424) do
 
   create_table "obecnosci", :force => true do |t|
     t.integer  "wartosc"
-    t.integer  "uczne_id"
     t.integer  "lista_id"
     t.integer  "lekcja_id"
     t.boolean  "destroyed",  :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "uczen_id"
+    t.string   "data"
   end
 
   create_table "oceny", :force => true do |t|

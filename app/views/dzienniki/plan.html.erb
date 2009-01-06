@@ -1,15 +1,16 @@
-<%= link_to 'aaaa', dziennik_url(:parametry => create_queries({:przedmiot => 2, :klasa => 1, :semestr => 1}) ) %>
+<%= link_to 'dziennik dla klasy', dziennik_url(:parametry => create_queries({:przedmiot => 2, :klasa => 1, :semestr => 1}) ) %><br />
+<%= link_to 'sprawdz_obecnosc', obecnosc_url(:parametry => create_queries({:lekcja => 77, :data => Date.today.to_s, :grupa=>1} ))%>
 
 <table border = 1>
 	<tr>
 		<td><%=h User.find(@user).login %></td>
-		<td>Poniedziałek</td>
-		<td>Wtorek</td>
-		<td>Środa</td>
-		<td>Czwartek</td>
-		<td>Piątek</td>
-		<td>Sobota</td>
-		<td>Niedziela</td>
+		<td>Poniedziałek <br /> <%= @poniedzialek %></td>
+		<td>Wtorek <br /> <%= @poniedzialek +1.day%></td>
+		<td>Środa <br /> <%= @poniedzialek +2.day%></td>
+		<td>Czwartek <br /> <%= @poniedzialek +3.day%></td>
+		<td>Piątek <br /> <%= @poniedzialek +4.day%></td>
+		<td>Sobota <br /> <%= @poniedzialek +5.day%></td>
+		<td>Niedziela <br /> <%= @poniedzialek +6.day%></td>
 	</tr><% godz = 1 %>
 	<% for godzina in @godziny %>
 	<tr>
