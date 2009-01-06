@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090106004651) do
+ActiveRecord::Schema.define(:version => 20090106110453) do
 
   create_table "archives", :force => true do |t|
     t.string   "class_name"
@@ -82,6 +82,7 @@ ActiveRecord::Schema.define(:version => 20090106004651) do
     t.boolean  "destroyed",  :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
   create_table "obecnosci", :force => true do |t|
@@ -162,6 +163,7 @@ ActiveRecord::Schema.define(:version => 20090106004651) do
     t.boolean  "destroyed",           :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
   create_table "roles", :force => true do |t|
@@ -203,6 +205,7 @@ ActiveRecord::Schema.define(:version => 20090106004651) do
     t.boolean  "destroyed",      :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
   create_table "users", :force => true do |t|
@@ -220,8 +223,6 @@ ActiveRecord::Schema.define(:version => 20090106004651) do
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "polymorph_id"
-    t.string   "polymorph_type"
     t.boolean  "destroyed",                                :default => false
   end
 

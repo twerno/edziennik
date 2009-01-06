@@ -1,6 +1,6 @@
 class Nauczyciel < ActiveRecord::Base
-  #belongs_to :user
-  has_one  :user, :as => :polymorph
+  belongs_to :user
+  #has_one  :user, :as => :polymorph
   has_one    :grupa  #wychowawca
   has_many   :pnjts     , :dependent => :destroy  #PRZEDMIOT-NAUCZYCIEL JOIN MODEL
   has_many   :przedmioty, :through => :pnjts

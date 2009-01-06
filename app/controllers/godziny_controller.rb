@@ -2,7 +2,7 @@ class GodzinyController < ApplicationController
   # GET /godziny
   # GET /godziny.xml
   def index
-    @godziny = Godzina.find(:all, :order => :begin)
+    @godziny = Godzina.existing.find(:all, :order => :begin)
 
     respond_to do |format|
       format.html # index.html.erb

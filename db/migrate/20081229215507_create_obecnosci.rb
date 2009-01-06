@@ -5,6 +5,7 @@ class CreateObecnosci < ActiveRecord::Migration
       t.integer :uczen_id
       t.integer :lista_id
       t.integer :lekcja_id
+      t.string  :data
 
       t.boolean  :destroyed, :default => false
       #t.integer  :edited_by

@@ -84,7 +84,7 @@ class PlanyController < ApplicationController
   def plan_dla_klasy
     @plan    = Plan.find(params[:id])
     @grupa   = Grupa.find(params[:klasa])
-    @godziny = Godzina.existing.all
+    @godziny = Godzina.existing
 
   end
 

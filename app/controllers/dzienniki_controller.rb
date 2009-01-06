@@ -3,8 +3,32 @@ class DziennikiController < ApplicationController
     queries = queries_parameters params[:parametry]
     
     @godziny = Godzina.existing.find(:all, :order => :begin)
-    @user = 1
-        
+    @nauczyciel = User.find_by_id( 2).nauczyciel
+    
+    #lekcje = Lekcja.existing.find(:all, :include => :lista, :conditions => ["listy.destroyed = ? AND listy.nauczyciel_id = ? AND listy.semestr_id = ?", false, @nauczyciel.id, 1] )
+    
+    @nazwy_wierszy = []
+    @nazwy_kolumn  = []
+    
+    @lekcje = []
+    i = 0
+    for godz in Godzina.existing
+      @nazwy_wierszy += [godz.begin.strftime("%H") << ":" << godz.begin.strftime("%M") << "-" << godz.end.strftime("%H") << ":" << godz.end.strftime("%M")]
+      @lekcje += [[[]]]
+      for j in 1..7
+        #@lekcje[i]   += [[nil]]
+        puts j
+        @lekcje[i] += [Lekcja.existing.find(:all, :include => :lista, :conditions => ["listy.destroyed = ? AND listy.nauczyciel_id = ? AND listy.semestr_id = ? AND lekcje.godzina_id = ? AND lekcje.dzien_tygodnia = ?", false, @nauczyciel.id, 1, godz.id, j] ).to_a]
+      end
+      i += 1
+    end
+    
+    #@lekcje.delete_at 0
+    
+    puts @lekcje.size
+    puts @lekcje.length
+    puts @lekcje
+    
     begin
       @poniedzialek = queries["data"].to_date.at_beginning_of_week
     rescue

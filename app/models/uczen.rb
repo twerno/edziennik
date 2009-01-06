@@ -1,6 +1,6 @@
 class Uczen < ActiveRecord::Base
-  #belongs_to :user
-  has_one  :user, :as => :polymorph
+  belongs_to :user
+  #has_one  :user, :as => :polymorph
   belongs_to :rodzic
   has_many   :czlonkowie
   has_many   :oceny

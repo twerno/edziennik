@@ -39,8 +39,8 @@ class BortMigration < ActiveRecord::Migration
       t.datetime :deleted_at
       t.timestamps
       
-      t.integer  :polymorph_id
-      t.string   :polymorph_type
+      #t.integer  :polymorph_id
+      #t.string   :polymorph_type
       t.boolean  :destroyed, :default => false
       #t.string   :class_name
       #t.integer  :edited_by
