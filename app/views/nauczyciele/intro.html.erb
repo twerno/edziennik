@@ -1,0 +1,40 @@
+<% form_tag '/nauczyciele/konta' do -%>
+<h1>Listing nauczyciele</h1>
+
+<table>
+  <tr>
+    <th>Imie</th>
+    <th>Nazwisko</th>
+	<th>konto</th>
+	<th></th>
+	<th></th>
+	<th></th>
+	<th>Utworz konto/ utworz haslo</th>
+  </tr>
+
+<% for nauczyciel in @nauczyciele %>
+  <tr>
+    <td><%=h nauczyciel.imie %></td>
+    <td><%=h nauczyciel.nazwisko %></td>
+	<td><%= (nauczyciel.user.nil?) ? 'nie posiada' : 'posiada' %></td>
+    <td><%= link_to 'Show', nauczyciel %></td>
+    <td><%= link_to 'Edit', edit_nauczyciel_path(nauczyciel) %></td>
+    <td><%= link_to 'Destroy', nauczyciel, :confirm => 'Are you sure?', :method => :delete %></td>
+	<td><input id="<%= (nauczyciel.user.nil?) ? 'konto' : 'haslo' %>_<%= nauczyciel.id %>" name="<%= (nauczyciel.user.nil?) ? 'konto' : 'haslo' %>[<%= nauczyciel.id %>]" type="checkbox"> <%= (nauczyciel.user.nil?) ? 'Utworz konto' : 'Utworz nowe haslo' %></td>
+  </tr>
+<% end %>
+  <tr>
+    <td></td>
+    <td></td>
+	<td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+	<td><%= submit_tag 'Pobierz' %></td>
+  </tr>
+</table>
+
+<br />
+
+<%= link_to 'New nauczyciel', new_nauczyciel_path %>
+<% end %>

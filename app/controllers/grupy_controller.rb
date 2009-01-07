@@ -1,6 +1,12 @@
 class GrupyController < ApplicationController
   # GET /grupy
   # GET /grupy.xml
+  
+  def intro
+    @grupy = Grupa.existing.klasa
+  end
+  
+  
   def index
     @grupy = Grupa.existing.klasa
 

@@ -61,10 +61,10 @@ class ApplicationController < ActionController::Base
   
   def uczen?
     puts "+++++++++++++++"
-    puts zalogowany
-    puts zalogowany.nil?
+    puts current_user
+    puts current_user.nil?
         puts "+++++++++++++++"
-    if !zalogowany.nil?
+    if !current_user.nil?
       return (zalogowany.class.to_s == "Uczen") ? true : false
     end
     
@@ -72,8 +72,13 @@ class ApplicationController < ActionController::Base
   end
   
   def rodzic?
-    #(zalogowany.class.to_s == "Rodzic") ? true : false
-    false
+        puts "+++++++++++++++"
+    puts current_user
+    puts current_user.nil?
+        puts "+++++++++++++++"
+    if !current_user.nil?
+      return (zalogowany.class.to_s == "Rodzic") ? true : false
+    end
   end
   
   def nauczyciel?

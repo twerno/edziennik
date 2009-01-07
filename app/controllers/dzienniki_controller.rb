@@ -1,4 +1,5 @@
 class DziennikiController < ApplicationController
+
   def plan
     queries = queries_parameters params[:parametry]
     
@@ -50,7 +51,7 @@ class DziennikiController < ApplicationController
     if (@przedmiot.nil? || @uczniowie.nil?)
       render( :text => "Wystąpił błąd")
     end
-    render :layout => "application"
+    #render :layout => "application"
   end
   
   

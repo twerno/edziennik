@@ -21,15 +21,22 @@
   <script>
   	jQuery.noConflict();
   jQuery(document).ready(function(){
-    jQuery("#example > ul").tabs({ fx: { opacity: 'toggle' }, selected: null });
-	/*jQuery("#dziwny").show();*/
-	jQuery('#example').tabs({
-    load: function(e, ui) {
+    jQuery("#example > ul").tabs({
+		selected: null
+	});
+		jQuery('#dziwny').show();
+		jQuery('#example').tabs({selected: null,
+			
+   /* load: function(e, ui) {
         jQuery('a', ui.panel).click(function() {
             jQuery(ui.panel).load(this.href);
             return false;
         });
-    }, selected: null, fx: { opacity: 'toggle' }
+    },*/
+	load: function(e, ui) {
+                        /*alert('onShow');*/
+						jQuery('#dziwny').hide();
+                    }			
 });
   });
   </script>
@@ -63,8 +70,8 @@
 	<% if admin? %>
 		<ul>
 			<li><%= link_to "<span>godziny</span>", "/godziny", :title => "ui-1" %></li>
-			<li><%= link_to "<span>grupy</span>", grupy_path, :title => "ui-1" %></li>
-			<li><%= link_to "<span>nauczyciele</span>", "/nauczyciele", :title => "ui-3" %></li>
+			<li><%= link_to "<span>grupy</span>", grupy_intro_path, :title => "ui-2" %></li>
+			<li><%= link_to "<span>nauczyciele</span>", naucz_intro_path, :title => "ui-3" %></li>
 			<li><%= link_to "<span>przedmioty</span>", "/przedmioty", :title => "ui-4" %></li>
 			<li><%= link_to "<span>uczniowie</span>", "/uczniowie", :title => "ui-5" %></li>
 			<li><%= link_to "<span>semestry</span>", "/semestry", :title => "ui-6" %></li>
@@ -74,40 +81,17 @@
 	<% end %>
 	<% if rodzic? %>
 		<ul>
-	        <li><a href="/dzienniki/plan/data=2007-01-01" title="zawartosc"><span>plan</span></a></li>
+	        <li><a href="/rodzic/plan" title="zawartosc"><span>plan</span></a></li>
 	        <li><a href="/dzienniki/plan/data=2007-01-01" title="zawartosc"><span>Klasy</span></a></li>
 			<li><a href="/dzienniki/plan/data=2007-01-01" title="zawartosc"><span>Przedmioty</span></a></li>
 	    </ul>
 	<% end %>				
 </div>
 			
-				<%= flash_messages %>
-					<div id="dziwny" style="display:none;"><%= yield %></div>
-<% if !logged_in? %>
-  <% form_tag session_path do %>
-	
-		<legend>Your Details</legend>
-	<table>
-			<tr>
-				<td><%= label_tag 'login', 'Username' %></td>
-				<td><%= text_field_tag 'login', @login %></td>
-			</tr>
-			<tr>
-				<td><%= label_tag 'password' %></td>
-				<td><%= password_field_tag 'password', nil %></td>
-			</tr>
-			<tr>
-				<td><%= label_tag 'remember_me', 'Remember me' %></td>
-				<td><%= check_box_tag 'remember_me', '1', @remember_me %></td>
-			</tr>
-		</ol>
-	</table>
-	<div class="buttons">
-		<%= submit_tag 'Login' %>
-		<%= link_to 'Forgotten Password', forgot_password_path %>
-	</div>
-<% end -%>
-<% end %>
+				
+					<div id="dziwny" style="display:compact;"><%= flash_messages %><%= yield %></div>
+
+
 			
 		
 		

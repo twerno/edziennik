@@ -1,4 +1,5 @@
 class GodzinyController < ApplicationController
+  #layout "application"
   # GET /godziny
   # GET /godziny.xml
   def index
@@ -35,6 +36,7 @@ class GodzinyController < ApplicationController
   # GET /godziny/1/edit
   def edit
     @godzina = Godzina.find(params[:id])
+    #render :layout => "application"
   end
 
   # POST /godziny

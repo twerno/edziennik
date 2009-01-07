@@ -1,11 +1,19 @@
 class NauczycieleController < ApplicationController
   # GET /nauczyciele
   # GET /nauczyciele.xml
+  def intro
+    @nauczyciele = Nauczyciel.existing.find(:all, :order => :nazwisko)
+    respond_to do |format|
+      format.html #{render :layout => 'application'}
+      format.xml  { render :xml => @nauczyciele }
+    end
+  end
+  
   def index
     @nauczyciele = Nauczyciel.existing.find(:all, :order => :nazwisko)
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html {render :layout => 'application'}
       format.xml  { render :xml => @nauczyciele }
     end
   end
@@ -23,7 +31,7 @@ class NauczycieleController < ApplicationController
     @nauczyciel = Nauczyciel.new
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html {render :layout => "application"}
       format.xml  { render :xml => @nauczyciel }
     end
   end

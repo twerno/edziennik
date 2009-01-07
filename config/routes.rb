@@ -5,8 +5,8 @@ ActionController::Routing::Routes.draw do |map|
   map.rodzic_przed  '/rodzic/przedmioty', :controller => 'rodzic', :action => 'przedmioty'
   map.rodzic_przed2  '/rodzic/przedmioty/:id', :controller => 'rodzic', :action => 'przedmioty'
 
-
-
+  map.grupy_intro  '/grupy/intro', :controller => 'grupy', :action => 'intro'
+  map.naucz_intro  '/nauczyciele/intro', :controller => 'nauczyciele', :action => 'intro'
 
   map.plan           '/plany/:id/plan',        :controller => 'plany', :action => 'plan'
   map.plan_dla_klasy '/plany/:id/plan/:klasa', :controller => 'plany', :action => 'plan_dla_klasy'
@@ -56,7 +56,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :session
 
   # Home Page
-  map.root :controller => 'sessions', :action => 'intro'
+  map.root :controller => 'sessions', :action => 'new'
 
   # Install the default routes as the lowest priority.
   map.connect ':controller/:action.:format'
