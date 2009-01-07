@@ -1,0 +1,155 @@
+body{
+	margin: 0;
+}
+	/*klasy*/
+ul#nav {
+	margin: 0 0 20px;
+	padding: 0;
+	list-style-type: none;
+	border-top: 1px solid #535457;
+	border-bottom: 1px solid #050A10;
+	text-align: center;;
+	}
+ul#nav:after {	
+	content: ".";
+	clear: both;
+	display: block;
+	visibility: hidden;
+	height: 0;
+	}
+ul#nav li {
+	/* this width needs changing 
+	depending on the amount of links. 
+	Divide 100% by the amount of links 
+	and set the value here. 
+	e.g. 5 links: 100/5 = 20% */ 	
+	width: 40px;
+	float: left; 
+	margin: 0; 
+	font-size: 14px;
+	font-weight: bold;
+	background: #3C3C3C url(grafika/nav_over_.png) no-repeat 50% 100%;
+	}	
+ul#nav li a {
+	display: block; 
+	background: #3C3C3C url(grafika/nav_.png) repeat-x 50% 100%;
+	height: 25px;
+	padding-top: 0;
+	color: #fff;
+	text-decoration: none;
+	border-right: 1px solid #535457;
+	border-left: 1px solid #050A10;
+	
+	} 	
+ul#nav li.first a {	border-left-color: #535457; }
+ul#nav li a:hover { background-color: transparent; background-image: none; }
+ul#nav li.on a,
+ul#nav li.on a:hover { background-image: url(grafika/nav_on_2.png); }
+
+
+
+		/* TOP NAVIGATION */
+#przedmioty{
+float: left;
+width: 100%;
+margin: 0;
+padding: 0;
+list-style: none;
+
+}
+#przedmioty li {
+float: left;
+margin: 0;
+padding: 0;
+}
+#przedmioty a {
+float: left;
+display: block;
+width: 140px;
+text-align: center;
+text-decoration: none;
+font-weight: bold;
+font-size: 100%;
+color: #fff;
+background: #0066CC url(grafika/tloc.png) no-repeat top right;
+}
+
+#przedmioty a:hover {
+color: #000;
+}
+
+/*TABELA*/
+
+/*** Styl dla doc3.html (Tabele) ***/
+
+#demo-table {
+  font: 90% sans-serif;
+  border-collapse: collapse;
+  border: 1px solid #000033;
+  }
+
+
+
+
+/* basic shared rules */
+#demo-table th,
+#demo-table td {
+  text-align: center;;
+  padding-right: .5em;
+  padding-top: 3px;
+  padding-bottom:3px;
+  }
+
+#demo-table th {
+  font-weight: bold;
+  color: #fff;
+  padding-left: .5em;
+  background:#3C3C3C url(grafika/nav_on_.png) no-repeat 50% 100%;
+  }
+
+
+/* body */
+#demo-table td {
+  background-color: #EAF1FD;
+  padding:.5em .5em .5em 3em;
+  }
+
+/*zakladki v3*/
+#v3 li {
+	display: block;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+#v3 {
+	float: left;
+	width: 1115px;
+	border-bottom: 3px solid #003366;
+
+}
+
+#v3 li {
+	float: left;
+	background: url("grafika/zakladkab.gif") no-repeat left bottom;
+	margin-right: 10px;
+}
+
+
+#v3 a:link, #v3 a:visited {
+	text-decoration: none;
+	display: block;
+	font-weight: bold;
+	background: url("grafika/zakladka2c.gif") no-repeat right bottom;
+	color:  #fff;
+	padding: 10px 15px 0px 5px;
+	margin-left: 10px;
+}
+
+#v3 a:hover {
+	color: #CCFFFF;
+	
+}
+
+
+

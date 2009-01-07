@@ -37,4 +37,20 @@ module ApplicationHelper
     collection.uniq.sort_by{|s| s.nazwisko.to_s.upcase+" "+s.imie.to_s.upcase}
   end
   
+  def imie arg
+    begin
+      imie = arg.imie.to_s
+    rescue
+      imie = ""
+    end  
+    
+     begin
+      nazwisko = arg.nazwisko.to_s
+    rescue
+      nazwisko = ""
+    end  
+
+    imie + " " + nazwisko
+  end
+  
 end

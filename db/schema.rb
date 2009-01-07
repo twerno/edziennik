@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090106211925) do
+ActiveRecord::Schema.define(:version => 20090107084356) do
 
   create_table "archives", :force => true do |t|
     t.string   "class_name"

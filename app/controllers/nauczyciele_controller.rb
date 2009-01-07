@@ -14,11 +14,7 @@ class NauczycieleController < ApplicationController
   # GET /nauczyciele/1.xml
   def show
     @nauczyciel = Nauczyciel.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @nauczyciel }
-    end
+    render :layout => 'application'
   end
 
   # GET /nauczyciele/new

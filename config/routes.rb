@@ -1,4 +1,12 @@
 ActionController::Routing::Routes.draw do |map|
+  map.rodzic_plan  '/rodzic/plan', :controller => 'rodzic', :action => 'plan'
+  map.rodzic_oceny  '/rodzic/oceny', :controller => 'rodzic', :action => 'oceny'
+  map.rodzic_obecn  '/rodzic/obecnosci', :controller => 'rodzic', :action => 'obecnosci'
+  map.rodzic_przed  '/rodzic/przedmioty', :controller => 'rodzic', :action => 'przedmioty'
+  map.rodzic_przed2  '/rodzic/przedmioty/:id', :controller => 'rodzic', :action => 'przedmioty'
+
+
+
 
   map.plan           '/plany/:id/plan',        :controller => 'plany', :action => 'plan'
   map.plan_dla_klasy '/plany/:id/plan/:klasa', :controller => 'plany', :action => 'plan_dla_klasy'
@@ -30,6 +38,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :nauczyciele
 
   # Restful Authentication Rewrites
+  map.acc_edit '/edit', :controller => 'sessions', :action => 'edit'
+  map.acc_edit '/update', :controller => 'sessions', :action => 'update'  
   map.logout '/logout', :controller => 'sessions', :action => 'destroy'
   map.login '/login', :controller => 'sessions', :action => 'new'
   map.register '/register', :controller => 'users', :action => 'create'
@@ -46,7 +56,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :session
 
   # Home Page
-  map.root :controller => 'sessions', :action => 'new'
+  map.root :controller => 'sessions', :action => 'intro'
 
   # Install the default routes as the lowest priority.
   map.connect ':controller/:action.:format'

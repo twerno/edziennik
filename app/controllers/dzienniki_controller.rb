@@ -3,7 +3,7 @@ class DziennikiController < ApplicationController
     queries = queries_parameters params[:parametry]
     
     @godziny = Godzina.existing.find(:all, :order => :begin)
-    @nauczyciel = User.find_by_id( 2).nauczyciel
+    @nauczyciel = zalogowany
     
     #lekcje = Lekcja.existing.find(:all, :include => :lista, :conditions => ["listy.destroyed = ? AND listy.nauczyciel_id = ? AND listy.semestr_id = ?", false, @nauczyciel.id, 1] )
     
@@ -38,9 +38,6 @@ class DziennikiController < ApplicationController
     @przedmiot = Przedmiot.existing.find(:first, :include => :lekcje, :conditions => ["lekcje.id = ? ", @queries["lekcja"]])
     @klasa     = Grupa.existing.find_by_id @queries["klasa"]
     @lista     = Lekcja.find(@queries["lekcja"].to_i).lista_id
-    puts "+=======+"
-    puts @lista
-    puts "+=======+"
     
     begin
       @poniedzialek = @queries["data"].to_date.at_beginning_of_week
@@ -50,12 +47,10 @@ class DziennikiController < ApplicationController
     
     @uczniowie = Uczen.existing.find(:all, :include => :czlonkowie, :conditions => ["czlonkowie.grupa_id = ? AND czlonkowie.destroyed = ?", @klasa.id, false], :order => :nazwisko)
     
-    
-
-    
     if (@przedmiot.nil? || @uczniowie.nil?)
       render( :text => "Wystąpił błąd")
     end
+    render :layout => "application"
   end
   
   

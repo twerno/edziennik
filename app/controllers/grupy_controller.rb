@@ -16,8 +16,9 @@ class GrupyController < ApplicationController
     @grupa = Grupa.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html #
       format.xml  { render :xml => @grupa }
+      format.js
     end
   end
 
@@ -28,7 +29,7 @@ class GrupyController < ApplicationController
     @uczniowie = Uczen.all
     
     respond_to do |format|
-      format.html # new.html.erb
+      format.html #
       format.xml  { render :xml => @grupa }
     end
   end
