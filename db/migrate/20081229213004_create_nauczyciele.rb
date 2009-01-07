@@ -3,6 +3,7 @@ class CreateNauczyciele < ActiveRecord::Migration
     create_table :nauczyciele do |t|
       t.string :imie
       t.string :nazwisko
+      t.string :pesel
       
       #t.string   :key      
       t.integer :user_id

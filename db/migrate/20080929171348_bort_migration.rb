@@ -45,6 +45,9 @@ class BortMigration < ActiveRecord::Migration
       #t.string   :class_name
       #t.integer  :edited_by
       #t.text     :editors_stamp
+      t.integer   :uczen_id
+      t.integer   :rodzic_id
+      t.integer   :nauczyciel_id      
     end
     
     add_index :users, :login, :unique => true

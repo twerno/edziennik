@@ -96,4 +96,52 @@ class NauczycieleController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+  def konta
+    pdf = PDF::Writer.new
+    pdf.select_font "Times-Roman"
+    
+    j= true
+    
+    for i in (params["konto"].nil?) ? [] : params["konto"].keys
+      
+      pdf.start_new_page unless j
+      j = false
+      
+      n = Nauczyciel.find i.to_i
+      us= User.new :login => n.pesel
+      haslo = n.new_key
+      us.password = haslo
+      us.uczen_id = n.id
+      us.save(false)
+      us.register!
+      us.activate!
+      
+      pdf.text "Utworzono nowe konto dla nauczyciela: " << n.imie << " " << n.nazwisko
+      pdf.text "Dane do logowania:"
+      pdf.text "login:" << n.pesel
+      pdf.text "haslo:" << haslo
+    end
+    
+    for i in (params["haslo"].nil?) ? [] : params["haslo"].keys
+      
+      pdf.start_new_page unless j
+      j = false
+      
+      n = Nauczyciel.find i.to_i
+      us= n.user
+      haslo = n.new_key
+      us.password = haslo
+      us.save(false)
+
+      pdf.text "Utworzono nowe haslo dla ucznia: " << n.imie << " " << n.nazwisko
+      pdf.text "Dane do logowania:"
+      pdf.text "login:" << n.pesel
+      pdf.text "haslo:" << haslo
+    end
+     
+    send_data pdf.render, :filename => 'products.pdf', :type => 'application/pdf', :disposition => 'inline' unless params["haslo"].nil? & params["konto"].nil?
+    redirect_to :action => :index unless !(params["haslo"].nil? & params["konto"].nil?)
+  end
+  
 end

@@ -1,6 +1,6 @@
 class Nauczyciel < ActiveRecord::Base
-  belongs_to :user
-  #has_one  :user, :as => :polymorph
+  #belongs_to :user
+  has_one  :user
   has_one    :grupa  #wychowawca
   has_many   :pnjts     , :dependent => :destroy  #PRZEDMIOT-NAUCZYCIEL JOIN MODEL
   has_many   :przedmioty, :through => :pnjts
@@ -59,5 +59,9 @@ class Nauczyciel < ActiveRecord::Base
       c.save
     end
   end
+  
+  def new_key
+    Base64.encode64(Digest::SHA1.digest("#{rand(1<<64)}/#{Time.now.to_f}/#{Process.pid}/#{eval("self."+self.class.column_names[0])}/#{eval("self."+self.class.column_names[1])}/#{eval("self."+self.class.column_names[2])}"))[0..6]
+  end 
   
 end

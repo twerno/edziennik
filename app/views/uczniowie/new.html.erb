@@ -24,6 +24,30 @@
   	<option value='true'>Chlopiec</option><option value='false'>Dziewczynka</option>
 	</select>
   <p>
+  	
+<p>Rodzice :</p>
+    <p>
+    	<%= f.label "imie ojca" %><br />
+		<%= text_field :rodzic, :imie_ojca %>
+	</p>
+	
+	<p>
+    	<%= f.label "imie matki" %><br />
+		<%= text_field :rodzic, :imie_matki %>
+	</p>
+	
+	<p>
+    	<%= f.label "nazwisko" %><br />
+		<%= text_field :rodzic, :nazwisko %>
+	</p>
+	<p>
+    	<%= f.label "nazwisko panieńskie" %><br />
+		<%= text_field :rodzic, :nazwisko_panienskie %>
+	</p>
+	<p>
+    	<%= f.label "pesel" %><br />
+		<%= text_field :rodzic, :pesel %>
+	</p>
     <%= f.submit "Create" %>
   </p>
 <% end %>

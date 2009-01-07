@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090106191728) do
+ActiveRecord::Schema.define(:version => 20090106211925) do
 
   create_table "archives", :force => true do |t|
     t.string   "class_name"
@@ -18,7 +18,6 @@ ActiveRecord::Schema.define(:version => 20090106191728) do
     t.integer  "edited_by"
     t.text     "editors_stamp"
     t.text     "body"
-    t.datetime "body_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -79,21 +78,22 @@ ActiveRecord::Schema.define(:version => 20090106191728) do
   create_table "nauczyciele", :force => true do |t|
     t.string   "imie"
     t.string   "nazwisko"
+    t.string   "pesel"
+    t.integer  "user_id"
     t.boolean  "destroyed",  :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "user_id"
   end
 
   create_table "obecnosci", :force => true do |t|
     t.integer  "wartosc"
+    t.integer  "uczen_id"
     t.integer  "lista_id"
     t.integer  "lekcja_id"
+    t.string   "data"
     t.boolean  "destroyed",  :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "uczen_id"
-    t.string   "data"
   end
 
   create_table "oceny", :force => true do |t|
@@ -159,12 +159,13 @@ ActiveRecord::Schema.define(:version => 20090106191728) do
   create_table "rodzice", :force => true do |t|
     t.string   "imie_ojca"
     t.string   "imie_matki"
-    t.string   "nazwistko"
+    t.string   "nazwisko"
     t.string   "nazwisko_panienskie"
+    t.string   "pesel"
+    t.integer  "user_id"
     t.boolean  "destroyed",           :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "user_id"
   end
 
   create_table "roles", :force => true do |t|
@@ -210,10 +211,10 @@ ActiveRecord::Schema.define(:version => 20090106191728) do
     t.string   "nr_legitymacji"
     t.integer  "rodzic_id"
     t.boolean  "chlopiec"
+    t.integer  "user_id"
     t.boolean  "destroyed",      :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "user_id"
   end
 
   create_table "users", :force => true do |t|
@@ -232,6 +233,9 @@ ActiveRecord::Schema.define(:version => 20090106191728) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "destroyed",                                :default => false
+    t.integer  "uczen_id"
+    t.integer  "rodzic_id"
+    t.integer  "nauczyciel_id"
   end
 
   add_index "users", ["login"], :name => "index_users_on_login", :unique => true

@@ -3,8 +3,9 @@ class CreateRodzice < ActiveRecord::Migration
     create_table :rodzice do |t|
       t.string :imie_ojca
       t.string :imie_matki
-      t.string :nazwistko
+      t.string :nazwisko
       t.string :nazwisko_panienskie
+      t.string :pesel
       
       #t.string   :key
       t.integer :user_id

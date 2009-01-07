@@ -11,6 +11,10 @@
     <%= f.label :nazwisko %><br />
     <%= f.text_field :nazwisko %>
   </p>
+  <p>
+    <%= f.label :pesel %><br />
+    <%= f.text_field :pesel %>
+  </p>
   
   	<% for przedmiot in Przedmiot.all %>
 		<% new = Pnjt.existing.find(:all, :conditions => ["nauczyciel_id = ? AND przedmiot_id = ?", @nauczyciel.id, przedmiot.id]).empty? %>

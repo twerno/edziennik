@@ -19,13 +19,13 @@ class User < ActiveRecord::Base
   validates_format_of :email, :with => RE_EMAIL_OK, :message => MSG_EMAIL_BAD, :if => :not_using_openid?
   validates_uniqueness_of :identity_url, :unless => :not_using_openid?
   validate :normalize_identity_url
-  
+
   # Relationships
   has_and_belongs_to_many :roles
   #belongs_to :polymorph, :polymorphic => true
-  has_one :nauczyciel
-  has_one :rodzic
-  has_one :uczen
+  belongs_to :nauczyciel
+  belongs_to :rodzic
+  belongs_to :uczen
   
   #acts_as_external_archive
 

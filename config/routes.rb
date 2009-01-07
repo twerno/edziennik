@@ -10,6 +10,7 @@ ActionController::Routing::Routes.draw do |map|
   map.dziennik       '/dzienniki/:parametry', :controller => 'dzienniki', :action => 'show'
   map.obecnosc       '/dzienniki/obecnosc/:parametry', :controller => 'dzienniki', :action => 'sprawdz_obecnosc', :parametry => nil
   map.obecnosc_create '/dzienniki/obecnosc/create/:parametry', :controller => 'dzienniki', :action => 'obecnosc_create'
+  map.generuj_haslo   '/uczniowie/nowe_haslo/:parametry.:format', :controller => 'hasla', :action => 'nowe_haslo'
   #map.dziennik2       '/dzienniki/p/:klasa', :controller => 'dzienniki', :action => 'show'
 
   map.resources :lekcje
