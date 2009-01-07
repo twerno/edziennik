@@ -112,7 +112,7 @@ class NauczycieleController < ApplicationController
       us= User.new :login => n.pesel
       haslo = n.new_key
       us.password = haslo
-      us.uczen_id = n.id
+      us.nauczyciel_id = n.id
       us.save(false)
       us.register!
       us.activate!
