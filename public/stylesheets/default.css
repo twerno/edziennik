@@ -106,6 +106,8 @@ td#zawartosc table{
 #main_down{
 	height: 20px;
 	background:url(grafika/main_down.jpg) no-repeat;
+	position :relative;
+
 }
 
 #footer{

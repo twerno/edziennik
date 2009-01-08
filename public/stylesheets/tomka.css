@@ -15,7 +15,7 @@
 		 }
 #message .info { 	
 		   			position: absolute;
- 		   		  	background-color: #06ff00;
+ 		   		  	background-color: #21f61c;
 					margin: 0 auto 0 auto;
 					min-width: 100%;	
 					}
@@ -27,3 +27,40 @@
 					margin: 0 auto 0 auto;
 					min-width: 100%;
 				  }
+
+				  
+TABLE  {
+	table-layout: auto; /*rozplanowanie - automatycznie dopasowuje rozmiar komorek do textu */
+	border-style:ridge; /*styl obramowania*/
+	
+	
+	empty-cells: show; /*pokazuje obramowanie wokol pustych komorek*/
+	background: url(/grafika/tlotabeligradient.jpg) repeat; /*tlo z obrazka calej tabeli */
+	opacity: .9;
+	}
+	
+th {
+	padding: 5px;/*wmargines*/
+	font-size: 11pt; /*rozmiar czcionki*/
+	font-weight: 800; /*waga*/
+	font-family: Arial; /*czcionka naglowkow*/
+	background: url(/grafika//tlotab2.jpg) repeat; /*tlo z obrazka naglowka*/
+	font-family : "Trebuchet MS", Helvetica, Arial, Tahoma, sans-serif;
+	}	
+	
+td {
+padding: 0px 10px 0px 10px;
+font-weight: 550; /*waga*/
+font-size: 10pt; /*rozmiar czcionki*/
+border-width: 1px; /*szerokosc obramowania*/
+border-style: groove; /*styl obramowania groove*/
+border-color: #a6adb6; /*kolor obramowania*/
+background: url(/grafika/tlokomorek.jpg) repeat; /*tlo komorek*/
+font-family : "Trebuchet MS", Helvetica, Arial, Tahoma, sans-serif;
+}
+
+/*odsylacze*/
+td a{ color: #06085f;
+background-image: none;
+}
+td a:visited { color: #6e7791}

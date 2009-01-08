@@ -61,7 +61,7 @@ class SessionsController < ApplicationController
     elsif uczen?
       redirect_to uczen_plan_path
     elsif admin?
-      redirect_to :controller => :sessions, :action => :intro 
+      redirect_to :controller => :sessions, :action => :intro
     elsif nauczyciel?
       redirect_to :controller => :nauczyciel, :action => :plan
     end

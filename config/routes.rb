@@ -14,46 +14,33 @@ ActionController::Routing::Routes.draw do |map|
   map.nauczyciel_plan '/nauczyciel/plan',      :controller => 'nauczyciel',  :action => 'plan'
   map.nauczyciel_dziennik '/nauczyciel/dziennik/:id', :controller => 'nauczyciel',  :action => 'dziennik'
 
-  map.grupy_intro    '/grupy/intro',           :controller => 'grupy',       :action => 'intro'
-  map.naucz_intro    '/nauczyciele/intro',     :controller => 'nauczyciele', :action => 'intro'
-  map.rodzi_intro    '/rodzic/intro',          :controller => 'rodzic',      :action => 'intro'
-  map.uczni_intro    'uczniowie/intro',        :controller => 'uczniowie',   :action => 'intro'
-  map.godzi_intro    'godziny/intro',          :controller => 'godziny',     :action => 'intro'
-  map.przed_intro    'przedmioty/intro',       :controller => 'przedmioty',  :action => 'intro'
-  map.semes_intro    'semestry/intro',         :controller => 'semestry',    :action => 'intro'
-  map.plany_intro    'plany/intro',            :controller => 'plany',       :action => 'intro'
-  map.uczen_intro    'uczen.intro',            :controller => 'uczen',       :action => 'intro'
+  map.grupy_intro      '/grupy/intro',         :controller => 'grupy',       :action => 'intro'
+  map.naucz_intro      '/nauczyciele/intro',   :controller => 'nauczyciele', :action => 'intro'
+  map.rodzi_intro      '/rodzic/intro',        :controller => 'rodzic',      :action => 'intro'
+  map.uczni_intro      '/uczniowie/intro',     :controller => 'uczniowie',   :action => 'intro'
+  map.godzi_intro      '/godziny/intro',       :controller => 'godziny',     :action => 'intro'
+  map.przed_intro      '/przedmioty/intro',    :controller => 'przedmioty',  :action => 'intro'
+  map.semes_intro      '/semestry/intro',      :controller => 'semestry',    :action => 'intro'
+  map.plany_intro      '/plany/intro',         :controller => 'plany',       :action => 'intro'
+  map.uczen_intro      '/uczen.intro',         :controller => 'uczen',       :action => 'intro'
   map.nauczyciel_intro '/nauczyciel/intro',    :controller => 'nauczyciel',  :action => 'intro'
+
  
-  map.plan_update    'plany/update/:id',         :controller => 'plany', :action => 'update'
-  map.plan           '/plany/:id/plan',        :controller => 'plany', :action => 'plan'
-  map.plan_dla_klasy '/plany/:id/plan/:klasa', :controller => 'plany', :action => 'plan_dla_klasy'
-  map.wybierz_kom    '/plany/:id/plan/:klasa/:dzien/:godzina.:format', :controller => 'plany', :action => 'wybierz_kom', :format => 'js'
-  map.nowa_klasa     '/grupy/nowa_klasa',     :controller => 'grupy', :action => 'nowa_klasa'
-  map.nowa_grupa     '/grupy/:id/nowa_grupa', :controller => 'grupy', :action => 'nowa_grupa'
-  map.przedmioty     '/grupy/:id/przedmioty', :controller => 'grupy', :action => 'przedmioty'
-  map.plan_dla       '/dzienniki/plan/:parametry',   :controller => 'dzienniki', :action => 'plan'
-  map.dziennik       '/dzienniki/:parametry', :controller => 'dzienniki', :action => 'show'
-  map.obecnosc       '/dzienniki/obecnosc/:parametry', :controller => 'dzienniki', :action => 'sprawdz_obecnosc', :parametry => nil
+  map.plan_update     'plany/update/:id',         :controller => 'plany', :action => 'update'
+  map.plan            '/plany/:id/plan',        :controller => 'plany', :action => 'plan'
+  map.plan_dla_klasy  '/plany/:id/plan/:klasa', :controller => 'plany', :action => 'plan_dla_klasy'
+  map.wybierz_kom     '/plany/:id/plan/:klasa/:dzien/:godzina.:format', :controller => 'plany', :action => 'wybierz_kom', :format => 'js'
+  map.nowa_klasa      '/grupy/nowa_klasa',     :controller => 'grupy', :action => 'nowa_klasa'
+  map.nowa_grupa      '/grupy/:id/nowa_grupa', :controller => 'grupy', :action => 'nowa_grupa'
+  map.przedmioty      '/grupy/:id/przedmioty', :controller => 'grupy', :action => 'przedmioty'
+  map.plan_dla        '/dzienniki/plan/:parametry',   :controller => 'dzienniki', :action => 'plan'
+  map.dziennik        '/dzienniki/:parametry', :controller => 'dzienniki', :action => 'show'
+  map.obecnosc        '/dzienniki/obecnosc/:parametry', :controller => 'dzienniki', :action => 'sprawdz_obecnosc', :parametry => nil
   map.obecnosc_create '/dzienniki/obecnosc/create/:parametry', :controller => 'dzienniki', :action => 'obecnosc_create'
   map.generuj_haslo   '/uczniowie/nowe_haslo/:parametry.:format', :controller => 'hasla', :action => 'nowe_haslo'
   #map.dziennik2       '/dzienniki/p/:klasa', :controller => 'dzienniki', :action => 'show'
 
-  map.resources :lekcje
 
-  map.resources :plany
-
-  map.resources :semestry
-
-  map.resources :grupy
-
-  map.resources :uczniowie
-
-  map.resources :godziny
-
-  map.resources :przedmioty
-
-  map.resources :nauczyciele
 
   # Restful Authentication Rewrites
   map.acc_edit '/edit', :controller => 'sessions', :action => 'edit'
@@ -69,10 +56,19 @@ ActionController::Routing::Routes.draw do |map|
   map.open_id_create '/opencreate', :controller => "users", :action => "create", :requirements => { :method => :get }
 
   # Restful Authentication Resources
-  map.resources :users
+  map.resources :godziny
+  map.resources :grupy
+  map.resources :lekcje
+  map.resources :nauczyciele
   map.resources :passwords
-  map.resource :session
+  map.resources :plany
+  map.resources :przedmioty
+  map.resources :semestry
+  map.resource  :session
+  map.resources :uczniowie
+  map.resources :users
 
+  
   # Home Page
   map.root :controller => 'sessions', :action => 'new'
 
