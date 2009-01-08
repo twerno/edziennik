@@ -3,12 +3,12 @@ ActionController::Routing::Routes.draw do |map|
   map.rodzic_oceny   '/rodzic/oceny',          :controller => 'rodzic', :action => 'oceny'
   map.rodzic_obecn   '/rodzic/obecnosci',      :controller => 'rodzic', :action => 'obecnosci'
   map.rodzic_przed   '/rodzic/przedmioty',     :controller => 'rodzic', :action => 'przedmioty'
-  map.rodzic_przed2  '/rodzic/przedmiot/:id', :controller => 'rodzic', :action => 'przedmioty'
+  map.rodzic_przed2  '/rodzic/przedmiot/:id',  :controller => 'rodzic', :action => 'przedmiot'
 
-  map.grupy_intro  '/grupy/intro', :controller => 'grupy', :action => 'intro'
-  map.naucz_intro  '/nauczyciele/intro', :controller => 'nauczyciele', :action => 'intro'
-  map.rodzi_intro  '/rodzic/intro', :controller => 'rodzic', :action => 'intro'
-
+  map.grupy_intro    '/grupy/intro',           :controller => 'grupy',       :action => 'intro'
+  map.naucz_intro    '/nauczyciele/intro',     :controller => 'nauczyciele', :action => 'intro'
+  map.rodzi_intro    '/rodzic/intro',          :controller => 'rodzic',      :action => 'intro'
+ 
   map.plan           '/plany/:id/plan',        :controller => 'plany', :action => 'plan'
   map.plan_dla_klasy '/plany/:id/plan/:klasa', :controller => 'plany', :action => 'plan_dla_klasy'
   map.wybierz_kom    '/plany/:id/plan/:klasa/:dzien/:godzina', :controller => 'plany', :action => 'wybierz_kom'

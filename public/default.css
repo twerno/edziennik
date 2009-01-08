@@ -183,6 +183,9 @@ background: url(grafika/tlokomorek.jpg) repeat; /*tlo komorek*/
 /*odsylacze*/
 td a{ color: #06085f;}
 td a:visited { color: #6e7791}
+#obecnosc1 {
+	background-color:#a6adb6;
+}
 
 
 

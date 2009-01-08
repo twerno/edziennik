@@ -76,16 +76,20 @@
 			<li><%= link_to "<span>uczniowie</span>", "/uczniowie", :title => "ui-5" %></li>
 			<li><%= link_to "<span>semestry</span>", "/semestry", :title => "ui-6" %></li>
 			<li><%= link_to "<span>plany</span>", "/plany", :title => "ui-7" %></li>
-			<li><%= link_to "<span>dzienniki</span>", "/dzienniki/plan/data=2007-01-01", :title => "ui-8" %></li>
 		</ul>
 	<% end %>
 	<% if rodzic? %>
 		<ul>
-	        <li><a href="/rodzic/plan" title="zawartosc"><span>plan</span></a></li>
-	        <li><a href="/dzienniki/plan/data=2007-01-01" title="zawartosc"><span>Klasy</span></a></li>
-			<li><a href="/dzienniki/plan/data=2007-01-01" title="zawartosc"><span>Przedmioty</span></a></li>
+	        <li><%= link_to "<span>plan</span>", rodzi_intro_path %></li>
+	        <li><a href="" title="zawartosc"><span>Uczen</span></a></li>
+			<li><%= link_to "<span>Przedmioty</span>", rodzic_przed_path %></li>
 	    </ul>
-	<% end %>				
+	<% end %>
+	<%if nauczyciel %>
+	<ul>
+		<li><%= link_to "<span>dzienniki</span>", "/dzienniki/plan/data=2007-01-01", :title => "ui-8" %></li>
+	</ul>	
+	<% end %>			
 </div>
 			
 				
