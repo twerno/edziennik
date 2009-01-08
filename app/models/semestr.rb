@@ -6,4 +6,6 @@ class Semestr < ActiveRecord::Base
 
   named_scope :existing ,   :conditions => ["semestry.destroyed = ?", false]
   named_scope :destroyed,   :conditions => ["semestry.destroyed = ?", true]
+  
+  named_scope :active,   :conditions => ["semestry.aktualny = ?", true]
 end

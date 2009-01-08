@@ -25,14 +25,14 @@ class Uczen < ActiveRecord::Base
   end
   
   
-  def grupy
-    c = Czlonek.existing.u(self.id).collect{|ccc| ccc.grupa.id}
-    g = []
-    c.each do |key|
-      g += Grupa.existing.grupy.find(:all, :conditions => ["id = ?", key])
-    end
-    (g.nil? || g.empty?) ? [] : g
-  end
+#  def grupy
+#    c = Czlonek.existing.u(self.id).collect{|ccc| ccc.grupa.id}
+#    g = []
+#    c.each do |key|
+#      g += Grupa.existing.grupy.find(:all, :conditions => ["id = ?", key])
+#    end
+#    (g.nil? || g.empty?) ? [] : g
+#  end
 
   
   def new_key

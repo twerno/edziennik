@@ -28,7 +28,7 @@ class DomyslneKonta < ActiveRecord::Migration
     us = User.new
     us.login = "nauczyciel"
     us.password = "nauczyciel"
-    us.rodzic_id = n.id
+    us.nauczyciel_id = n.id
     us.save(false)
     us.register!
     us.activate!

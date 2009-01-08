@@ -70,7 +70,7 @@
 	<% if admin? %>
 		<ul>
 			<li><%= link_to "<span>godziny</span>", "/godziny", :title => "ui-1" %></li>
-			<li><%= link_to "<span>grupy</span>", grupy_intro_path, :title => "ui-2" %></li>
+			<li><%= link_to "<span>grupy</span>", grupy_path, :title => "ui-2" %></li>
 			<li><%= link_to "<span>nauczyciele</span>", naucz_intro_path, :title => "ui-3" %></li>
 			<li><%= link_to "<span>przedmioty</span>", "/przedmioty", :title => "ui-4" %></li>
 			<li><%= link_to "<span>uczniowie</span>", "/uczniowie", :title => "ui-5" %></li>
@@ -89,7 +89,7 @@
 </div>
 			
 				
-					<div id="dziwny" style="display:compact;"><%= flash_messages %><%= yield %></div>
+<div id="dziwny" style="display:compact;"><%= flash_messages %><%= yield %></div>
 
 
 			

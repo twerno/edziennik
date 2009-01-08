@@ -7,6 +7,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.grupy_intro  '/grupy/intro', :controller => 'grupy', :action => 'intro'
   map.naucz_intro  '/nauczyciele/intro', :controller => 'nauczyciele', :action => 'intro'
+  map.rodzi_intro  '/rodzic/intro', :controller => 'rodzic', :action => 'intro'
 
   map.plan           '/plany/:id/plan',        :controller => 'plany', :action => 'plan'
   map.plan_dla_klasy '/plany/:id/plan/:klasa', :controller => 'plany', :action => 'plan_dla_klasy'

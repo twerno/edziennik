@@ -11,7 +11,7 @@ class GrupyController < ApplicationController
     @grupy = Grupa.existing.klasa
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html {render :layout => 'application'}
       format.xml  { render :xml => @grupy }
     end
   end
@@ -22,7 +22,7 @@ class GrupyController < ApplicationController
     @grupa = Grupa.find(params[:id])
 
     respond_to do |format|
-      format.html #
+      format.html {render :layout => 'application'}
       format.xml  { render :xml => @grupa }
       format.js
     end
@@ -35,7 +35,7 @@ class GrupyController < ApplicationController
     @uczniowie = Uczen.all
     
     respond_to do |format|
-      format.html #
+      format.html {render :layout => 'application'}
       format.xml  { render :xml => @grupa }
     end
   end
@@ -49,7 +49,7 @@ class GrupyController < ApplicationController
     @grupa     = Grupa.new
     
     respond_to do |format|
-      format.html # new.html.erb
+      format.html {render :layout => 'application'}
       format.xml  { render :xml => @grupa }
     end
   end
@@ -102,7 +102,7 @@ class GrupyController < ApplicationController
         format.html { redirect_to(@grupa) }
         format.xml  { render :xml => @grupa, :status => :created, :location => @grupa }
       else
-        format.html { render :action => "nowa_klasa" }
+        format.html { render :action => "nowa_klasa", :layout => 'application' }
         format.xml  { render :xml => @grupa.errors, :status => :unprocessable_entity }
       end
     end

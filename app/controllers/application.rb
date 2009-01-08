@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   include RoleRequirementSystem
 
   helper :all # include all helpers, all the time
-  helper_method :create_queries, :zalogowany, :admin?, :rodzic?, :uczen?, :nauczyciel?
+  helper_method :create_queries, :zalogowany, :admin?, :rodzic?, :uczen?, :nauczyciel?, :Create_Array
   protect_from_forgery :secret => 'b0a876313f3f9195e9bd01473bc5cd06'
   filter_parameter_logging :password, :password_confirmation
   rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
@@ -85,5 +85,28 @@ class ApplicationController < ActionController::Base
     #(zalogowany.class.to_s == "Nauczyciel") ? true : false
     false
   end
+  
+  def Create_Array arg
+    a = []
+    for i in 0..arg[0]-1
+      a += [[nil]]
+      for j in 0..arg[1]-2
+        a[i] += [nil]
+      end
+    end
+    a
+  end
+  
+  
+  def scope_or model, args
+    s= "("
+    args.each {|c|
+      s << model << " = " << c.to_s << " OR " 
+    }
+    s = s[0..s.length-5]
+    s << ")"
+  end
+  
+  
 end
 
