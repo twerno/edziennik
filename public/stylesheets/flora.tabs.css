@@ -46,6 +46,8 @@
     text-decoration: none;
     white-space: nowrap; /* @ IE 6 */
     outline: 0; /* @ Firefox, prevent dotted border after click */    
+    min-width: 80px;
+	text-align:center;
 }
 .ui-tabs-nav a:link, .ui-tabs-nav a:visited {
     color: #fff;
@@ -86,7 +88,7 @@
     color: #000;
 }
 .ui-tabs-panel {
-    border: 3px solid #333366;
+    /*border: 3px solid #333366;*/
     padding: 10px;
 	min-height: 385px;
     /* declare background color for container to avoid distorted fonts in IE while fading */

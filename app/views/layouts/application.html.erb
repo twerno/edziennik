@@ -6,7 +6,7 @@
 		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 		<title>E-DZIENNIK</title>
 
-  <%= stylesheet_link_tag 'base', 'scaffold', "/flora.tabs.css", "/default.css" %>
+  <%= stylesheet_link_tag 'base', 'scaffold', "flora.tabs", "default" %>
   <%= javascript_include_tag :defaults, 'data2.js',
 		'http://jqueryjs.googlecode.com/files/jquery-1.2.6.pack.js', 
 		'http://jquery-ui.googlecode.com/svn/tags/latest/ui/ui.core.js',
@@ -22,7 +22,7 @@
     	jQuery("#example > ul").tabs({
 			selected: null
 		});
-		jQuery('#dziwny').show();
+		jQuery('#glowny').show();
 		jQuery('#example').tabs({selected: null,
 			load: function(e, ui) {
 				jQuery('#dziwny').hide();
@@ -44,58 +44,41 @@
 				<%= link_to 'Logout', logout_path %>
 				Moje konto
 		 		<br><br><%= imie zalogowany %>&nbsp;&nbsp;
-		<% end %>
-		 <br><h4><SCRIPT language="javascript">document.write("Dzisiaj jest " + getDateStr())</SCRIPT>&nbsp;&nbsp;</h4>
-	</div>
+			<% end %>
+		 	<br><h4><SCRIPT language="javascript">document.write("Dzisiaj jest " + getDateStr())</SCRIPT>&nbsp;&nbsp;</h4>
+		</div>
 	</div>
 	
     <div id "main">
     	<div id = "main_top">
-
-    	</div>
+		</div>
+		
 		<div id = "main_center">
 
-			
-<div id="example" class="flora">
-	<% if admin? %>
-		<ul>
-			<li><%= link_to "<span>godziny</span>",     godzi_intro_path, :title => "ui-1" %></li>
-			<li><%= link_to "<span>grupy</span>",       grupy_intro_path, :title => "ui-2" %></li>
-			<li><%= link_to "<span>nauczyciele</span>", naucz_intro_path, :title => "ui-3" %></li>
-			<li><%= link_to "<span>przedmioty</span>",  przed_intro_path, :title => "ui-4" %></li>
-			<li><%= link_to "<span>uczniowie</span>",   uczni_intro_path, :title => "ui-5" %></li>
-			<li><%= link_to "<span>semestry</span>",    semes_intro_path, :title => "ui-6" %></li>
-			<li><%= link_to "<span>plany</span>",       plany_intro_path, :title => "ui-7" %></li>
-		</ul>
-	<% end %>
-	<% if rodzic? %>
-		<ul>
-	        <li><%= link_to "<span>plan</span>", rodzi_intro_path %></li>
-	        <li><a href="" title="zawartosc"><span>Uczen</span></a></li>
-			<li><%= link_to "<span>Przedmioty</span>", rodzic_przed_path %></li>
-	    </ul>
-	<% end %>
-	<% if uczen? %>
-		<ul>
-	        <li><%= link_to "<span>plan</span>", uczen_intro_path %></li>
-	        <li><a href="" title="zawartosc"><span>Uczen</span></a></li>
-			<li><%= link_to "<span>Przedmioty</span>", uczen_przed_path %></li>
-	    </ul>
-	<% end %>	
-	<%if nauczyciel? %>
-	<ul>
-		<li><%= link_to "<span>dzienniki</span>", "/dzienniki/plan/data=2007-01-01", :title => "ui-8" %></li>
-	</ul>	
-	<% end %>			
-</div>
+			<div id="example" class="flora">
+				<% if admin? %>
+					<%= render :partial => 'layouts/menu_dla_admina' %>
+				<% elsif rodzic? %>
+					<%= render :partial => 'layouts/menu_dla_rodzica' %>
+				<% elsif uczen? %>
+					<%= render :partial => 'layouts/menu_dla_ucznia' %>
+				<% elsif nauczyciel? %>	
+				<ul>
+					<li><%= link_to "<span>dzienniki</span>", "/dzienniki/plan/data=2007-01-01", :title => "ui-8" %></li>
+				</ul>	
+				<% end %>			
+			</div>
 			
 				
-<div id="dziwny" style="display:compact;"><%= flash_messages %><%= yield %></div>
+			<div id="glowny" style="display:compact;">
+				<%= flash_messages %>
+				<%= yield %>
+			</div>
 
 
 		</div>
+		
 		<div id = "main_down">
-			
 		</div>
     </div>
 	
@@ -104,7 +87,5 @@
 	</div>
 	
 </div>
-
-
 </body>
 </html>

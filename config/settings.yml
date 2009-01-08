@@ -12,6 +12,6 @@ staging:
   admin_email: bort@bort.com  
   
 production:
-  site_url: http://www.example.com
-  site_name: Bort
-  admin_email: bort@bort.com
+  site_url: http://manta.univ.gda.pl/~twerno
+  site_name: eDziennik
+  admin_email: twerno@gmail.com
