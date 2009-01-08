@@ -52,6 +52,7 @@ staging:
   
 production:
   # Sqlite Settings
+  
   adapter: sqlite3
   database: db/production.sqlite3
   pool: 5

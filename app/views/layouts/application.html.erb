@@ -13,8 +13,6 @@
 		'http://jquery-ui.googlecode.com/svn/tags/latest/ui/ui.tabs.js' 
   %>
 
-
-
 <script>
 	jQuery.noConflict();
 	
@@ -25,7 +23,7 @@
 		jQuery('#glowny').show();
 		jQuery('#example').tabs({selected: null,
 			load: function(e, ui) {
-				jQuery('#dziwny').hide();
+				jQuery('#glowny').hide();
 			}			
 		});
   	});
