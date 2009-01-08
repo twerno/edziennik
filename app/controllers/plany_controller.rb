@@ -137,6 +137,11 @@ class PlanyController < ApplicationController
     
     @plan    = Plan.find(params[:id])
     @grupa   = Grupa.find(params[:klasa])
+    
+    respond_to do |format|
+    format.html
+    format.js
+  end
     #@id      = Lekcja.existing.find
   end
 

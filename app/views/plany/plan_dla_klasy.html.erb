@@ -18,7 +18,7 @@
 	<tr>
 		<td><%=h godzina.begin.strftime("%H") << ":" << godzina.begin.strftime("%M") %>-<%=h godzina.end.strftime("%H") << ":" << godzina.end.strftime("%M") %></td>
 			<% for i in 1..7 %>
-				<td><div id="<%= godzina.id %>-<%= i %>" <%= onclick_to_remote :url => {:action => :wybierz_kom, :id => @plan.id, :klasa => @grupa.id, :dzien => i, :godzina => godzina.id } %>><%= nazwa_przedmiotu @plan.id, i, godzina.id, @grupa.id %></div></td>
+				<td><div class="plany" id="<%= godzina.id %>-<%= i %>" <%= onclick_to_remote :url => {:action => :wybierz_kom, :id => @plan.id, :klasa => @grupa.id, :dzien => i, :godzina => godzina.id, :format => :js } %>><%= nazwa_przedmiotu @plan.id, i, godzina.id, @grupa.id %></div></td>
 			<% end %>
 	</tr>
 	<% end %>
