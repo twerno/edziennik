@@ -5,52 +5,31 @@
 <head>
 		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 		<title>E-DZIENNIK</title>
-		<link rel="stylesheet" type="text/css" href="/default.css" media="screen"/>
-		<script type="text/javascript" src="/data2.js"></script>
-		  <script src="/jquery-latest.js"></script>
-		  <link rel="stylesheet" href="/flora.tabs.css" type="text/css">
-		  <script type="text/javascript" src="/ui.core.js"></script>
-		  <script type="text/javascript" src="/ui.tabs.js"></script>
-		  <%= stylesheet_link_tag 'base' %>
 
-		    <%= stylesheet_link_tag 'scaffold' %>
-  <%= javascript_include_tag :defaults %>
+  <%= stylesheet_link_tag 'base', 'scaffold', "/flora.tabs.css", "/default.css" %>
+  <%= javascript_include_tag :defaults, 'data2.js',
+		'http://jqueryjs.googlecode.com/files/jquery-1.2.6.pack.js', 
+		'http://jquery-ui.googlecode.com/svn/tags/latest/ui/ui.core.js',
+		'http://jquery-ui.googlecode.com/svn/tags/latest/ui/ui.tabs.js' 
+  %>
 
 
 
-  <script>
-  	jQuery.ajaxSetup({ 
-  'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
-})
-
-jQuery.fn.submitWithAjax = function() {
-  this.submit(function() {
-    $.post(this.action, $(this).serialize(), null, "script");
-    return false;
-  })
-  return this;
-};
-  	jQuery.noConflict();
-  jQuery(document).ready(function(){
-    jQuery("#example > ul").tabs({
-		selected: null
-	});
+<script>
+	jQuery.noConflict();
+	
+	jQuery(document).ready(function(){
+    	jQuery("#example > ul").tabs({
+			selected: null
+		});
 		jQuery('#dziwny').show();
 		jQuery('#example').tabs({selected: null,
-			
-   /* load: function(e, ui) {
-        jQuery('a', ui.panel).click(function() {
-            jQuery(ui.panel).load(this.href);
-            return false;
-        });
-    },*/
-	load: function(e, ui) {
-                        /*alert('onShow');*/
-						jQuery('#dziwny').hide();
-                    }			
-});
-  });
-  </script>
+			load: function(e, ui) {
+				jQuery('#dziwny').hide();
+			}			
+		});
+  	});
+</script>
 </head>
 <body>
 <div id = "container">	
@@ -96,6 +75,13 @@ jQuery.fn.submitWithAjax = function() {
 			<li><%= link_to "<span>Przedmioty</span>", rodzic_przed_path %></li>
 	    </ul>
 	<% end %>
+	<% if uczen? %>
+		<ul>
+	        <li><%= link_to "<span>plan</span>", uczen_intro_path %></li>
+	        <li><a href="" title="zawartosc"><span>Uczen</span></a></li>
+			<li><%= link_to "<span>Przedmioty</span>", uczen_przed_path %></li>
+	    </ul>
+	<% end %>	
 	<%if nauczyciel? %>
 	<ul>
 		<li><%= link_to "<span>dzienniki</span>", "/dzienniki/plan/data=2007-01-01", :title => "ui-8" %></li>
@@ -107,9 +93,6 @@ jQuery.fn.submitWithAjax = function() {
 <div id="dziwny" style="display:compact;"><%= flash_messages %><%= yield %></div>
 
 
-			
-		
-		
 		</div>
 		<div id = "main_down">
 			

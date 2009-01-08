@@ -5,6 +5,12 @@ ActionController::Routing::Routes.draw do |map|
   map.rodzic_przed   '/rodzic/przedmioty',     :controller => 'rodzic', :action => 'przedmioty'
   map.rodzic_przed2  '/rodzic/przedmiot/:id',  :controller => 'rodzic', :action => 'przedmiot'
 
+  map.uczen_plan     '/uczen/plan',            :controller => 'uczen', :action => 'plan'
+  map.uczen_oceny    '/uczen/oceny',           :controller => 'uczen', :action => 'oceny'
+  map.uczen_obecn    '/uczen/obecnosci',       :controller => 'uczen', :action => 'obecnosci'
+  map.uczen_przed    '/uczen/przedmioty',      :controller => 'uczen', :action => 'przedmioty'
+  map.uczen_przed2   '/uczen/przedmiot/:id',   :controller => 'uczen', :action => 'przedmiot'
+
   map.grupy_intro    '/grupy/intro',           :controller => 'grupy',       :action => 'intro'
   map.naucz_intro    '/nauczyciele/intro',     :controller => 'nauczyciele', :action => 'intro'
   map.rodzi_intro    '/rodzic/intro',          :controller => 'rodzic',      :action => 'intro'

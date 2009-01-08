@@ -16,7 +16,7 @@
 				<td id="obecnosc<%= (!@obecnosci[i][j].nil?) ? @obecnosci[i][j].wartosc : '' %>">
 					<% for k in 0...@plan[i][j].size %>
 					
-						<%= link_to @plan[i][j][k].przedmiot.nazwa, rodzic_przed2_path( {:id => @plan[i][j][k].lista_id}) %>
+						<%= link_to @plan[i][j][k].przedmiot.nazwa, uczen_przed2_path( {:id => @plan[i][j][k].lista_id}) %>
 					<% end %>
 				</td>
 			<% end %>

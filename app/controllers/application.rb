@@ -60,10 +60,6 @@ class ApplicationController < ActionController::Base
   end
   
   def uczen?
-    puts "+++++++++++++++"
-    puts current_user
-    puts current_user.nil?
-        puts "+++++++++++++++"
     if !current_user.nil?
       return (zalogowany.class.to_s == "Uczen") ? true : false
     end
@@ -72,10 +68,6 @@ class ApplicationController < ActionController::Base
   end
   
   def rodzic?
-        puts "+++++++++++++++"
-    puts current_user
-    puts current_user.nil?
-        puts "+++++++++++++++"
     if !current_user.nil?
       return (zalogowany.class.to_s == "Rodzic") ? true : false
     end

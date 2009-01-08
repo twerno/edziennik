@@ -73,6 +73,7 @@ class SessionsController < ApplicationController
     handle_remember_cookie! new_cookie_flag
     #redirect_back_or_default(root_path)
     redirect_to :controller => :rodzic  , :action => :plan  unless !(zalogowany.class.name == "Rodzic")
+    redirect_to uczen_plan_path  unless !(zalogowany.class.name == "Uczen")
     redirect_to :controller => :sessions, :action => :intro  unless !(current_user.id == 1)
     #return current_user.nauczyciel unless current_user.nauczyciel.nil?
     #return current_user.rodzic     unless current_user.rodzic.nil?   
