@@ -10,11 +10,20 @@ set :port, 8089
 set :deploy_to, "/home/mat/twerno/rails/#{application}"  
   
 # --- mongrel  
+set :mongrel_conf, "#{deploy_to}/current/config/mongrel_cluster.yml"
+
+namespace :deploy do
+  task :restart do
+    restart_mongrel_cluster
+  end
+end
   
 after "deploy:update_code", :fix_script_perms
 
 task :fix_script_perms do
   run "chmod 755 #{latest_release}/script/spin"
+  run "chmod 755 #{latest_release}/script//process/spawner"
+
 end
 # --- git  
   
