@@ -1,9 +1,9 @@
 ActionController::Routing::Routes.draw do |map|
-  map.rodzic_plan  '/rodzic/plan', :controller => 'rodzic', :action => 'plan'
-  map.rodzic_oceny  '/rodzic/oceny', :controller => 'rodzic', :action => 'oceny'
-  map.rodzic_obecn  '/rodzic/obecnosci', :controller => 'rodzic', :action => 'obecnosci'
-  map.rodzic_przed  '/rodzic/przedmioty', :controller => 'rodzic', :action => 'przedmioty'
-  map.rodzic_przed2  '/rodzic/przedmioty/:id', :controller => 'rodzic', :action => 'przedmioty'
+  map.rodzic_plan    '/rodzic/plan',           :controller => 'rodzic', :action => 'plan'
+  map.rodzic_oceny   '/rodzic/oceny',          :controller => 'rodzic', :action => 'oceny'
+  map.rodzic_obecn   '/rodzic/obecnosci',      :controller => 'rodzic', :action => 'obecnosci'
+  map.rodzic_przed   '/rodzic/przedmioty',     :controller => 'rodzic', :action => 'przedmioty'
+  map.rodzic_przed2  '/rodzic/przedmiot/:id', :controller => 'rodzic', :action => 'przedmioty'
 
   map.grupy_intro  '/grupy/intro', :controller => 'grupy', :action => 'intro'
   map.naucz_intro  '/nauczyciele/intro', :controller => 'nauczyciele', :action => 'intro'

@@ -16,13 +16,15 @@ class RodzicController < ApplicationController
     
     @godziny = Godzina.existing.sort_by{|s| s.begin}
     
-    @plan = Create_Array [@godziny.size, 7]
+    @plan      = Create_Array [@godziny.size, 7]
+    @obecnosci = Create_Array [@godziny.size, 7]
     doklej = scope_or("listy.grupa_id", @grupy.collect{|c| c.id})
     
     i = 0
     for i in 0...@godziny.size
       for j in 0...7
         @plan[i][j] = Lekcja.existing.find(:all, :include => :lista, :conditions => ["listy.destroyed = ? AND godzina_id = ? AND plan_id = ? AND dzien_tygodnia =? AND " << doklej , false, @godziny[i].id, plan_id[j], j+1 ])
+        @obecnosci[i][j] = (!@plan[i][j].empty?) ? @plan[i][j][0].obecnosci.find_by_uczen_id( current_user.rodzic.uczniowie.first.id) : nil
       end
     end
     
@@ -39,7 +41,9 @@ class RodzicController < ApplicationController
   def przedmioty
   end
 
-
+  def przedmiot
+    
+  end
 
 
 
