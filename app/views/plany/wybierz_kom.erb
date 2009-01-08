@@ -1,4 +1,14 @@
-jQuery(".plany").css({'background-color':'transparent', 'opacity':'1'});
-jQuery("#<%= @div %>").css({'background-color':'#9dfb74', 'padding': '10 10 10 10', 'margin':'10 10 10 10'});
+jQuery(".plany").css({'outline-width'   : '0px'});
+/*jQuery("#<%= @div %>").css({'background-color': '#9dfb74' ,
+							'outline-width'   : '1px'     , 
+							'outline-style'   : 'dotted'  , 
+							'outline-color'   : '#4096a'
+							});*/
 
+jQuery("#<%= @div %>").css({'outline-width'   : '2px'     , 
+							'outline-style'   : 'dotted'  , 
+							'outline-color'   : '#ff0011'
+							});
+jQuery("#Lekcja_dzien_tygodnia").val( <%= @dzien   %> );
+jQuery("#Lekcja_godzina_id")    .val( <%= @godzina %> );				
 

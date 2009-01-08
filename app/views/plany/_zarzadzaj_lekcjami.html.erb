@@ -3,7 +3,7 @@
 	<%= f.hidden_field :plan_id, :value => @plan.id %>
 	<%= f.hidden_field :dzien_tygodnia, :value => 1 %>
 	<%= f.hidden_field :grupa_id, :value => @grupa.id %>
-	<%= f.hidden_field :existing, :value => 0 %>
-	<%= f.hidden_field :godzina_id, :value => 2 %>
+	<%= f.hidden_field :existing, :value => "=" %>
+	<%= f.hidden_field :godzina_id, :value => "=" %>
 	<%= f.submit 'create' %>
 <% end %>
