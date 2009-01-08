@@ -6,11 +6,16 @@ set :user, "twerno"
 # via the :deploy_to variable:  
   
 set :application, "edziennik"  
+set :port, 8089
 set :deploy_to, "/home/mat/twerno/rails/#{application}"  
   
 # --- mongrel  
   
+after "deploy:update_code", :fix_script_perms
 
+task :fix_script_perms do
+  run "chmod 755 #{latest_release}/script/spin"
+end
 # --- git  
   
 set :repository,  
