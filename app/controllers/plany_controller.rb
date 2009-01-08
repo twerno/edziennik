@@ -54,7 +54,7 @@ class PlanyController < ApplicationController
 
     respond_to do |format|
       if @plan.update_attributes(params[:plan])
-        active @plan
+        #active @plan
         flash[:notice] = 'Plan was successfully updated.'
         format.html { redirect_to(@plan) }
         format.xml  { head :ok }
@@ -163,7 +163,7 @@ class PlanyController < ApplicationController
           p.set_editors_stamp get_editors_stamp
           p.set_current_user  current_user
           p.save
-        )  unless p == plan
+        )  unless p != plan
       end
     end
   end

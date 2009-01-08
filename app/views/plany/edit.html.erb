@@ -1,6 +1,6 @@
 <h1>Editing plan</h1>
 
-<% form_for(@plan) do |f| %>
+<% form_for @plan, :url =>  plan_update_path ({:id => @plan.id}) do |f| %>
   <%= f.error_messages %>
 
   <p>

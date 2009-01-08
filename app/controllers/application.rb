@@ -74,8 +74,9 @@ class ApplicationController < ActionController::Base
   end
   
   def nauczyciel?
-    #(zalogowany.class.to_s == "Nauczyciel") ? true : false
-    false
+    if !current_user.nil?
+      return (zalogowany.class.to_s == "Nauczyciel") ? true : false
+    end
   end
   
   def Create_Array arg

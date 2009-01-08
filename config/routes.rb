@@ -11,6 +11,9 @@ ActionController::Routing::Routes.draw do |map|
   map.uczen_przed    '/uczen/przedmioty',      :controller => 'uczen', :action => 'przedmioty'
   map.uczen_przed2   '/uczen/przedmiot/:id',   :controller => 'uczen', :action => 'przedmiot'
 
+  map.nauczyciel_plan '/nauczyciel/plan',      :controller => 'nauczyciel',  :action => 'plan'
+  map.nauczyciel_dziennik '/nauczyciel/dziennik/:id', :controller => 'nauczyciel',  :action => 'dziennik'
+
   map.grupy_intro    '/grupy/intro',           :controller => 'grupy',       :action => 'intro'
   map.naucz_intro    '/nauczyciele/intro',     :controller => 'nauczyciele', :action => 'intro'
   map.rodzi_intro    '/rodzic/intro',          :controller => 'rodzic',      :action => 'intro'
@@ -20,7 +23,9 @@ ActionController::Routing::Routes.draw do |map|
   map.semes_intro    'semestry/intro',         :controller => 'semestry',    :action => 'intro'
   map.plany_intro    'plany/intro',            :controller => 'plany',       :action => 'intro'
   map.uczen_intro    'uczen.intro',            :controller => 'uczen',       :action => 'intro'
+  map.nauczyciel_intro '/nauczyciel/intro',    :controller => 'nauczyciel',  :action => 'intro'
  
+  map.plan_update    'plany/update/:id',         :controller => 'plany', :action => 'update'
   map.plan           '/plany/:id/plan',        :controller => 'plany', :action => 'plan'
   map.plan_dla_klasy '/plany/:id/plan/:klasa', :controller => 'plany', :action => 'plan_dla_klasy'
   map.wybierz_kom    '/plany/:id/plan/:klasa/:dzien/:godzina', :controller => 'plany', :action => 'wybierz_kom'

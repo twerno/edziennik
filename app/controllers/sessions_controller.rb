@@ -1,10 +1,11 @@
 class SessionsController < ApplicationController
-  skip_before_filter :verify_authenticity_token, :only => :create
+  skip_before_filter :verify_authenticity_token, :only => :create  
   
   def intro
   end
   
   def new
+    redirect_to_user_page
   end
 
   def edit
@@ -54,6 +55,18 @@ class SessionsController < ApplicationController
 
   protected
   
+  def redirect_to_user_page
+    if rodzic?
+      redirect_to :controller => :rodzic  , :action => :plan
+    elsif uczen?
+      redirect_to uczen_plan_path
+    elsif admin?
+      redirect_to :controller => :sessions, :action => :intro 
+    elsif nauczyciel?
+      redirect_to :controller => :nauczyciel, :action => :plan
+    end
+  end
+  
   def password_authentication
     user = User.authenticate(params[:login], params[:password])
     if user
@@ -73,17 +86,7 @@ class SessionsController < ApplicationController
     handle_remember_cookie! new_cookie_flag
     #redirect_back_or_default(root_path)
     
-    if rodzic?
-      redirect_to :controller => :rodzic  , :action => :plan
-    elsif uczen?
-      redirect_to uczen_plan_path
-    elsif admin?
-      redirect_to :controller => :sessions, :action => :intro 
-    end  
-    #return current_user.nauczyciel unless current_user.nauczyciel.nil?
-    #return current_user.rodzic     unless current_user.rodzic.nil?   
-
-
+    redirect_to_user_page
     flash[:notice] = "Logged in successfully"
   end
 
