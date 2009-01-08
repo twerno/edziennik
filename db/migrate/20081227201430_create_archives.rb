@@ -1,12 +1,14 @@
 class CreateArchives < ActiveRecord::Migration
   def self.up
-    create_table :archives do |t|
-      t.string   :class_name
-      t.string   :class_id
-      t.boolean  :class_destroyed
-      t.integer  :edited_by
-      t.text     :editors_stamp
-      t.text     :body
+    create_table  :archives do |t|
+      t.string    :class_name
+      t.string    :class_id
+      #t.boolean   :continued, :default => false
+      #t.text      :indexes
+      t.boolean   :class_destroyed
+      t.integer   :edited_by
+      t.text      :editors_stamp
+      t.text      :body
       #t.datetime :body_updated_at
       #t.datetime :created_at
       
@@ -14,7 +16,9 @@ class CreateArchives < ActiveRecord::Migration
       
     end
     
+    add_index :archives, :class_name
     add_index :archives, :class_id
+    add_index :archives, :editors_stamp
   end
 
 

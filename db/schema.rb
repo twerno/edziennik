@@ -14,6 +14,8 @@ ActiveRecord::Schema.define(:version => 20090107084356) do
   create_table "archives", :force => true do |t|
     t.string   "class_name"
     t.string   "class_id"
+    t.boolean  "continued",       :default => false
+    t.text     "indexes"
     t.boolean  "class_destroyed"
     t.integer  "edited_by"
     t.text     "editors_stamp"
@@ -23,6 +25,8 @@ ActiveRecord::Schema.define(:version => 20090107084356) do
   end
 
   add_index "archives", ["class_id"], :name => "index_archives_on_class_id"
+  add_index "archives", ["class_name"], :name => "index_archives_on_class_name"
+  add_index "archives", ["editors_stamp"], :name => "index_archives_on_editors_stamp"
 
   create_table "czlonkowie", :force => true do |t|
     t.integer  "uczen_id"

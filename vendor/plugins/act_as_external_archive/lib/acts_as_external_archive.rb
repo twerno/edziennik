@@ -1,35 +1,22 @@
-module MyMod
+module Twerno
 module Acts
-   module Roled 
-     # included is called from the ActiveRecord::Base
-     # when you inject this module
+   module External_Archive
 
      def self.included(base) 
-      # Add acts_as_roled availability by extending the module
-      # that owns the function.
        base.extend AddActsAsMethod
      end 
 
-     # this module stores the main function and the two modules for
-     # the instance and class functions
      module AddActsAsMethod
        def acts_as_external_archive(options = {})
-        # Here you can put additional association for the
-        # target class.
-        # belongs_to :role
-        # add class and istance methods
 
          class_eval <<-END
-           include MyMod::Acts::Roled::InstanceMethods    
+           include Twerno::Acts::External_Archive::InstanceMethods    
          END
        end
      end
 
-     # Istance methods
+
      module InstanceMethods 
-      # doing this our target class
-      # acquire all the methods inside ClassMethods module
-      # as class methods.
 
       @@separator = '|!|'
       @@zamiennik = "&#124;&#33;&#124;"
@@ -48,6 +35,30 @@ module Acts
         wrk3
       end
   
+  
+#      def continue_with_new_id
+#        #puts self.destroyed
+#        self.contiuned = true
+#        self.destroy
+#        puts "AAAAAAAAA"
+#        attributes = selt.attributes
+#        attributes.delete "continued"
+#        attributes.delete "destroyed"
+#                puts "bbbbbbbb"
+#        attributes[:indexes] = (attributes[:indexes].to_s.empty?) ? ',' << self.id << ',' : attributes[:indexes] << self.id << ','
+#         
+#        new = eval(self.class_name << ".new")
+#        new.attributes = attributes
+#        new.save
+#        
+#        new
+#        #puts self.destroyed
+#        #new = Archive.new (Archive.find(:last, :conditions["class_name = ? AND class_id = ?", self.class_name , self.class_id ]).attributes.delete( "updated_at")).attributes.delete( "created_at")
+#        
+#        #puts new
+#        
+#      end
+      
       
       def current_with_desc
         archive = Archive.find(:last, :conditions => ["class_name = ? AND class_id = ?", self.class.name, self.id.to_s])
@@ -102,14 +113,9 @@ module Acts
       private
       def archiving temp
         archive = Archive.find(:last, :conditions => ["class_name = ? AND class_id = ?", temp.class.name, temp.id.to_s])
-        #archive.class_name      = temp.class.name
-        #archive.class_id        = temp.id.to_s
         archive.class_destroyed = temp.destroyed        
-        #archive.edited_by       = temp.edited_by
-        #archive.editors_stamp   = temp.editors_stamp
         archive.body            = ""
-        #archive.body_updated_at = temp.updated_at
-    
+
         keys = temp.class.columns.collect{|c| c.name}
         for key in ["id", "edited_by", "editors_stamp", "destroyed", "updated_at"]
           keys.delete key
@@ -130,9 +136,7 @@ module Acts
         ## tworzymy pusty zbior
         empty_set = "".to_set
  
-        #last_one = set[0] unless !(set.size < 2)
-        #puts (set.size < 2)
-        #set.delete_at 0   unless !(set.size < 2)
+ 
         ## dla kazdej elementu w zbiorze
         for anything in set
         puts anything.id
@@ -143,8 +147,6 @@ module Acts
         temp               = eval(anything.class_name << ".new")
         temp.id            = anything.class_id
         temp.destroyed     = anything.class_destroyed
-        #temp.edited_by     = anything.edited_by
-        #temp.editors_stamp = anything.editors_stamp
         temp.updated_at    = anything.created_at
       
         #tworzymy liste wszystkich pol w klasie
@@ -239,20 +241,4 @@ module Acts
      end 
    end
 end
-end 
-
-      #def self.find *args
-      #  exists = false
-      #
-      #  for anything in args
-      #    if anything.class.to_s == "Hash" && !anything[:conditions].nil?
-      #      exists = true
-      #      anything[:conditions][0] << " AND destroyed = ?"
-      #      anything[:conditions] += [false]
-      #    end
-      #  end
-      #  
-      #  args += [{:conditions => ["destroyed = ?", false]}] unless exists
-      # 
-      #  super *args
-      #end
+end
