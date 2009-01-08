@@ -96,7 +96,7 @@ class ApplicationController < ActionController::Base
       s << model << " = " << c.to_s << " OR " 
     }
     s = s[0..s.length-5]
-    s << ")"
+    (s.length >= 2) ? s << ")" : ''
   end
   
   

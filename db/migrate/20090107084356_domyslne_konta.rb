@@ -1,7 +1,7 @@
 class DomyslneKonta < ActiveRecord::Migration
   def self.up
-    u = Uczen.new :imie => "uczen", :nazwisko => "uczen", :pesel => "uczen"
-    r = Rodzic.new :imie_ojca => "rodzic", :imie_matki => "rodzic", :pesel => "rodzic"
+    u = Uczen.new :imie => "uczen", :nazwisko => "uczen", :pesel => "uczen", :nr_legitymacji => "uczen"
+    r = Rodzic.new :imie_ojca => "rodzic", :imie_matki => "rodzic", :pesel => "rodzic", :nazwisko => "uczen", :nazwisko_panienskie => "rodzic"
     r.save
     u.rodzic_id = r.id
     u.save
