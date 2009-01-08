@@ -1,92 +1,92 @@
 class UczniowieController < ApplicationController
-  # GET /uczniowie
-  # GET /uczniowie.xml
-  def index
-    @uczniowie = Uczen.existing.find(:all)
 
-    respond_to do |format|
-      format.html #
-      format.xml  { render :xml => @uczniowie }
-    end
+  def intro
+    @uczniowie = Uczen.existing.find(:all)
   end
 
-  # GET /uczniowie/1
-  # GET /uczniowie/1.xml
+
+  def index
+    @uczniowie = Uczen.existing.find(:all)
+    render :layout => 'application'
+  end
+
+
   def show
     @uczen = Uczen.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html {render :layout => 'application'}
       format.xml  { render :xml => @uczen }
     end
   end
 
-  # GET /uczniowie/new
-  # GET /uczniowie/new.xml
+
   def new
     @uczen = Uczen.new
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html {render :layout => 'application'}
       format.xml  { render :xml => @uczen }
     end
   end
 
-  # GET /uczniowie/1/edit
+
   def edit
     @uczen = Uczen.find(params[:id])
+    render :layout => 'application'
   end
 
-  # POST /uczniowie
-  # POST /uczniowie.xml
+
   def create
-    r = Rodzic.new params[:rodzic]
-    r.save
-    @uczen = Uczen.new(params[:uczen])
-    @uczen.rodzic_id = r.id
-
-    respond_to do |format|
-      if @uczen.save
-        flash[:notice] = 'Uczen was successfully created.'
-        format.html { redirect_to(@uczen) }
-        format.xml  { render :xml => @uczen, :status => :created, :location => @uczen }
+    #begin
+      r = Rodzic.new params[:rodzic]
+      @uczen = Uczen.new(params[:uczen])
+      
+      if params[:rodzic][:pesel] != params[:uczen][:pesel] && r.save
+        @uczen = Uczen.new(params[:uczen])
+        @uczen.rodzic_id = r.id
+        if @uczen.save
+          flash[:notice] = 'Uczen was successfully created.'
+          redirect_to uczniowie_path
+        else
+          render :action => "new", :layout => 'application'
+        end
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @uczen.errors, :status => :unprocessable_entity }
-      end
-    end
+        render :action => "new", :layout => 'application'
+      end  
+    #rescue
+      #@uczen = Uczen.new(params[:uczen])
+      #render :action => "new", :layout => 'application'
+    #end  
   end
 
-  # PUT /uczniowie/1
-  # PUT /uczniowie/1.xml
+
   def update
     @uczen = Uczen.find(params[:id])
+    r = @uczen.rodzic
 
     respond_to do |format|
-      if @uczen.update_attributes(params[:uczen])
-        @uczen.rodzic.update_attributes(params[:rodzic])
+      if @uczen.update_attributes(params[:uczen]) && r.update_attributes(params[:rodzic])
         flash[:notice] = 'Uczen was successfully updated.'
-        format.html { redirect_to(@uczen) }
+        format.html { redirect_to uczniowie_path }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
+        format.html { render :action => "edit", :layout => 'application' }
         format.xml  { render :xml => @uczen.errors, :status => :unprocessable_entity }
       end
     end
   end
 
 
-  # DELETE /uczniowie/1
-  # DELETE /uczniowie/1.xml
+
   def destroy
     @uczen = Uczen.find(params[:id])
+    @uczen.set_editors_stamp get_editors_stamp
+    @uczen.set_current_user current_user
     @uczen.destroy
-
-    respond_to do |format|
-      format.html { redirect_to(uczniowie_url) }
-      format.xml  { head :ok }
-    end
+    redirect_to uczniowie_path
   end
+  
   
   def konta
     pdf = PDF::Writer.new
@@ -167,5 +167,5 @@ class UczniowieController < ApplicationController
   end
   
 
-  
+
 end

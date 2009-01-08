@@ -19,6 +19,17 @@
 
 
   <script>
+  	jQuery.ajaxSetup({ 
+  'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
+})
+
+jQuery.fn.submitWithAjax = function() {
+  this.submit(function() {
+    $.post(this.action, $(this).serialize(), null, "script");
+    return false;
+  })
+  return this;
+};
   	jQuery.noConflict();
   jQuery(document).ready(function(){
     jQuery("#example > ul").tabs({
@@ -69,13 +80,13 @@
 <div id="example" class="flora">
 	<% if admin? %>
 		<ul>
-			<li><%= link_to "<span>godziny</span>", "/godziny", :title => "ui-1" %></li>
-			<li><%= link_to "<span>grupy</span>", grupy_path, :title => "ui-2" %></li>
+			<li><%= link_to "<span>godziny</span>",     godzi_intro_path, :title => "ui-1" %></li>
+			<li><%= link_to "<span>grupy</span>",       grupy_intro_path, :title => "ui-2" %></li>
 			<li><%= link_to "<span>nauczyciele</span>", naucz_intro_path, :title => "ui-3" %></li>
-			<li><%= link_to "<span>przedmioty</span>", "/przedmioty", :title => "ui-4" %></li>
-			<li><%= link_to "<span>uczniowie</span>", "/uczniowie", :title => "ui-5" %></li>
-			<li><%= link_to "<span>semestry</span>", "/semestry", :title => "ui-6" %></li>
-			<li><%= link_to "<span>plany</span>", "/plany", :title => "ui-7" %></li>
+			<li><%= link_to "<span>przedmioty</span>",  przed_intro_path, :title => "ui-4" %></li>
+			<li><%= link_to "<span>uczniowie</span>",   uczni_intro_path, :title => "ui-5" %></li>
+			<li><%= link_to "<span>semestry</span>",    semes_intro_path, :title => "ui-6" %></li>
+			<li><%= link_to "<span>plany</span>",       plany_intro_path, :title => "ui-7" %></li>
 		</ul>
 	<% end %>
 	<% if rodzic? %>
@@ -85,7 +96,7 @@
 			<li><%= link_to "<span>Przedmioty</span>", rodzic_przed_path %></li>
 	    </ul>
 	<% end %>
-	<%if nauczyciel %>
+	<%if nauczyciel? %>
 	<ul>
 		<li><%= link_to "<span>dzienniki</span>", "/dzienniki/plan/data=2007-01-01", :title => "ui-8" %></li>
 	</ul>	

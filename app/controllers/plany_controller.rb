@@ -1,37 +1,30 @@
 class PlanyController < ApplicationController
 
+  def intro
+    @plany = Plan.existing.find(:all, :order => :nazwa)
+  end
+
   def index
     @plany = Plan.existing.find(:all, :order => :nazwa)
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @plany }
-    end
+    render :layout => 'application'
   end
 
 
   def show
     @plan = Plan.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @plan }
-    end
+    render :layout => 'application'
   end
 
 
   def new
     @plan = Plan.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @plan }
-    end
+    render :layout => 'application'
   end
 
 
   def edit
     @plan = Plan.find(params[:id])
+    render :layout => 'application'    
   end
 
 
@@ -47,7 +40,7 @@ class PlanyController < ApplicationController
         format.html { redirect_to(@plan) }
         format.xml  { render :xml => @plan, :status => :created, :location => @plan }
       else
-        format.html { render :action => "new" }
+        format.html { render :action => "new", :layout => 'application' }
         format.xml  { render :xml => @plan.errors, :status => :unprocessable_entity }
       end
     end
@@ -66,7 +59,7 @@ class PlanyController < ApplicationController
         format.html { redirect_to(@plan) }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
+        format.html { render :action => "edit", :layout => 'application' }
         format.xml  { render :xml => @plan.errors, :status => :unprocessable_entity }
       end
     end
@@ -78,6 +71,7 @@ class PlanyController < ApplicationController
     #@klasa   = Grupa.find(params[:klasa])
     @godziny = Godzina.existing.find(:all, :order => :begin)
     #@lekcje = Lekcje.existing.find_all_by_semestr @plan.semestr
+    render :layout => 'application'
   end  
   
   
@@ -85,6 +79,7 @@ class PlanyController < ApplicationController
     @plan    = Plan.find(params[:id])
     @grupa   = Grupa.find(params[:klasa])
     @godziny = Godzina.existing
+    render :layout => 'application'
 
   end
 

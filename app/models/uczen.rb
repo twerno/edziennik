@@ -12,7 +12,10 @@ class Uczen < ActiveRecord::Base
   named_scope :existing , :conditions => ["uczniowie.destroyed = ?", false]
   named_scope :destroyed, :conditions => ["uczniowie.destroyed = ?", true]
   
-  #named_scope :nalezy_do, :include => :czlonkowie, :conditions => ["czlonkowie.uczen_id = ?", self.id]
+  validates_presence_of :imie
+  validates_presence_of :nazwisko
+  validates_presence_of :nr_legitymacji
+  validates_uniqueness_of :pesel, :case_sensitive => false
   
   
   def klasa

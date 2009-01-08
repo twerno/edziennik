@@ -8,6 +8,12 @@ ActionController::Routing::Routes.draw do |map|
   map.grupy_intro    '/grupy/intro',           :controller => 'grupy',       :action => 'intro'
   map.naucz_intro    '/nauczyciele/intro',     :controller => 'nauczyciele', :action => 'intro'
   map.rodzi_intro    '/rodzic/intro',          :controller => 'rodzic',      :action => 'intro'
+  map.uczni_intro    'uczniowie/intro',        :controller => 'uczniowie',   :action => 'intro'
+  map.godzi_intro    'godziny/intro',          :controller => 'godziny',     :action => 'intro'
+  map.przed_intro    'przedmioty/intro',       :controller => 'przedmioty',  :action => 'intro'
+  map.semes_intro    'semestry/intro',         :controller => 'semestry',    :action => 'intro'
+  map.plany_intro    'plany/intro',            :controller => 'plany',       :action => 'intro'
+  map.uczen_intro    'uczen.intro',            :controller => 'uczen',       :action => 'intro'
  
   map.plan           '/plany/:id/plan',        :controller => 'plany', :action => 'plan'
   map.plan_dla_klasy '/plany/:id/plan/:klasa', :controller => 'plany', :action => 'plan_dla_klasy'

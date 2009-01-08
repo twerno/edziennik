@@ -1,0 +1,35 @@
+
+<p>
+	<h3><%= @lista.przedmiot.nazwa %></h3>
+</p>
+<p>
+	Prowadzący: <%= @lista.nauczyciel.imie %> <%= @lista.nauczyciel.nazwisko %>
+</p>
+<p>
+	Na <%= @wszystkich %> odbytych zajęć uczeń był obecny na <%= @obecnosci.size %>, na <%= @spoznienia.size %> spóźnił się, a z <%= @zwolnienia.size %> godzin został zwolniony. (Uczen był obecny na <%= number_to_percentage(@obecnosci.size.to_f/@wszystkich*100, :precision => 0) %> zajęć.)
+</p>
+<p>
+	Uczeń był nieobeny na <%= @nieobecnosci.size %> zajęciach w dniach:
+	<ul><% for i in 0...@nieobecnosci.size %>
+		<li><%= @nieobecnosci[i].data %></li>
+	<% end %></ul>
+</p>
+<p>
+	Średnia ocen z tego przedmiotu wynosi <%= number_to_percentage(@srednia*100, :precision => 0) %>
+</p>
+	<table>
+		<tr>
+			<td>Sprawdziany</td>
+			<td>Kartkówki</td>			
+			<td>Prace klasowe</td>
+			<td>Zadania domowe</td>
+			<td>Praca na lekcji</td>
+			<td>Odpowiedz przy tablicy</td>
+		</tr>
+			<td>0</td>
+			<td>0</td>
+			<td>0</td>
+			<td>0</td>
+			<td>0</td>
+			<td>0</td>
+	</table>	

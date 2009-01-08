@@ -7,21 +7,11 @@
     <%= f.label :nazwa %><br />
     <%= f.text_field :nazwa %>
   </p>
-  <p>
-    <%= f.label :pierwszy_semestr %><br />
-    <%= f.text_field :pierwszy_semestr %>
-  </p>
-  <p>
-    <%= f.label :aktualny_semestr %><br />
-    <%= f.text_field :aktualny_semestr %>
-  </p>
-  <p>
-    <%= f.label :ostatni_semestr %><br />
-    <%= f.text_field :ostatni_semestr %>
-  </p>
-  
-  <%= render :partial => 'wychowawca' %>
 
+  <p>
+  	Wychowawca: <br /> 
+  <%= render :partial => 'wychowawca' %>
+  </p>
     <%= f.submit "Create", :action => :klasa_create %>
 <% end %>
 

@@ -12,20 +12,13 @@
     <%= f.check_box :klasa %>
   </p>
   <p>
-    <%= f.label :pierwszy_semestr %><br />
-    <%= f.text_field :pierwszy_semestr %>
-  </p>
-  <p>
-    <%= f.label :aktualny_semestr %><br />
-    <%= f.text_field :aktualny_semestr %>
-  </p>
-  <p>
-    <%= f.label :ostatni_semestr %><br />
-    <%= f.text_field :ostatni_semestr %>
-  </p>
-  
+  	Sklad klasy: <br />
   <%= render :partial => 'zarzadzaj_czlonkami_grupy' %>
+  </p>
+  <p>
+  	Wychowawca: <br /> 
   <%= render :partial => 'wychowawca' %>
+  </p>
   <p>
     <%= f.submit "Update" %>
   </p>

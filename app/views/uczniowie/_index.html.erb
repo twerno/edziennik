@@ -1,0 +1,50 @@
+<% form_tag '/uczniowie/konta' do -%>
+
+<h1>Listing uczniowie</h1>
+
+<table>
+  <tr>
+    <th>Imie</th>
+    <th>Nazwisko</th>
+    <th>Pesel</th>
+    <th>Nr legitymacji</th>
+    <th>Płeć</th>
+	<th>konto</th>
+	<th></th>
+	<th></th>
+	<th></th>
+	<th>Utworz konto/ utworz haslo</th>
+  </tr>
+
+<% for uczen in @uczniowie %>
+  <tr>
+    <td><%=h uczen.imie %></td>
+    <td><%=h uczen.nazwisko %></td>
+    <td><%=h uczen.pesel %></td>
+    <td><%=h uczen.nr_legitymacji %></td>
+    <td><%=h płeć uczen.chlopiec %></td>
+	<td><%= (uczen.user.nil?) ? 'nie posiada' : 'posiada' %></td>
+    <td><%= link_to 'Show', uczen %></td>
+    <td><%= link_to 'Edit', edit_uczen_path(uczen) %></td>
+    <td><%= link_to 'Destroy', uczen, :confirm => 'Are you sure?', :method => :delete %></td>
+	<td><input id="<%= (uczen.user.nil?) ? 'konto' : 'haslo' %>_<%= uczen.id %>" name="<%= (uczen.user.nil?) ? 'konto' : 'haslo' %>[<%= uczen.id %>]" type="checkbox"> <%= (uczen.user.nil?) ? 'Utworz konto' : 'Utworz nowe haslo' %></td>
+  </tr>
+<% end %>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+	<td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+	<td><%= submit_tag 'Pobierz', {:target => "inna_strona"} %></td>
+  </tr>
+</table>
+
+<br />
+
+<%= link_to 'New uczen', new_uczen_path %>
+<% end %>

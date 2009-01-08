@@ -4,22 +4,19 @@
 </p>
 
 <p>
-  <b>Pierwszy semestr:</b>
-  <%=h @grupa.pierwszy_semestr %>
+  <b>Wychowawca:</b>
+  <%=h (!@grupa.nauczyciel.nil?) ? (@grupa.nauczyciel.imie << " " << @grupa.nauczyciel.nazwisko) : "Brak wychowawcy" %>
 </p>
 
 <p>
-  <b>Aktualny semestr:</b>
-  <%=h @grupa.aktualny_semestr %>
+  <b>Sklad Klasy:</b><br />
+  <% for uczen in @grupa.uczniowie.existing %>
+	  <%=h uczen.imie << " " << uczen.nazwisko %><br />
+  <% end %>
 </p>
 
-<p>
-  <b>Ostatni semestr:</b>
-  <%=h @grupa.ostatni_semestr %>
-</p>
-<%= render :partial => 'grupy', :locals => {:grupa => @grupa} %>
 
-<%= link_to 'New grupa', "/grupy/" << @grupa.id.to_s << "/nowa_grupa" %>
+
 
 <%= link_to 'Edit', edit_grupa_path(@grupa) %> |
 <%= link_to 'Back', grupy_path %>

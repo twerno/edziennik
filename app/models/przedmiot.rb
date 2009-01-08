@@ -10,4 +10,6 @@ class Przedmiot < ActiveRecord::Base
   
   named_scope :existing ,   :conditions => ["przedmioty.destroyed = ?", false]
   named_scope :destroyed,   :conditions => ["przedmioty.destroyed = ?", true]
+  
+  validates_presence_of :nazwa  
 end

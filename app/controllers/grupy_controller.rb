@@ -1,6 +1,5 @@
 class GrupyController < ApplicationController
-  # GET /grupy
-  # GET /grupy.xml
+
   
   def intro
     @grupy = Grupa.existing.klasa
@@ -9,23 +8,14 @@ class GrupyController < ApplicationController
   
   def index
     @grupy = Grupa.existing.klasa
-
-    respond_to do |format|
-      format.html {render :layout => 'application'}
-      format.xml  { render :xml => @grupy }
-    end
+    render :layout => 'application'
   end
 
   # GET /grupy/1
   # GET /grupy/1.xml
   def show
     @grupa = Grupa.find(params[:id])
-
-    respond_to do |format|
-      format.html {render :layout => 'application'}
-      format.xml  { render :xml => @grupa }
-      format.js
-    end
+    render :layout => 'application'
   end
 
   # GET /grupy/new
@@ -33,16 +23,13 @@ class GrupyController < ApplicationController
   def new
     @grupa = Grupa.new
     @uczniowie = Uczen.all
-    
-    respond_to do |format|
-      format.html {render :layout => 'application'}
-      format.xml  { render :xml => @grupa }
-    end
+    render :layout => 'application'
   end
 
   # GET /grupy/1/edit
   def edit
     @grupa = Grupa.find(params[:id])
+    render :layout => 'application'    
   end
 
   def nowa_klasa
@@ -75,7 +62,7 @@ class GrupyController < ApplicationController
         format.html { redirect_to(@grupa) }
         format.xml  { render :xml => @grupa, :status => :created, :location => @grupa }
       else
-        format.html { render :action => "nowa_klasa" }
+        format.html { render :action => "nowa_klasa", :layout => 'application' }
         format.xml  { render :xml => @grupa.errors, :status => :unprocessable_entity }
       end
     end
@@ -160,6 +147,7 @@ class GrupyController < ApplicationController
   
   def przedmioty
     @grupa = Grupa.find(params[:id])
+    render :layout => 'application'    
   end
 
   # DELETE /grupy/1
@@ -191,7 +179,7 @@ class GrupyController < ApplicationController
         format.html { redirect_to(@grupa) }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
+        format.html { render :action => "edit", :layout => 'application' }
         format.xml  { render :xml => @grupa.errors, :status => :unprocessable_entity }
       end
     end

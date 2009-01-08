@@ -16,6 +16,8 @@ class Grupa < ActiveRecord::Base
   named_scope :grupy_klasy, lambda { |*args| {:conditions => ["klasa = ? AND grupa_id = ?", true, args[0].to_i]}}
   
 
+  validates_presence_of :nazwa
+
   @@editors_stamp = ""
   @@user = ""
   

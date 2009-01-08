@@ -1,44 +1,33 @@
 class PrzedmiotyController < ApplicationController
-  # GET /przedmioty
-  # GET /przedmioty.xml
+
+  def intro
+    @przedmioty = Przedmiot.existing.find(:all, :order => :nazwa)    
+  end
+
   def index
     @przedmioty = Przedmiot.existing.find(:all, :order => :nazwa)
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @przedmioty }
-    end
+    render :layout => 'application'
   end
 
-  # GET /przedmioty/1
-  # GET /przedmioty/1.xml
+
   def show
     @przedmiot = Przedmiot.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @przedmiot }
-    end
+    render :layout => 'application'
   end
 
-  # GET /przedmioty/new
-  # GET /przedmioty/new.xml
+
   def new
     @przedmiot = Przedmiot.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @przedmiot }
-    end
+    render :layout => 'application'
   end
 
-  # GET /przedmioty/1/edit
+
   def edit
     @przedmiot = Przedmiot.find(params[:id])
+    render :layout => 'application'    
   end
 
-  # POST /przedmioty
-  # POST /przedmioty.xml
+
   def create
     @przedmiot = Przedmiot.new(params[:przedmiot])
 
@@ -48,14 +37,13 @@ class PrzedmiotyController < ApplicationController
         format.html { redirect_to(@przedmiot) }
         format.xml  { render :xml => @przedmiot, :status => :created, :location => @przedmiot }
       else
-        format.html { render :action => "new" }
+        format.html { render :action => "new", :layout => 'application' }
         format.xml  { render :xml => @przedmiot.errors, :status => :unprocessable_entity }
       end
     end
   end
 
-  # PUT /przedmioty/1
-  # PUT /przedmioty/1.xml
+
   def update
     @przedmiot = Przedmiot.find(params[:id])
 
@@ -65,14 +53,13 @@ class PrzedmiotyController < ApplicationController
         format.html { redirect_to(@przedmiot) }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
+        format.html { render :action => "edit", :layout => 'application' }
         format.xml  { render :xml => @przedmiot.errors, :status => :unprocessable_entity }
       end
     end
   end
 
-  # DELETE /przedmioty/1
-  # DELETE /przedmioty/1.xml
+
   def destroy
     @przedmiot = Nauczyciel.find(params[:id])
     @przedmiot.set_editors_stamp get_editors_stamp

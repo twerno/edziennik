@@ -13,6 +13,12 @@ class Nauczyciel < ActiveRecord::Base
   named_scope :destroyed,   :conditions => ["nauczyciele.destroyed = ?", true]
   named_scope :order_by_nazwisko, :order => :nazwisko
   
+  
+  validates_presence_of   :imie
+  validates_presence_of   :nazwisko
+  validates_uniqueness_of :pesel, :case_sensitive => false
+  
+  
   def wychowawca?
     ((Grupa.existing.klasa.find_by_nauczyciel_id self.id).nil?) ? false : true
   end
