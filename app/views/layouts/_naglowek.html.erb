@@ -1,0 +1,26 @@
+<div id="dane_logowania">
+	<% if logged_in? %>
+		<%= link_to 'Logout', logout_path %>
+		Moje konto
+		<br><br>
+	<% end %>
+	
+	<% if admin? %>
+		admin
+	<% elsif rodzic? %>
+		Rodzic ucznia <%= current_user.rodzic.uczen.imie %> <%= current_user.rodzic.uczen.nazwisko %> 
+	<% elsif uczen? %>
+		Uczeń <%= current_user.uczen.imie %> <%= current_user.uczen.nazwisko %> 
+	<% elsif nauczyciel? %>	
+		Nauczyciel <%= current_user.nauczyciel.imie %> <%= current_user.naucyciel.nazwisko %> 
+	<% end %>
+	&nbsp;&nbsp;
+				
+
+	<br>
+	<h4>
+		<SCRIPT language="javascript">document.write("Dzisiaj jest " + getDateStr())
+		</SCRIPT>
+		&nbsp;&nbsp;
+	</h4>
+</div>

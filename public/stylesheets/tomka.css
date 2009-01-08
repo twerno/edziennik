@@ -3,3 +3,27 @@
 				outline-color : #ff0011;
 			}
 */
+
+#message { top: 87px;
+		   margin: auto;
+		   position: absolute;
+		   display: none;
+		   text-align:center;
+		   min-width: 100%;
+		   height:30px;
+ 		   
+		 }
+#message .info { 	
+		   			position: absolute;
+ 		   		  	background-color: #06ff00;
+					margin: 0 auto 0 auto;
+					min-width: 100%;	
+					}
+					
+#message .warning   { 
+					background-color: red;		   
+		   			position: absolute;
+ 		   		  	background-color: #06ff00;
+					margin: 0 auto 0 auto;
+					min-width: 100%;
+				  }

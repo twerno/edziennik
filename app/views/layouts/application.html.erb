@@ -8,7 +8,8 @@
 
   <%= stylesheet_link_tag 'base', 'scaffold', "flora.tabs", "default", "tomka" %>
   <%= javascript_include_tag :defaults, 'data2.js',
-		'http://jqueryjs.googlecode.com/files/jquery-1.2.6.pack.js', 
+		'http://jquery-ui.googlecode.com/svn/tags/latest/jquery-1.2.6.js',
+
 		'http://jquery-ui.googlecode.com/svn/tags/latest/ui/ui.core.js',
 		'http://jquery-ui.googlecode.com/svn/tags/latest/ui/ui.tabs.js' 
   %>
@@ -16,11 +17,38 @@
 <script>
 	jQuery.noConflict();
 	
+	(function($){
+    /**
+     * jQuery delayed event execution.
+     */
+    $.fn.delay = function(options) {
+        var timer;
+        var delayImpl = function(eventObj) {
+            if (timer != null) {
+                clearTimeout(timer);
+            }
+            var newFn = function() {
+                options.fn(eventObj);
+            };
+            timer = setTimeout(newFn, options.delay);
+        }
+       
+        return this.each(function() {
+            var obj = $(this);
+            obj.bind(options.event, function(eventObj) {
+                 delayImpl(eventObj);  
+            });
+        });
+    };
+})(jQuery);
+	
 	jQuery(document).ready(function(){
     	jQuery("#example > ul").tabs({
 			selected: null
 		});
 		jQuery('#glowny').show();
+		jQuery('#message').fadeIn(800).fadeTo(5000, 1).fadeOut(2000);
+
 		jQuery('#example').tabs({selected: null,
 			load: function(e, ui) {
 				jQuery('#glowny').hide();
@@ -37,19 +65,16 @@
 			<img src = "/grafika/nazwa_szkoly7.png">
 		</div>
 		
-		<div id="dane_logowania">
-			<% if logged_in? %>
-				<%= link_to 'Logout', logout_path %>
-				Moje konto
-		 		<br><br><%= imie zalogowany %>&nbsp;&nbsp;
-			<% end %>
-		 	<br><h4><SCRIPT language="javascript">document.write("Dzisiaj jest " + getDateStr())</SCRIPT>&nbsp;&nbsp;</h4>
-		</div>
+		<%= render :partial => 'layouts/naglowek' %>
+	</div>
+	
+	<div id ="message">
+		<div class="info" >  <%= flash_messages %></div>
+
 	</div>
 	
     <div id "main">
-    	<div id = "main_top">
-		</div>
+    	<div id = "main_top"></div>
 		
 		<div id = "main_center">
 
@@ -64,20 +89,21 @@
 				<ul>
 					<li><%= link_to "<span>dzienniki</span>", "/dzienniki/plan/data=2007-01-01", :title => "ui-8" %></li>
 				</ul>	
+				<% else %>
+					&nbsp;&nbsp;
 				<% end %>			
 			</div>
 			
 				
 			<div id="glowny" style="display:compact;">
-				<%= flash_messages %>
+				
 				<%= yield %>
 			</div>
 
 
 		</div>
 		
-		<div id = "main_down">
-		</div>
+		<div id = "main_down"></div>
     </div>
 	
 	<div id = "footer">
