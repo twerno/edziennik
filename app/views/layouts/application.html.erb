@@ -17,31 +17,6 @@
 <script>
 	jQuery.noConflict();
 	
-	(function($){
-    /**
-     * jQuery delayed event execution.
-     */
-    $.fn.delay = function(options) {
-        var timer;
-        var delayImpl = function(eventObj) {
-            if (timer != null) {
-                clearTimeout(timer);
-            }
-            var newFn = function() {
-                options.fn(eventObj);
-            };
-            timer = setTimeout(newFn, options.delay);
-        }
-       
-        return this.each(function() {
-            var obj = $(this);
-            obj.bind(options.event, function(eventObj) {
-                 delayImpl(eventObj);  
-            });
-        });
-    };
-})(jQuery);
-	
 	jQuery(document).ready(function(){
     	jQuery("#example > ul").tabs({
 			selected: null
@@ -51,9 +26,9 @@
 
 		jQuery('#example').tabs({selected: null,
 			load: function(e, ui) {
-				jQuery('#glowny').hide();
 			}			
 		});
+
   	});
 </script>
 </head>
@@ -95,10 +70,7 @@
 			</div>
 			
 				
-			<div id="glowny" style="display:compact;">
-				
-				<%= yield %>
-			</div>
+			<div id="glowny" style="display:compact;"><%= yield %></div>
 
 
 		</div>

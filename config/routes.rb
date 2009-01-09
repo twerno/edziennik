@@ -26,13 +26,13 @@ ActionController::Routing::Routes.draw do |map|
   map.nauczyciel_intro '/nauczyciel/intro',    :controller => 'nauczyciel',  :action => 'intro'
 
  
-  map.plan_update     'plany/update/:id',         :controller => 'plany', :action => 'update'
+  map.plan_update     '/plany/update/:id',         :controller => 'plany', :action => 'update'
   map.plan            '/plany/:id/plan',        :controller => 'plany', :action => 'plan'
   map.plan_dla_klasy  '/plany/:id/plan/:klasa', :controller => 'plany', :action => 'plan_dla_klasy'
   map.wybierz_kom     '/plany/:id/plan/:klasa/:dzien/:godzina.:format', :controller => 'plany', :action => 'wybierz_kom', :format => 'js'
   map.nowa_klasa      '/grupy/nowa_klasa',     :controller => 'grupy', :action => 'nowa_klasa'
   map.nowa_grupa      '/grupy/:id/nowa_grupa', :controller => 'grupy', :action => 'nowa_grupa'
-  map.przedmioty      '/grupy/:id/przedmioty', :controller => 'grupy', :action => 'przedmioty'
+  #map.przedmioty      '/grupy/:id/przedmioty', :controller => 'grupy', :action => 'przedmioty'
   map.plan_dla        '/dzienniki/plan/:parametry',   :controller => 'dzienniki', :action => 'plan'
   map.dziennik        '/dzienniki/:parametry', :controller => 'dzienniki', :action => 'show'
   map.obecnosc        '/dzienniki/obecnosc/:parametry', :controller => 'dzienniki', :action => 'sprawdz_obecnosc', :parametry => nil

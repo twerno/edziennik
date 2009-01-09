@@ -8,11 +8,11 @@
 	<% if admin? %>
 		admin
 	<% elsif rodzic? %>
-		Rodzic ucznia <%= current_user.rodzic.uczen.imie %> <%= current_user.rodzic.uczen.nazwisko %> 
+		Rodzic ucznia <%= current_user.rodzic.uczniowie.first.imie %> <%= current_user.rodzic.uczniowie.first.nazwisko %> 
 	<% elsif uczen? %>
 		Uczeń <%= current_user.uczen.imie %> <%= current_user.uczen.nazwisko %> 
 	<% elsif nauczyciel? %>	
-		Nauczyciel <%= current_user.nauczyciel.imie %> <%= current_user.naucyciel.nazwisko %> 
+		Nauczyciel <%= current_user.nauczyciel.imie %> <%= current_user.nauczyciel.nazwisko %> 
 	<% end %>
 	&nbsp;&nbsp;
 				

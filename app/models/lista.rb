@@ -13,4 +13,8 @@ class Lista < ActiveRecord::Base
   named_scope :existing ,   :conditions => ["listy.destroyed = ?", false]
   named_scope :destroyed,   :conditions => ["listy.destroyed = ?", true]
   
+  validates_presence_of :semestr_id
+  validates_presence_of :nauczyciel_id
+  validates_presence_of :przedmiot_id
+  
 end

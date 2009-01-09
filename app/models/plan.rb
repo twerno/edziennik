@@ -10,6 +10,11 @@ class Plan < ActiveRecord::Base
   named_scope :active,      :conditions => ["plany.active = ?", true]
   
   
+  validates_presence_of :semestr_id
+  validates_presence_of :nazwa
+  validates_presence_of :start
+  validates_presence_of :end
+  
   def self.aktualny date
     begin
       semestr = Semestr.existing.active.find(:first, :conditions => ["semestry.begin <= ? AND semestry.end >= ?", date, date])

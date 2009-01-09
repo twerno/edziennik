@@ -2,9 +2,9 @@
 
 /* Caution! Ensure accessibility in print and other media types... */
 @media projection, screen { /* Use class for showing/hiding tab content, so that visibility can be better controlled in different media types... */
-    .ui-tabs-hide {
+    /*.ui-tabs-hide {
         display: none !important;
-    }
+    }*/
 }
 
 /* Hide useless elements in print layouts... */
