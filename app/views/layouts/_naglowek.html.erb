@@ -13,11 +13,11 @@
 		Uczeń <%= current_user.uczen.imie %> <%= current_user.uczen.nazwisko %> 
 	<% elsif nauczyciel? %>	
 		Nauczyciel <%= current_user.nauczyciel.imie %> <%= current_user.nauczyciel.nazwisko %> 
+	<% else %>
+		<br /><br />
 	<% end %>
 	&nbsp;&nbsp;
-				
-
-	<br>
+	<br />
 	<h4>
 		<SCRIPT language="javascript">document.write("Dzisiaj jest " + getDateStr())
 		</SCRIPT>

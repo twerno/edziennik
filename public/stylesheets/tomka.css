@@ -5,10 +5,31 @@
 */
 
 
-
-#temp {
-		display:none;
+body {
+	width:100%;
 }
+/*
+#glowny {
+	padding-top : 5px;
+	
+	padding-left:30px;
+	padding-right:30px;
+}
+
+#main_center {
+	padding-left:0px;
+	padding-right:0px;
+}
+
+#example {
+	padding-left:50px;
+	padding-right:50px;
+}*/
+
+#example li {
+	text-align:center;
+}
+
 
 #message { top: 86px;
 		   margin: auto;

@@ -64,6 +64,8 @@ class SessionsController < ApplicationController
       redirect_to :controller => :sessions, :action => :intro
     elsif nauczyciel?
       redirect_to :controller => :nauczyciel, :action => :plan
+    else
+      render :controller => :sessions, :action => :new
     end
   end
   

@@ -1,0 +1,16 @@
+<div id="example" class="flora">
+	<% if admin? %>
+		<%= render :partial => 'layouts/menu_dla_admina' %>
+	<% elsif rodzic? %>
+		<%= render :partial => 'layouts/menu_dla_rodzica' %>
+	<% elsif uczen? %>
+		<%= render :partial => 'layouts/menu_dla_ucznia' %>
+	<% elsif nauczyciel? %>	
+	<ul>
+		<li><%= link_to "<span>dzienniki</span>", "/dzienniki/plan/data=2007-01-01", :title => "glowny" %></li>
+	</ul>	
+	<% else %>
+		<li><%= link_to "<span>login</span>", "/", :title => "glowny" %></li>
+		&nbsp;&nbsp;
+	<% end %>			
+</div>

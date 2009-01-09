@@ -28,7 +28,6 @@
 			load: function(e, ui) {
 			}			
 		});
-
   	});
 </script>
 </head>
@@ -36,16 +35,12 @@
 <div id = "container">	
 		
 	<div id = "head">
-		<div id = "baner">
-			<img src = "/grafika/nazwa_szkoly7.png">
-		</div>
-		
+		<div id = "baner"><img src = "/grafika/nazwa_szkoly7.png"></div>
 		<%= render :partial => 'layouts/naglowek' %>
 	</div>
 	
 	<div id ="message">
 		<div class="info" >  <%= flash_messages %></div>
-
 	</div>
 	
     <div id "main">
@@ -53,25 +48,8 @@
 		
 		<div id = "main_center">
 
-			<div id="example" class="flora">
-				<% if admin? %>
-					<%= render :partial => 'layouts/menu_dla_admina' %>
-				<% elsif rodzic? %>
-					<%= render :partial => 'layouts/menu_dla_rodzica' %>
-				<% elsif uczen? %>
-					<%= render :partial => 'layouts/menu_dla_ucznia' %>
-				<% elsif nauczyciel? %>	
-				<ul>
-					<li><%= link_to "<span>dzienniki</span>", "/dzienniki/plan/data=2007-01-01", :title => "ui-8" %></li>
-				</ul>	
-				<% else %>
-					&nbsp;&nbsp;
-				<% end %>			
-			</div>
-			
-				
+			<%= render :partial => 'layouts/menu' %>
 			<div id="glowny" style="display:compact;"><%= yield %></div>
-
 
 		</div>
 		
