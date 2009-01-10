@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.admin_index    '/admin/',                :controller => 'admin',  :action => 'index'
+  
   map.rodzic_plan    '/rodzic/plan',           :controller => 'rodzic', :action => 'plan'
   map.rodzic_oceny   '/rodzic/oceny',          :controller => 'rodzic', :action => 'oceny'
   map.rodzic_obecn   '/rodzic/obecnosci',      :controller => 'rodzic', :action => 'obecnosci'
@@ -12,7 +14,7 @@ ActionController::Routing::Routes.draw do |map|
   map.uczen_przed2   '/uczen/przedmiot/:id',   :controller => 'uczen', :action => 'przedmiot'
 
   map.nauczyciel_plan '/nauczyciel/plan',      :controller => 'nauczyciel',  :action => 'plan'
-  map.nauczyciel_dziennik '/nauczyciel/dziennik/:id', :controller => 'nauczyciel',  :action => 'dziennik'
+  map.nauczyciel_dziennik '/nauczyciel/dziennik', :controller => 'nauczyciel',  :action => 'dziennik'
 
   map.grupy_intro      '/grupy/intro',         :controller => 'grupy',       :action => 'intro'
   map.naucz_intro      '/nauczyciele/intro',   :controller => 'nauczyciele', :action => 'intro'
@@ -24,6 +26,7 @@ ActionController::Routing::Routes.draw do |map|
   map.plany_intro      '/plany/intro',         :controller => 'plany',       :action => 'intro'
   map.uczen_intro      '/uczen.intro',         :controller => 'uczen',       :action => 'intro'
   map.nauczyciel_intro '/nauczyciel/intro',    :controller => 'nauczyciel',  :action => 'intro'
+  map.admin_intro      '/admin/intro',         :controller => 'admin',       :action => 'intro'
 
  
   map.plan_update     '/plany/update/:id',         :controller => 'plany', :action => 'update'
@@ -32,7 +35,7 @@ ActionController::Routing::Routes.draw do |map|
   map.wybierz_kom     '/plany/:id/plan/:klasa/:dzien/:godzina.:format', :controller => 'plany', :action => 'wybierz_kom', :format => 'js'
   map.nowa_klasa      '/grupy/nowa_klasa',     :controller => 'grupy', :action => 'nowa_klasa'
   map.nowa_grupa      '/grupy/:id/nowa_grupa', :controller => 'grupy', :action => 'nowa_grupa'
-  #map.przedmioty      '/grupy/:id/przedmioty', :controller => 'grupy', :action => 'przedmioty'
+  map.przedmioty_klasy '/grupa/:id/przedmioty', :controller => 'grupy', :action => 'przedmioty'
   map.plan_dla        '/dzienniki/plan/:parametry',   :controller => 'dzienniki', :action => 'plan'
   map.dziennik        '/dzienniki/:parametry', :controller => 'dzienniki', :action => 'show'
   map.obecnosc        '/dzienniki/obecnosc/:parametry', :controller => 'dzienniki', :action => 'sprawdz_obecnosc', :parametry => nil
@@ -70,7 +73,7 @@ ActionController::Routing::Routes.draw do |map|
 
   
   # Home Page
-  map.root :controller => 'sessions', :action => 'new'
+  map.root :controller => 'sessions', :action => 'index'
 
   # Install the default routes as the lowest priority.
   map.connect ':controller/:action.:format'

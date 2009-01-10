@@ -37,7 +37,7 @@ class PlanyController < ApplicationController
       if @plan.save
         active @plan
         flash[:notice] = 'Plan was successfully created.'
-        format.html { redirect_to(@plan) }
+        format.html { redirect_to :action => :index }
         format.xml  { render :xml => @plan, :status => :created, :location => @plan }
       else
         format.html { render :action => "new", :layout => 'application' }
@@ -56,7 +56,7 @@ class PlanyController < ApplicationController
       if @plan.update_attributes(params[:plan])
         #active @plan
         flash[:notice] = 'Plan was successfully updated.'
-        format.html { redirect_to(@plan) }
+        format.html { redirect_to :action => :index }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit", :layout => 'application' }
@@ -80,7 +80,6 @@ class PlanyController < ApplicationController
     @grupa   = Grupa.find(params[:klasa])
     @godziny = Godzina.existing
     render :layout => 'application'
-
   end
 
 

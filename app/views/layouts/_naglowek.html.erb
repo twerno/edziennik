@@ -3,7 +3,9 @@
 		<%= link_to 'Logout', logout_path %>
 		Moje konto
 		<br><br>
-	<% end %>
+	<% else %>
+
+	<% end %>	
 	
 	<% if admin? %>
 		admin
@@ -16,6 +18,8 @@
 	<% else %>
 		<br /><br />
 	<% end %>
+	
+	<% if logged_in? %>
 	&nbsp;&nbsp;
 	<br />
 	<h4>
@@ -23,4 +27,5 @@
 		</SCRIPT>
 		&nbsp;&nbsp;
 	</h4>
+	<% end %>
 </div>

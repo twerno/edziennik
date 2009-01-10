@@ -1,32 +1,16 @@
 class RodzicController < ApplicationController
 
   def intro
-    @tydzien = Date.today.at_beginning_of_week
-    plan_id = []
-    for i in 0..6
-      plan_id += [Plan.aktualny @tydzien + i.days]
-    end
 
-    @grupy   = Grupa.existing.find(:all, :include => :czlonkowie, :conditions => ["czlonkowie.destroyed = ? AND czlonkowie.uczen_id = ?", false, current_user.rodzic.uczniowie.first.id])
-    
-    @godziny = Godzina.existing.sort_by{|s| s.begin}
-    
-    @plan      = Create_Array [@godziny.size, 7]
-    @obecnosci = Create_Array [@godziny.size, 7]
-    doklej = scope_or("listy.grupa_id", @grupy.collect{|c| c.id})
-    doklej = (!doklej.empty?) ? " AND " << doklej : ""    
-    
-    i = 0
-    for i in 0...@godziny.size
-      for j in 0...7
-        @plan[i][j] = Lekcja.existing.find(:all, :include => :lista, :conditions => ["listy.destroyed = ? AND godzina_id = ? AND plan_id = ? AND dzien_tygodnia = ?" << doklej , false, @godziny[i].id, plan_id[j], j+1 ])
-        @obecnosci[i][j] = (!@plan[i][j].empty?) ? @plan[i][j][0].obecnosci.find_by_uczen_id( current_user.rodzic.uczniowie.first.id) : nil
-      end
-    end    
   end
   
   def plan
-    @tydzien = Date.today.at_beginning_of_week
+    begin
+      @tydzien = params[:date].to_date.at_beginning_of_week
+    rescue
+      @tydzien = Date.today.at_beginning_of_week
+    end
+    
     plan_id = []
     for i in 0..6
       plan_id += [Plan.aktualny @tydzien + i.days]
@@ -50,7 +34,7 @@ class RodzicController < ApplicationController
     end
     
 
-    render :layout => "application"
+    render :layout => "application" unless params[:layout].nil?
   end
 
   def oceny

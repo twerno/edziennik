@@ -7,10 +7,12 @@
 		<%= render :partial => 'layouts/menu_dla_ucznia' %>
 	<% elsif nauczyciel? %>	
 	<ul>
-		<li><%= link_to "<span>dzienniki</span>", "/dzienniki/plan/data=2007-01-01", :title => "glowny" %></li>
+		<li><%= link_to "<span>dzienniki</span>", nauczyciel_plan_path , :title => "glowny" %></li>
 	</ul>	
 	<% else %>
-		<li><%= link_to "<span>login</span>", "/", :title => "glowny" %></li>
+	<ul>
+		<li><%= link_to "<span>login</span>", "/sessions/intro.html", :title => "glowny" %></li>
+		</ul>
 		&nbsp;&nbsp;
 	<% end %>			
 </div>

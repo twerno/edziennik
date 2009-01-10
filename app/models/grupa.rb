@@ -59,6 +59,7 @@ class Grupa < ActiveRecord::Base
       else
         lista.set_editors_stamp @@editors_stamp
         lista.set_current_user @@user
+        lista.rubryki.destroy_all
         lista.destroy
       end
     end
@@ -73,7 +74,7 @@ class Grupa < ActiveRecord::Base
   def new_lista_attributes=(lista_attributes)
     lista_attributes.each do |attributes|
        l = listy.build(attributes)
-       puts l.id
+       #puts l.id
        #puts l.class.name
        #sputs Archive.find(:last, :conditions=>["class_name = ?", l.class.name]).id
        #puts Archive.find(:last, :conditions=["class_id = ? AND class_name = ?", l.id, l.class.name])
@@ -87,7 +88,15 @@ class Grupa < ActiveRecord::Base
     listy.each do |lista|
       lista.set_editors_stamp @@editors_stamp
       lista.set_current_user @@user
+      new_rec = lista.new_record?
       lista.save
+      if new_rec
+        i = 0
+        10.times {
+        i += 1
+        lista.rubryki.create :opis => i.to_s
+        }
+       end 
     end
   end
 

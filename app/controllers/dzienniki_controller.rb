@@ -4,7 +4,7 @@ class DziennikiController < ApplicationController
     queries = queries_parameters params[:parametry]
     
     @godziny = Godzina.existing.find(:all, :order => :begin)
-    @nauczyciel = zalogowany
+    @nauczyciel = current_user.nauczyciel
     
     #lekcje = Lekcja.existing.find(:all, :include => :lista, :conditions => ["listy.destroyed = ? AND listy.nauczyciel_id = ? AND listy.semestr_id = ?", false, @nauczyciel.id, 1] )
     
@@ -33,7 +33,7 @@ class DziennikiController < ApplicationController
  
   end
   
-  def show
+  def show  #queries =>  klasa, lekcja,  data
     @queries = queries_parameters params[:parametry]
 
     @przedmiot = Przedmiot.existing.find(:first, :include => :lekcje, :conditions => ["lekcje.id = ? ", @queries["lekcja"]])

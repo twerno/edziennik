@@ -7,6 +7,7 @@ class Lista < ActiveRecord::Base
   has_many :lekcje
   has_many :oceny
   has_many :obecnosci
+  has_many :rubryki
   
   acts_as_external_archive
   

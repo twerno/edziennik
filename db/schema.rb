@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090107084356) do
+ActiveRecord::Schema.define(:version => 20090110032353) do
 
   create_table "archives", :force => true do |t|
     t.string   "class_name"
@@ -141,6 +141,8 @@ ActiveRecord::Schema.define(:version => 20090107084356) do
     t.boolean  "destroyed",  :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "start_date"
+    t.date     "end_date"
   end
 
   create_table "pnjts", :force => true do |t|
@@ -184,6 +186,7 @@ ActiveRecord::Schema.define(:version => 20090107084356) do
     t.integer  "lista_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "destroyed",  :default => false
   end
 
   create_table "semestry", :force => true do |t|

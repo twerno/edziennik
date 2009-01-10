@@ -1,7 +1,12 @@
 class UczenController < ApplicationController
 
   def intro
-    @tydzien = Date.today.at_beginning_of_week
+    begin
+      @tydzien = params[:date].to_date.at_beginning_of_week
+    rescue
+      @tydzien = Date.today.at_beginning_of_week
+    end
+    
     plan_id = []
     for i in 0..6
       plan_id += [Plan.aktualny @tydzien + i.days]
@@ -50,7 +55,7 @@ class UczenController < ApplicationController
     end
     
 
-    render :layout => "application"
+    render :layout => "application" unless params[:layout].nil?
   end
 
   def oceny

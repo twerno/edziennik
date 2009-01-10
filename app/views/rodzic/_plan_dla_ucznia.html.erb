@@ -1,13 +1,13 @@
 <table border = 1>
 	<tr>
 		<td><% %></td>
-		<td>Poniedziałek</td>
-		<td>Wtorek</td>
-		<td>Środa</td>
-		<td>Czwartek</td>
-		<td>Piątek</td>
-		<td>Sobota</td>
-		<td>Niedziela</td>
+		<td>Poniedziałek <br /> <%= @tydzien %></td>
+		<td>Wtorek <br /> <%= @tydzien +1.day%></td>
+		<td>Środa <br /> <%= @tydzien +2.day%></td>
+		<td>Czwartek <br /> <%= @tydzien +3.day%></td>
+		<td>Piątek <br /> <%= @tydzien +4.day%></td>
+		<td>Sobota <br /> <%= @tydzien +5.day%></td>
+		<td>Niedziela <br /> <%= @tydzien +6.day%></td>
 	</tr>
 	<% for i in 0...@godziny.size %>
 	<tr>
@@ -23,3 +23,4 @@
 	</tr>
 	<% end %>
 </table>
+<%= link_to 'poprzedni tydzien', rodzic_plan_path( {:date => (@tydzien-1.day).to_s, :layout => :true} )%> | <%= link_to 'kolejny tydzien', rodzic_plan_path( {:date => (@tydzien+7.day).to_s, :layout => :true}) %>

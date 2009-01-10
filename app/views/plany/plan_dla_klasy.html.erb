@@ -1,24 +1,21 @@
-<%= link_to 'Plan', "/plany/"+@plan.id.to_s+"/plan" %> | 
-<% for klasa in Grupa.existing.klasa %>
-	<%= link_to klasa.nazwa, "/plany/"+@plan.id.to_s+"/plan/"+klasa.id.to_s %> | 
-<% end %>
+<div style="float:left;">
 
-<table border = 1>
+<table>
 	<tr>
 		<td><%=h @grupa.nazwa %></td>
-		<td>Poniedziałek</td>
-		<td>Wtorek</td>
-		<td>Środa</td>
-		<td>Czwartek</td>
-		<td>Piątek</td>
-		<td>Sobota</td>
-		<td>Niedziela</td>
+		<td class="szerokie">Poniedziałek</td>
+		<td class="szerokie">Wtorek</td>
+		<td class="szerokie">Środa</td>
+		<td class="szerokie">Czwartek</td>
+		<td class="szerokie">Piątek</td>
+		<td class="szerokie">Sobota</td>
+		<td class="szerokie">Niedziela</td>
 	</tr>
 	<% for godzina in @godziny %>
 	<tr>
 		<td><%=h godzina.begin.strftime("%H") << ":" << godzina.begin.strftime("%M") %>-<%=h godzina.end.strftime("%H") << ":" << godzina.end.strftime("%M") %></td>
 			<% for i in 1..7 %>
-				<td><div class="plany" id="<%= godzina.id %>-<%= i %>" <%= onclick_to_remote :url => {:action => :wybierz_kom, :id => @plan.id, :klasa => @grupa.id, :dzien => i, :godzina => godzina.id, :format => :js } %>><%= nazwa_przedmiotu @plan.id, i, godzina.id, @grupa.id %></div></td>
+				<td class="plany" id="<%= godzina.id %>-<%= i %>" <%= onclick_to_remote :url => {:action => :wybierz_kom, :id => @plan.id, :klasa => @grupa.id, :dzien => i, :godzina => godzina.id, :format => :js } %>><%= nazwa_przedmiotu @plan.id, i, godzina.id, @grupa.id %></div></td>
 			<% end %>
 	</tr>
 	<% end %>
@@ -26,4 +23,17 @@
 
 <div id="lekcje">
 	<%= render :partial => 'zarzadzaj_lekcjami' %>
+</div>
+</div>
+<div style="font-size: 12px;">
+	&nbsp;&nbsp;<b>Plan dla klasy <%= @grupa.nazwa %><br />
+
+	&nbsp;&nbsp;Obowiązuje od <%= @plan.start_date %> do <%= @plan.end_date %><br />
+	<hr /></b>
+	
+	&nbsp;&nbsp;Plany dla pozostałych klas:<br />
+<% for klasa in Grupa.existing.klasa %>
+	&nbsp;&nbsp;<%= link_to klasa.nazwa, "/plany/"+@plan.id.to_s+"/plan/"+klasa.id.to_s %><br />
+<% end %>
+
 </div>

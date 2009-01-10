@@ -17,7 +17,7 @@
     <td><%=h grupa.aktualny_semestr %></td>
     <td><%=h grupa.ostatni_semestr %></td>
     <td><%= link_to 'Show', grupa %></td>
-	<td><%= link_to 'Przedmioty', "/grupy/"+grupa.id.to_s+"/przedmioty/" %></td>
+	<td><%= link_to 'Przedmioty', przedmioty_klasy_url( {:id => grupa.id}) %></td>
     <td><%= link_to 'Edit', edit_grupa_path(grupa) %></td>
     <td><%= link_to 'Destroy', grupa, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>

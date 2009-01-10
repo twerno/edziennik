@@ -2,19 +2,26 @@
 
 <table>
   <tr>
+  	<th>Aktywny</th>
     <th>Nazwa</th>
+	<th>Obowiązuje Od</th>
+	<th>Do</th>
     <th>Semestr</th>
-    <th>Active</th>
+
   </tr>
 
 <% for plan in @plany %>
   <tr>
-    <td><%=h plan.nazwa %></td>
+  	<td><%= (plan.active) ? "(Aktywny)" : "(Niektywny)" %></td>
+    <td><%=h plan.nazwa         %></td>
+	<td><%=  plan.start_date    %></td>
+	<td><%=  plan.end_date      %></td>
     <td><%=h plan.semestr.nazwa %></td>
-    <td><%=h plan.active %></td>
-    <td><%= link_to 'Show', plan %></td>
-    <td><%= link_to 'Edit', edit_plan_path(plan) %></td>
-    <td><%= link_to 'Destroy', plan, :confirm => 'Are you sure?', :method => :delete %></td>
+
+	<td><%= link_to "Modyfikuj plany zajęć", "/plany/"+plan.id.to_s+"/plan/" + Grupa.klasa.first.id.to_s %></td>
+    <td><%= link_to 'Edytuj Dane', edit_plan_path(plan) %></td>
+  	<td><%= (plan.active) ? "Deaktywuj" : "Aktywuj" %></td>
+    <td><%= link_to 'Usun', plan, :confirm => 'Czy jesteś pewien?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>

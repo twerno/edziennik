@@ -99,7 +99,6 @@ class ApplicationController < ActionController::Base
     s = s[0..s.length-5]
     (s.length >= 2) ? s << ")" : ''
   end
-  
-  
+
 end
 

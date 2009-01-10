@@ -6,28 +6,39 @@
 		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 		<title>E-DZIENNIK</title>
 
-  <%= stylesheet_link_tag 'base', 'scaffold', "flora.tabs", "default", "tomka" %>
-  <%= javascript_include_tag :defaults, 'data2.js',
-		'http://jquery-ui.googlecode.com/svn/tags/latest/jquery-1.2.6.js',
+  <%= stylesheet_link_tag 'base', 'scaffold', "flora.tabs", "default", 'tomka' %>
+  
+  <%= stylesheet_link_tag 	'http://ui.jquery.com/applications/themes/base/ui.datepicker.css',
+	'http://ui.jquery.com/applications/themes/base/ui.theme.css',
+	'http://ui.jquery.com/applications/themes/base/ui.core.css' %>
 
+  <%= javascript_include_tag :defaults, 'data2.js',
+		'http://ui.jquery.com/applications/jquery-1.2.6.js',
+'http://ui.jquery.com/applications/ui/ui.datepicker.js',
 		'http://jquery-ui.googlecode.com/svn/tags/latest/ui/ui.core.js',
-		'http://jquery-ui.googlecode.com/svn/tags/latest/ui/ui.tabs.js' 
+		'http://jquery-ui.googlecode.com/svn/tags/latest/ui/ui.tabs.js',
+		'ui.datepicker-pl.js'
   %>
 
 <script>
 	jQuery.noConflict();
 	
 	jQuery(document).ready(function(){
-    	jQuery("#example > ul").tabs({
-			selected: null
-		});
+		jQuery('#plan_start_date').datepicker( {changeMonth: true,
+												changeYear: true,
+												dateFormat: "yy-mm-dd"});
+		jQuery('#plan_end_date').datepicker( {	changeMonth: true,
+												changeYear: true,
+												dateFormat: "yy-mm-dd"});
+		jQuery('#semestr_begin').datepicker( {	changeMonth: true,
+												changeYear: true,
+												dateFormat: "yy-mm-dd"});
+		jQuery('#semestr_end').datepicker( {	changeMonth: true,
+												changeYear: true,
+												dateFormat: "yy-mm-dd"});														
+    	jQuery("#example > ul").tabs({selected: null});
 		jQuery('#glowny').show();
 		jQuery('#message').fadeIn(800).fadeTo(5000, 1).fadeOut(2000);
-
-		jQuery('#example').tabs({selected: null,
-			load: function(e, ui) {
-			}			
-		});
   	});
 </script>
 </head>

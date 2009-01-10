@@ -1,7 +1,12 @@
 class SessionsController < ApplicationController
   skip_before_filter :verify_authenticity_token, :only => :create  
+  skip_before_filter :intro
   
   def intro
+  end
+  
+  def index
+    render :layout => "application"
   end
   
   def new
@@ -38,7 +43,7 @@ class SessionsController < ApplicationController
   def destroy
     logout_killing_session!
     flash[:notice] = "You have been logged out."
-    redirect_back_or_default(root_path)
+    redirect_to root_path
   end
   
   def open_id_authentication
@@ -57,15 +62,13 @@ class SessionsController < ApplicationController
   
   def redirect_to_user_page
     if rodzic?
-      redirect_to :controller => :rodzic  , :action => :plan
+      redirect_to :controller => :rodzic  , :action => :plan, :layout => :true
     elsif uczen?
-      redirect_to uczen_plan_path
+      redirect_to uczen_plan_path, :layout => :true
     elsif admin?
-      redirect_to :controller => :sessions, :action => :intro
+      redirect_to :controller => :admin, :action => :index#, :layout => "application"
     elsif nauczyciel?
-      redirect_to :controller => :nauczyciel, :action => :plan
-    else
-      render :controller => :sessions, :action => :new
+      redirect_to nauczyciel_plan_path (:layout => :true)
     end
   end
   

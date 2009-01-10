@@ -21,8 +21,9 @@ set :deploy_to, "/home/mat/twerno/rails/#{application}"
 after "deploy:update_code", :fix_script_perms
 
 task :fix_script_perms do
+  run "chmod +x #{latest_release}/script/*"
   run "chmod 755 #{latest_release}/script/spin"
-  run "chmod 755 #{latest_release}/script//process/spawner"
+  run "chmod +x #{latest_release}/script/process/spawner"
 
 end
 # --- git

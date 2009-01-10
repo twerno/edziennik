@@ -24,7 +24,7 @@ module Acts
       ## umiejszcza objekt w archiwum przed jego zapisaniem 
       def save
         temp = eval(self.class.name.to_s + ".find(" + self.id.to_s + ")") unless self.new_record? ## moze to zmienic, zeby nie odwolywac sie dodatkowo do bazy ? ;)
-        
+        #puts temp
         wrk1 = self.changed?
         wrk2 = !self.new_record?
         wrk3 = super
