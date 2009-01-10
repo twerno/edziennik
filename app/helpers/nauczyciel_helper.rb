@@ -1,22 +1,22 @@
 module NauczycielHelper
   
-  def obecny uczen, lekcja
-    l = lekcja.obecnosci.find_by_uczen_id uczen.id
+  def obecny uczen, lekcja, date
+    l = lekcja.obecnosci.find(:first, :conditions => ["uczne_id = ? and date = ?", uczen.id. date])
     if !l.nil? && (l.wartosc == 1 || l.wartosc == 4)
        return " style='display:block' "
     end    
   end
   
-   def nieobecny uczen, lekcja
-    l = lekcja.obecnosci.find_by_uczen_id uczen.id
+   def nieobecny uczen, lekcja, date
+    l = lekcja.obecnosci.find(:first, :conditions => ["uczne_id = ? and date = ?", uczen.id. date])
     if !l.nil? && l.wartosc == 2
        return " style='display:block' "
     end    
   end 
   
   
-  def spozniony uczen, lekcja
-    l = lekcja.obecnosci.find_by_uczen_id uczen.id
+  def spozniony uczen, lekcja, date
+    l = lekcja.obecnosci.find(:first, :conditions => ["uczne_id = ? and date = ?", uczen.id. date])
     if !l.nil? && l.wartosc == 3
        return " style='display:block' "
     end    

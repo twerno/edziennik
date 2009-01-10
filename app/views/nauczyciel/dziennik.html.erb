@@ -18,9 +18,9 @@ Przedmiot : <%= @przedmiot.nazwa.to_s %>, dnia: <%= @date.to_s %><br />
 <tr>
 <td><%= uczen_i %></td>	
 <td><%= uczen.nazwisko.to_s+" "+uczen.imie.to_s %></td>
-<td class="obecnosc" <%= onclick_to_remote :url => {:action => :sprawdzam_obecnosc, :lekcja => @lekcja.id, :uczen => uczen.id, :date =>@date.to_s, :wartosc => 1, :lista => @lista, :format => :js } %>><div class="obecny"    id="<%= uczen.id %>-1" <%= obecny    uczen, @lekcja %>> &nbsp;</div></td>
-<td class="obecnosc" <%= onclick_to_remote :url => {:action => :sprawdzam_obecnosc, :lekcja => @lekcja.id, :uczen => uczen.id, :date =>@date.to_s, :wartosc => 2, :lista => @lista, :format => :js } %>><div class="nieobecny" id="<%= uczen.id %>-2" <%= nieobecny uczen, @lekcja %>>&nbsp;</div></td>
-<td class="obecnosc" <%= onclick_to_remote :url => {:action => :sprawdzam_obecnosc, :lekcja => @lekcja.id, :uczen => uczen.id, :date =>@date.to_s, :wartosc => 3, :lista => @lista, :format => :js } %>><div class="spozniony" id="<%= uczen.id %>-3" <%= spozniony uczen, @lekcja %>>&nbsp;</div></td>
+<td class="obecnosc" <%= onclick_to_remote :url => {:action => :sprawdzam_obecnosc, :lekcja => @lekcja.id, :uczen => uczen.id, :date =>@date.to_s, :wartosc => 1, :lista => @lista, :format => :js } %>><div class="obecny"    id="<%= uczen.id %>-1" <%= obecny    uczen, @lekcja, @date %>> &nbsp;</div></td>
+<td class="obecnosc" <%= onclick_to_remote :url => {:action => :sprawdzam_obecnosc, :lekcja => @lekcja.id, :uczen => uczen.id, :date =>@date.to_s, :wartosc => 2, :lista => @lista, :format => :js } %>><div class="nieobecny" id="<%= uczen.id %>-2" <%= nieobecny uczen, @lekcja, @date %>>&nbsp;</div></td>
+<td class="obecnosc" <%= onclick_to_remote :url => {:action => :sprawdzam_obecnosc, :lekcja => @lekcja.id, :uczen => uczen.id, :date =>@date.to_s, :wartosc => 3, :lista => @lista, :format => :js } %>><div class="spozniony" id="<%= uczen.id %>-3" <%= spozniony uczen, @lekcja, @date %>>&nbsp;</div></td>
 <% for rubryka in @rubryki%>
 	<td id="ocena<%= uczen.id %>-<%= rubryka.id %>" class="oceny" <%= onclick_to_remote :url => {:action => :wybierz_rubryke, :rubryka => rubryka.id, :uczen => uczen.id, :format => :js } %>><%= ocena rubryka, uczen %></td>
 <% end %>
