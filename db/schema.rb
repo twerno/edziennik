@@ -14,6 +14,7 @@ ActiveRecord::Schema.define(:version => 20090110032353) do
   create_table "archives", :force => true do |t|
     t.string   "class_name"
     t.string   "class_id"
+    t.integer  "version"
     t.boolean  "class_destroyed"
     t.integer  "edited_by"
     t.text     "editors_stamp"

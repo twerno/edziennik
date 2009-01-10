@@ -1,4 +1,5 @@
 class PrzedmiotyController < ApplicationController
+  before_filter :admin_rights
 
   def intro
     @przedmioty = Przedmiot.existing.find(:all, :order => :nazwa)    

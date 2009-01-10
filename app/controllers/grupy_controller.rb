@@ -1,5 +1,5 @@
 class GrupyController < ApplicationController
-
+  before_filter :admin_rights
   
   def intro
     @grupy = Grupa.existing.klasa

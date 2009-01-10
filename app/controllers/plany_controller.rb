@@ -1,4 +1,5 @@
 class PlanyController < ApplicationController
+  before_filter :admin_rights
 
   def intro
     @plany = Plan.existing.find(:all, :order => :nazwa)

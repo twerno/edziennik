@@ -1,5 +1,5 @@
 class NauczycieleController < ApplicationController
-
+  before_filter :admin_rights
 
   def intro
     @nauczyciele = Nauczyciel.existing.find(:all, :order => :nazwisko)

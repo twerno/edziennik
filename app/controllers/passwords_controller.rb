@@ -1,4 +1,5 @@
 class PasswordsController < ApplicationController
+  protected
   def new
     @password = Password.new
   end

@@ -28,4 +28,9 @@ module NauczycielHelper
     function = update_page(&block) if block_given?
     "onclick=\"#{function}; return false;\""
   end
+  
+  def ocena rubryka, uczen
+    o = rubryka.oceny.find_by_uczen_id uczen
+    (o.nil?) ? '' : o.wartosc_oceny 
+  end  
 end

@@ -7,7 +7,7 @@ class CreateRubryki < ActiveRecord::Migration
       t.timestamps
     end
     
-    add_column :oceny, :rubryka_id, :integer    
+    add_column :oceny, :rubryka_id, :integer   
   end
 
   def self.down

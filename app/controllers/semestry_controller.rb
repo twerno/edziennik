@@ -1,4 +1,5 @@
 class SemestryController < ApplicationController
+  before_filter :admin_rights
 
   def intro
     @semestry = Semestr.existing

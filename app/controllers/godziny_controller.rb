@@ -1,4 +1,5 @@
 class GodzinyController < ApplicationController
+  before_filter :admin_rights
 
   def intro
     @godziny = Godzina.existing.find(:all, :order => :begin)

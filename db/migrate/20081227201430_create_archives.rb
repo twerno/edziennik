@@ -5,6 +5,7 @@ class CreateArchives < ActiveRecord::Migration
       t.string    :class_id
       #t.boolean   :continued, :default => false
       #t.text      :indexes
+      #t.integer   :version
       t.boolean   :class_destroyed
       t.integer   :edited_by
       t.text      :editors_stamp

@@ -100,5 +100,33 @@ class ApplicationController < ActionController::Base
     (s.length >= 2) ? s << ")" : ''
   end
 
+
+  def admin_rights
+    if !admin?
+      flash[:error] = "Nie jestes zalogowany"
+      redirect_to root_path, :layout => "application"
+    end
+  end
+  
+  def uczen_rights
+    if !uczen?
+      flash[:error] = "Nie jestes zalogowany"      
+      redirect_to root_path, :layout => "application"
+    end
+  end
+  
+  def rodzic_rights
+    if !rodzic?
+      flash[:error] = "Nie jestes zalogowany"      
+      redirect_to root_path, :layout => "application"
+    end
+  end
+  
+  def nauczyciel_rights
+    if !nauczyciel?
+      flash[:error] = "Nie jestes zalogowany"      
+      redirect_to root_path, :layout => "application"
+    end
+  end
 end
 

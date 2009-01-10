@@ -1,0 +1,8 @@
+jQuery(".oceny").css({'outline-width'   : '0px'});
+jQuery("#ocena<%= params[:uczen] %>-<%= params[:rubryka] %>").css({'outline-width'   : '2px'     , 
+							'outline-style'   : 'dotted'  , 
+							'outline-color'   : '#ff0011'
+							});
+jQuery("#Ocena_uczen_id").val( <%= params[:uczen] %> );
+jQuery("#Ocena_rubryka_id") .val( <%= params[:rubryka] %> );				
+

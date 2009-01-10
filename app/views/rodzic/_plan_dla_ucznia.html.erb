@@ -23,4 +23,4 @@
 	</tr>
 	<% end %>
 </table>
-<%= link_to 'poprzedni tydzien', rodzic_plan_path( {:date => (@tydzien-1.day).to_s, :layout => :true} )%> | <%= link_to 'kolejny tydzien', rodzic_plan_path( {:date => (@tydzien+7.day).to_s, :layout => :true}) %>
+<%= link_to 'poprzedni tydzien', rodzic_plan_path( {:date => (@tydzien-1.day).to_s, :layout => :true} )%> | <%= link_to 'kolejny tydzien', rodzic_plan_path( {:date => (@tydzien+8.day).to_s, :layout => :true}) %>

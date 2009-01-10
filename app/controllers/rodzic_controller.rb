@@ -1,4 +1,5 @@
 class RodzicController < ApplicationController
+  before_filter :rodzic_rights
 
   def intro
 
@@ -50,11 +51,9 @@ class RodzicController < ApplicationController
 
   def przedmiot
     @lista        = Lista.find params[:id]
-    @oceny        = current_user.rodzic.uczniowie.first.oceny.find_by_lista_id params[:id]
+    @oceny        = current_user.rodzic.uczniowie.first.oceny.find_all_by_lista_id params[:id]
     @oceny        = (@oceny.nil?) ? [] : @oceny
-    @srednia      = 0
-    @oceny.each{|o| @srednia += o.wartosc }
-    @srednia     /= (@oceny.size != 0) ? @oceny.size : 1               
+    @srednia      = srednia @oceny              
     @obecnosci    = Obecnosc.find(:all, :conditions => ["uczen_id = ? AND lista_id = ? AND wartosc = ?", current_user.rodzic.uczniowie.first.id, params[:id], 1])
     @nieobecnosci = Obecnosc.find(:all, :conditions => ["uczen_id = ? AND lista_id = ? AND wartosc = ?", current_user.rodzic.uczniowie.first.id, params[:id], 2], :order => :data)
     @spoznienia   = Obecnosc.find(:all, :conditions => ["uczen_id = ? AND lista_id = ? AND wartosc = ?", current_user.rodzic.uczniowie.first.id, params[:id], 3])
@@ -63,4 +62,16 @@ class RodzicController < ApplicationController
     render :layout => "application"
   end
 
+
+  private
+  def srednia oceny
+    wynik = 0
+    if oceny.size != 0
+      for o in oceny
+        wynik += o.wartosc_oceny
+      end
+      wynik = wynik.to_f/oceny.size
+    end
+    wynik
+  end
 end

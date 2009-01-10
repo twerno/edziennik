@@ -1,3 +1,4 @@
+<div style="float:left;heigt:100%;">
 Przedmiot : <%= @przedmiot.nazwa.to_s %>, dnia: <%= @date.to_s %><br />
 
 
@@ -21,10 +22,28 @@ Przedmiot : <%= @przedmiot.nazwa.to_s %>, dnia: <%= @date.to_s %><br />
 <td class="obecnosc" <%= onclick_to_remote :url => {:action => :sprawdzam_obecnosc, :lekcja => @lekcja.id, :uczen => uczen.id, :date =>@date.to_s, :wartosc => 2, :lista => @lista, :format => :js } %>><div class="nieobecny" id="<%= uczen.id %>-2" <%= nieobecny uczen, @lekcja %>>&nbsp;</div></td>
 <td class="obecnosc" <%= onclick_to_remote :url => {:action => :sprawdzam_obecnosc, :lekcja => @lekcja.id, :uczen => uczen.id, :date =>@date.to_s, :wartosc => 3, :lista => @lista, :format => :js } %>><div class="spozniony" id="<%= uczen.id %>-3" <%= spozniony uczen, @lekcja %>>&nbsp;</div></td>
 <% for rubryka in @rubryki%>
-	<td><%= rubryka.oceny.find_by_uczen_id uczen %></td>
+	<td id="ocena<%= uczen.id %>-<%= rubryka.id %>" class="oceny" <%= onclick_to_remote :url => {:action => :wybierz_rubryke, :rubryka => rubryka.id, :uczen => uczen.id, :format => :js } %>><%= ocena rubryka, uczen %></td>
 <% end %>
 
 </tr>
 <% uczen_i += 1%>
 <% end %>
 </table>
+<% form_remote_for :Ocena, :url => {:action => :ocen_ucznia} do |f| %>
+	<%= f.select :wartosc_oceny, [1,2,3,4,5,6] %>
+	<%= f.hidden_field :uczen_id, :value => "=" %>
+	<%= f.hidden_field :lekcja_id, :value => @lekcja.id %>
+	<%= f.hidden_field :lista_id, :value => @lista.id %>
+	<%= f.hidden_field :rubryka_id, :value => "=" %>	
+	<%= f.submit 'create' %>
+<% end %>
+</div>
+<div style="font-size: 12px;">
+	&nbsp;&nbsp;<b><%= @lista.grupa.nazwa %> - <%= @przedmiot.nazwa %> <br />
+	<hr /></b>
+	
+	&nbsp;&nbsp;Inne lekcje odbyly sie w dniach:<br />
+	<% for obecnosc in @lekcja.obecnosci %>
+		&nbsp;&nbsp;&nbsp;<%= link_to obecnosc.data, nauczyciel_dziennik_path( {:date => obecnosc.data, :lekcja => @lekcja.id, :layout => :true} )%><br />
+	<% end %>
+</div>

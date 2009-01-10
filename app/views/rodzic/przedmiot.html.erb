@@ -15,7 +15,7 @@
 	<% end %></ul>
 </p>
 <p>
-	Średnia ocen z tego przedmiotu wynosi <%= number_to_percentage(@srednia*100, :precision => 0) %>
+	Średnia ocen z tego przedmiotu wynosi <%= @srednia.to_s[0..3] %>
 </p>
 	<table>
 		<tr>

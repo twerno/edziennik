@@ -64,11 +64,11 @@ class SessionsController < ApplicationController
     if rodzic?
       redirect_to :controller => :rodzic  , :action => :plan, :layout => :true
     elsif uczen?
-      redirect_to uczen_plan_path, :layout => :true
+      redirect_to uczen_plan_path( :layout => :true)
     elsif admin?
       redirect_to :controller => :admin, :action => :index#, :layout => "application"
     elsif nauczyciel?
-      redirect_to nauczyciel_plan_path (:layout => :true)
+      redirect_to nauczyciel_plan_path( :layout => :true)
     end
   end
   
@@ -81,7 +81,7 @@ class SessionsController < ApplicationController
       note_failed_signin
       @login = params[:login]
       @remember_me = params[:remember_me]
-      render :action => :new
+      render :action => :new, :layout => "application"
     end
   end
   

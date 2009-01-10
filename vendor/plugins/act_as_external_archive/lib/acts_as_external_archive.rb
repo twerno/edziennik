@@ -24,7 +24,7 @@ module Acts
       ## umiejszcza objekt w archiwum przed jego zapisaniem 
       def save
         temp = eval(self.class.name.to_s + ".find(" + self.id.to_s + ")") unless self.new_record? ## moze to zmienic, zeby nie odwolywac sie dodatkowo do bazy ? ;)
-        #puts temp
+
         wrk1 = self.changed?
         wrk2 = !self.new_record?
         wrk3 = super
@@ -41,7 +41,7 @@ module Acts
 #        self.contiuned = true
 #        self.destroy
 #        puts "AAAAAAAAA"
-#        attributes = selt.attributes
+#        attributes = self.attributes
 #        attributes.delete "continued"
 #        attributes.delete "destroyed"
 #                puts "bbbbbbbb"
@@ -104,6 +104,7 @@ module Acts
         archive = Archive.new
         archive.class_name      = temp.class.name
         archive.class_id        = temp.id.to_s
+        #archive.version         = (temp.version.nil?) ? 0 : temp.version+1
         archive.edited_by       = (@current_user.nil?) ? nil : @current_user.id
         archive.editors_stamp   = @editors_stamp
         archive.class_destroyed = temp.destroyed
