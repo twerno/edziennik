@@ -43,7 +43,7 @@ Przedmiot : <%= @przedmiot.nazwa.to_s %>, dnia: <%= @date.to_s %><br />
 	<hr /></b>
 	
 	&nbsp;&nbsp;Inne lekcje odbyly sie w dniach:<br />
-	<% for obecnosc in @lekcja.obecnosci %>
-		&nbsp;&nbsp;&nbsp;<%= link_to obecnosc.data, nauczyciel_dziennik_path( {:date => obecnosc.data, :lekcja => @lekcja.id, :layout => :true} )%><br />
+	<% for obecnosc in @lekcja.obecnosci.collect{|d| d.data}.uniq %>
+		&nbsp;&nbsp;&nbsp;<%= link_to obecnosc, nauczyciel_dziennik_path( {:date => obecnosc, :lekcja => @lekcja.id, :layout => :true} )%><br />
 	<% end %>
 </div>
