@@ -49,7 +49,7 @@ class UczniowieController < ApplicationController
       @uczen.set_current_user  current_user
       
       if params[:rodzic][:pesel] != params[:uczen][:pesel] && r.save
-        @uczen = Uczen.new(params[:uczen])
+        #@uczen = Uczen.new(params[:uczen])
         @uczen.rodzic_id = r.id
         if @uczen.save
           flash[:notice] = 'Uczen was successfully created.'
