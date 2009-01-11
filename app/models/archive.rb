@@ -19,7 +19,7 @@ class Archive < ActiveRecord::Base
     #puts self.class.name    ## WTF ?? czemy self.class zwraca 'Class' ?? 
   paginate :per_page => 30, :page => page,
            :conditions => conditions_string,
-           :order => 'id'
+           :order => 'created_at'
   end
   
   
@@ -40,7 +40,7 @@ class Archive < ActiveRecord::Base
     puts archive.id
     obj = eval(archive.class_name + ".find_by_id " + archive.class_id.to_s)
     #obj.set_editors_stamp editors_stamp
-    obj.restore id
+    obj.restore id, editors_stamp
   end
   
   

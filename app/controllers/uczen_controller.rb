@@ -73,7 +73,7 @@ class UczenController < ApplicationController
     @lista        = Lista.find params[:id]
     @oceny        = current_user.uczen.oceny.find_by_lista_id params[:id]
     @oceny        = (@oceny.nil?) ? [] : @oceny
-    @srednia      = srednia @oceny               
+    @srednia      = srednia @oceny.to_a               
     @obecnosci    = Obecnosc.find(:all, :conditions => ["uczen_id = ? AND lista_id = ? AND wartosc = ?", current_user.uczen.id, params[:id], 1])
     @nieobecnosci = Obecnosc.find(:all, :conditions => ["uczen_id = ? AND lista_id = ? AND wartosc = ?", current_user.uczen.id, params[:id], 2], :order => :data)
     @spoznienia   = Obecnosc.find(:all, :conditions => ["uczen_id = ? AND lista_id = ? AND wartosc = ?", current_user.uczen.id, params[:id], 3])

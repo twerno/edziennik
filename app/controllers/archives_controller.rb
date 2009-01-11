@@ -23,7 +23,7 @@ class ArchivesController < ApplicationController
   end
   
   def restore
-    Archive.restore params[:class_id], get_editors_stamp
+    Archive.restore params[:id], get_editors_stamp
     
     redirect_to :action => :show, :class_id => params[:class_id], :class_name => params[:class_name]
   end

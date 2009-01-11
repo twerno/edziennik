@@ -102,7 +102,8 @@ module Acts
         save
       end
   
-      def restore id
+      def restore id, editors_stamp
+		set_editors_stamp editors_stamp
         archive = Archive.find_by_id id
         @desc = 0
         old     = rebuild_from_archive( archive)[0]
