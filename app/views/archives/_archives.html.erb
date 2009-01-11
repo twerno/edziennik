@@ -12,10 +12,10 @@
 	</tr>
 	<% for archive in @archives %>
 		<tr>
-			<td><%= link_to :Restore, archives_restore_path ({:class_id => archive[:class].id, :class_name => (archive [:class]).class.name, :id => (archive [:class]).id }), :confirm => 'Na pewno chcesz przywróciæ ten rekord?' %>
+			<td><%= link_to :Restore, archives_restore_path ({:class_id => archive[:class].id, :class_name => (archive [:class]).class.name, :id => (archive [:class]).id }), :confirm => 'Na pewno chcesz przywrï¿½ciï¿½ ten rekord?' %>
 			<td><%= link_to (archive [:class]).class.name, archives_show_path ({:class_name => (archive [:class]).class.name }) %></td>
 			<td><%= link_to (archive [:class]).id, archives_show_path ({:class_name => (archive [:class]).class.name, :class_id => (archive [:class]).id}) %></td>
-			<td><%= link_to archive [:edited_by], archives_show_path({:edited_by => archive[:edited_by]}) %></td>
+			<td><%= link_to (User.find_by_id archive[:edited_by]).login, archives_show_path({:edited_by => archive[:edited_by]}) %></td>
 			<td><%= link_to archive [:editors_ip], archives_show_path({:editors_ip => archive [:editors_ip] })%></td>
 			<td><%= link_to archive [:editors_browser].to_s[0..10], archives_show_path({:editors_browser => archive [:editors_browser]}) %></td>
 			<td><%= (archive [:class]).updated_at %></td>
