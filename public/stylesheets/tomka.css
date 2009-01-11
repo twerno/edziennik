@@ -97,9 +97,9 @@ th {
 	}	
 	
 td {
-padding: 0px 10px 0px 10px;
+padding: 0px 5px 0px 5px;
 font-weight: 550; /*waga*/
-font-size: 10pt; /*rozmiar czcionki*/
+font-size: 8pt; /*rozmiar czcionki*/
 border-width: 1px; /*szerokosc obramowania*/
 border-style: groove; /*styl obramowania groove*/
 border-color: #a6adb6; /*kolor obramowania*/
