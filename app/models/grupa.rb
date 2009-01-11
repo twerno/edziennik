@@ -59,7 +59,10 @@ class Grupa < ActiveRecord::Base
       else
         lista.set_editors_stamp @@editors_stamp
         lista.set_current_user @@user
-        lista.rubryki.destroy_all
+        for rubryka in lista.rubryki
+          rubryka.set_editors_stamp @@editors_stamp
+          rubryka.destroy
+        end
         lista.destroy
       end
     end
@@ -94,7 +97,10 @@ class Grupa < ActiveRecord::Base
         i = 0
         10.times {
         i += 1
-        lista.rubryki.create :opis => i.to_s
+        l = Rubryka.new :lista_id => lista.id, :opis => i.to_s
+        l.set_editors_stamp @@editors_stamp
+        l.save
+        #lista.rubryki.create :opis => i.to_s
         }
        end 
     end

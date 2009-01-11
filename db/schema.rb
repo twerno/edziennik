@@ -9,24 +9,26 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090110032353) do
+ActiveRecord::Schema.define(:version => 20090111143239) do
 
   create_table "archives", :force => true do |t|
     t.string   "class_name"
     t.string   "class_id"
     t.boolean  "class_destroyed"
     t.integer  "edited_by"
-    t.text     "editors_stamp"
+    t.string   "editors_ip"
+    t.string   "editors_browser"
     t.text     "changes"
     t.text     "body"
-    t.integer  "action"
+    t.string   "method"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "archives", ["class_id"], :name => "index_archives_on_class_id"
   add_index "archives", ["class_name"], :name => "index_archives_on_class_name"
-  add_index "archives", ["editors_stamp"], :name => "index_archives_on_editors_stamp"
+  add_index "archives", ["editors_browser"], :name => "index_archives_on_editors_browser"
+  add_index "archives", ["editors_ip"], :name => "index_archives_on_editors_ip"
 
   create_table "czlonkowie", :force => true do |t|
     t.integer  "uczen_id"

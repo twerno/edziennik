@@ -15,7 +15,7 @@ module Acts
        end
      end
 
-## akcje:
+## metody:
 ## 1 : create
 ## 2 : edit
 ## 3 : delete
@@ -27,18 +27,18 @@ module Acts
 
       @@separator = '|!|'
       @@zamiennik = "&#124;&#33;&#124;"
-      #@@action    = 0
+      #@@method    = 0
   
   
       def init
         super
-        @action = 0
+        #@method = ""
       end
       ## umiejszcza objekt w archiwum przed jego zapisaniem 
       def save
         temp = eval(self.class.name.to_s + ".find(" + self.id.to_s + ")") unless self.new_record? ## moze to zmienic, zeby nie odwolywac sie dodatkowo do bazy ? ;)
 
-        @action = 1 unless !self.new_record?  ## ustawienie akcji na create, jesli nowy rekord
+        @method = "Create" unless !self.new_record?  ## ustawienie akcji na create, jesli nowy rekord
 
         changes = self.changes
         changes.delete "updated_at"
@@ -87,10 +87,10 @@ module Acts
           :class           => self,
           :edited_by       => archive.edited_by,
           #:editors_stamp   => archive.editors_stamp,
-          :editors_ip      => archive.editors_stamp.to_s.split(@@separator)[1],
-          :editors_browser => archive.editors_stamp.to_s.split(@@separator)[3],
+          :editors_ip      => archive.editors_ip,#.to_s.split(@@separator)[1],
+          :editors_browser => archive.editors_browser,#.to_s.split(@@separator)[3],
           :changes         => anything.changes.to_s.split( ','),
-          :action          => ["Create", "Edit", "Delete", "Restore"] [archive.action-1]
+          :method          => anything.method
         }
       end
   
@@ -98,7 +98,7 @@ module Acts
       ## objekty nie sa uzuwane, pole destroyed jest ustawiane na true
       def destroy
         self.destroyed = true
-        @action = "3"       ## ustawienie akcji na delete
+        @method = "Delete"       ## ustawienie akcji na delete
         save
       end
   
@@ -107,16 +107,18 @@ module Acts
         @desc = 0
         old     = rebuild_from_archive( archive)[0]
         self.attributes = old.attributes
-        @action = 4
+        @method = "Restore"
         self.save
       end
 
-      def set_editors_stamp stamp
-        @editors_stamp = stamp
+      def set_editors_stamp editors_stamp
+        @editors_ip      = editors_stamp[:editors_ip]
+        @editors_browser = editors_stamp[:editors_browser]
+        @current_user    = editors_stamp[:current_user]
       end
       
       def set_current_user user
-        @current_user = user
+        
       end
   
   
@@ -138,10 +140,11 @@ module Acts
         archive.class_name      = temp.class.name
         archive.class_id        = temp.id.to_s
         #archive.version        = (temp.version.nil?) ? 0 : temp.version+1
-        archive.edited_by       = (@current_user.nil?) ? nil : @current_user.id
-        archive.editors_stamp   = @editors_stamp
+        archive.edited_by       = (@current_user.nil?) ? nil : @current_user
+        archive.editors_ip      = @editors_ip
+        archive.editors_browser = @editors_browser
         archive.class_destroyed = temp.destroyed
-        archive.action          = (@action.nil?) ? 2 : @action
+        archive.method          = (@method.to_s.empty?) ? "Edit" : @method
 
         keys = changes.keys
         keys.delete "updated_at"
@@ -161,7 +164,7 @@ module Acts
         #archive.changes         = ""
 
         keys = temp.class.columns.collect{|c| c.name}
-        for key in ["id", "edited_by", "editors_stamp", "destroyed", "updated_at"]
+        for key in ["id", "edited_by", "editors_ip", "editors_browser", "destroyed", "updated_at"]
           keys.delete key
         end
 
@@ -200,7 +203,7 @@ module Acts
         types = temp.class.columns.collect{|c| c.sql_type}
       
         ## i usuwany z tej listy pola juz uzupelnione
-        for key in ["id", "edited_by", "editors_stamp", "destroyed", "updated_at"]
+        for key in ["id", "edited_by", "editors_ip", "editors_browser", "destroyed", "updated_at"]
           index = keys.index key
           types.delete_at index unless index.nil?
           keys.delete_at  index unless index.nil?
@@ -257,10 +260,10 @@ module Acts
                               :class => temp,
                               :edited_by => anything.edited_by,
                               #:editors_stamp => anything.editors_stamp,
-                              :editors_ip => anything.editors_stamp.to_s.split(@@separator)[1],
-                              :editors_browser => anything.editors_stamp.to_s.split(@@separator)[3],
+                              :editors_ip => anything.editors_ip,#.to_s.split(@@separator)[1],
+                              :editors_browser => anything.editors_browser,#.to_s.split(@@separator)[3],
                               :changes => anything.changes.to_s.split( ','),
-                              :action          => ["Create", "Edit", "Delete", "Restore"] [anything.action-1]
+                              :method => anything.method
                              }].to_a
             end
           end

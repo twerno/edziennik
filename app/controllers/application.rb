@@ -17,7 +17,9 @@ class ApplicationController < ActionController::Base
   end
   
   def get_editors_stamp
-    "ip|!|" << request.env["REMOTE_ADDR"].to_s << "|!|req|!|" << request.env["HTTP_USER_AGENT"].to_s << "|!|"
+    {:editors_ip => request.env["REMOTE_ADDR"].to_s, 
+    :editors_browser => request.env["HTTP_USER_AGENT"].to_s,
+    :current_user => (current_user.nil?) ? nil : current_user.id}
   end
   
   ## arg postaci
@@ -99,8 +101,8 @@ class ApplicationController < ActionController::Base
     s = s[0..s.length-5]
     (s.length >= 2) ? s << ")" : ''
   end
-
-
+  
+  
   def admin_rights
     if !admin?
       flash[:error] = "Nie jestes zalogowany"

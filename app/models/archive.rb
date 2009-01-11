@@ -4,11 +4,42 @@ class Archive < ActiveRecord::Base
   @@desc = 1
   
   
-  def self.restore id, editors_stamp, current_user
+  def self.search(search, page)
+    
+    conditions_string = ""
+    (
+      for key in search.keys
+        (
+        conditions_string << " AND " unless conditions_string.empty?
+        conditions_string << key.to_s + " = '" + search[key].to_s + "'"
+        ) unless search[key].nil?
+      end
+    ) unless search.nil?
+
+    #puts self.class.name    ## WTF ?? czemy self.class zwraca 'Class' ?? 
+  paginate :per_page => 30, :page => page,
+           :conditions => conditions_string,
+           :order => 'id'
+  end
+  
+  
+  def scope_and hash
+    conditions_string = ""
+    (
+    for key in hash.keys
+      conditions_string << " AND " unless conditions_string.empty?
+      conditions_string << key.to_s + " = '" + hash[key].to_s + "'"
+    end
+    ) unless search.nil?
+    conditions_string
+  end
+  
+  
+  def self.restore id, editors_stamp
     archive =  Archive.find_by_id id
-    obj = eval(archive.class_name + ".find_by_id " + archive.id.to_s)
-    obj.set_editors_stamp editors_stamp
-    obj.set_current_user  current_user
+    puts archive.id
+    obj = eval(archive.class_name + ".find_by_id " + archive.class_id.to_s)
+    #obj.set_editors_stamp editors_stamp
     obj.restore id
   end
   
@@ -102,10 +133,10 @@ class Archive < ActiveRecord::Base
                           :class => temp,
                           :edited_by => anything.edited_by,
                           #:editors_stamp => anything.editors_stamp,
-                          :editors_ip => anything.editors_stamp.to_s.split(@@separator)[1],
-                          :editors_browser => anything.editors_stamp.to_s.split(@@separator)[3],
+                          :editors_ip => anything.editors_ip,#.to_s.split(@@separator)[1],
+                          :editors_browser => anything.editors_browser,#.to_s.split(@@separator)[3],
                           :changes => anything.changes.to_s.split( ','),
-                          :action => ["Create", "Edit", "Delete", "Restore"] [anything.action-1]
+                          :method => anything.method
                          }].to_a
         end
     
@@ -122,4 +153,7 @@ class Archive < ActiveRecord::Base
   end
 
     
+   
+  
+
 end

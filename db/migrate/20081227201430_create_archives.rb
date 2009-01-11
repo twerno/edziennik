@@ -8,10 +8,11 @@ class CreateArchives < ActiveRecord::Migration
       #t.integer   :version
       t.boolean   :class_destroyed
       t.integer   :edited_by
-      t.text      :editors_stamp
+      t.string    :editors_ip
+      t.string    :editors_browser
       t.text      :changes
       t.text      :body
-      t.integer   :action
+      t.string    :method
       #t.datetime :body_updated_at
       #t.datetime :created_at
       
@@ -21,7 +22,8 @@ class CreateArchives < ActiveRecord::Migration
     
     add_index :archives, :class_name
     add_index :archives, :class_id
-    add_index :archives, :editors_stamp
+    add_index :archives, :editors_ip
+    add_index :archives, :editors_browser
   end
 
 
