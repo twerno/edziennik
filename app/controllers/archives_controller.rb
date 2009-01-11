@@ -4,7 +4,7 @@ class ArchivesController < ApplicationController
   def index
     #@archives = (Archive.rebuild_from_archive Archive.all).sort_by {|a| (a[:class]).updated_at}
     @a = Archive.search (nil, params[:page])
-    @archives = (Archive.rebuild_from_archive @a)
+    @archives = (Archive.rebuild_from_archive @a).sort_by {|a| (a[:id])}
     render :layout => "application" unless params[:layout].nil?
   end
   
@@ -18,7 +18,7 @@ class ArchivesController < ApplicationController
               }
 
     @a = Archive.search (search, params[:page])
-    @archives = (Archive.rebuild_from_archive @a)#.sort_by {|a| (a[:class]).updated_at}
+    @archives = (Archive.rebuild_from_archive @a).sort_by {|a| (a[:id])}
     render :layout => "application"
   end
   
