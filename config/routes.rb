@@ -1,5 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
   map.admin_index    '/admin/',                :controller => 'admin',  :action => 'index'
+  map.archives       '/archives/show',         :controller => 'archives', :action => 'show'
   
   map.rodzic_plan    '/rodzic/plan',           :controller => 'rodzic', :action => 'plan'
   map.rodzic_oceny   '/rodzic/oceny',          :controller => 'rodzic', :action => 'oceny'
@@ -36,10 +37,10 @@ ActionController::Routing::Routes.draw do |map|
   map.nowa_klasa      '/grupy/nowa_klasa',     :controller => 'grupy', :action => 'nowa_klasa'
   map.nowa_grupa      '/grupy/:id/nowa_grupa', :controller => 'grupy', :action => 'nowa_grupa'
   map.przedmioty_klasy '/grupa/:id/przedmioty', :controller => 'grupy', :action => 'przedmioty'
-  map.plan_dla        '/dzienniki/plan/:parametry',   :controller => 'dzienniki', :action => 'plan'
-  map.dziennik        '/dzienniki/:parametry', :controller => 'dzienniki', :action => 'show'
-  map.obecnosc        '/dzienniki/obecnosc/:parametry', :controller => 'dzienniki', :action => 'sprawdz_obecnosc', :parametry => nil
-  map.obecnosc_create '/dzienniki/obecnosc/create/:parametry', :controller => 'dzienniki', :action => 'obecnosc_create'
+  #map.plan_dla        '/dzienniki/plan/:parametry',   :controller => 'dzienniki', :action => 'plan'
+  #map.dziennik        '/dzienniki/:parametry', :controller => 'dzienniki', :action => 'show'
+  #map.obecnosc        '/dzienniki/obecnosc/:parametry', :controller => 'dzienniki', :action => 'sprawdz_obecnosc', :parametry => nil
+  #map.obecnosc_create '/dzienniki/obecnosc/create/:parametry', :controller => 'dzienniki', :action => 'obecnosc_create'
   map.generuj_haslo   '/uczniowie/nowe_haslo/:parametry.:format', :controller => 'hasla', :action => 'nowe_haslo'
   #map.dziennik2       '/dzienniki/p/:klasa', :controller => 'dzienniki', :action => 'show'
 

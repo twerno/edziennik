@@ -34,6 +34,7 @@ class UczniowieController < ApplicationController
 
   def edit
     @uczen = Uczen.find(params[:id])
+    @rodzic = @uczen.rodzic
     render :layout => 'application'
   end
 
@@ -41,7 +42,11 @@ class UczniowieController < ApplicationController
   def create
     #begin
       r = Rodzic.new params[:rodzic]
+      r.set_editors_stamp get_editors_stamp
+      r.set_current_user  current_user
       @uczen = Uczen.new(params[:uczen])
+      @uczen.set_editors_stamp get_editors_stamp
+      @uczen.set_current_user  current_user
       
       if params[:rodzic][:pesel] != params[:uczen][:pesel] && r.save
         @uczen = Uczen.new(params[:uczen])
@@ -64,8 +69,11 @@ class UczniowieController < ApplicationController
 
   def update
     @uczen = Uczen.find(params[:id])
+    @uczen.set_editors_stamp get_editors_stamp
+    @uczen.set_current_user  current_user    
     r = @uczen.rodzic
-
+    r.set_editors_stamp get_editors_stamp
+    r.set_current_user  current_user
     respond_to do |format|
       if @uczen.update_attributes(params[:uczen]) && r.update_attributes(params[:rodzic])
         flash[:notice] = 'Uczen was successfully updated.'

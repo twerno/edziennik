@@ -1,0 +1,30 @@
+<table>
+	<tr>
+		<td>Class name</td>
+		<td>Id</td>
+		<td>User</td>
+		<td>User ip</td>
+		<td>User browser</td>
+		<td>updated</td>
+		<td>Akcja</td>
+		<td>zmiany</td>
+	</tr>
+	<% for archive in @archives %>
+		<tr>
+			<td><%= (archive [:class]).class.name %></td>
+			<td><%= (archive [:class]).id %></td>
+			<td><%= archive [:edited_by] %></td>
+			<td><%= archive [:editors_ip] %></td>
+			<td><%= archive [:editors_browser].to_s[0..10] %></td>
+			<td><%= (archive [:class]).updated_at %></td>
+			<td><%= archive [:action] %></td>
+			<td>
+				<% for change in archive [:changes] %>
+					<%= change %> => "<%= archive [:class][change] %>", 
+				<% end %>
+			</td>								
+		</tr>
+	<% end %>	
+	
+	
+</table>

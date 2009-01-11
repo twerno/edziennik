@@ -9,7 +9,9 @@ class CreateArchives < ActiveRecord::Migration
       t.boolean   :class_destroyed
       t.integer   :edited_by
       t.text      :editors_stamp
+      t.text      :changes
       t.text      :body
+      t.integer   :action
       #t.datetime :body_updated_at
       #t.datetime :created_at
       

@@ -6,7 +6,7 @@
 	Prowadzący: <%= @lista.nauczyciel.imie %> <%= @lista.nauczyciel.nazwisko %>
 </p>
 <p>
-	Na <%= @wszystkich %> odbytych zajęć uczeń był obecny na <%= @obecnosci.size %>, na <%= @spoznienia.size %> spóźnił się, a z <%= @zwolnienia.size %> godzin został zwolniony. (Uczen był obecny na <%= number_to_percentage(@obecnosci.size.to_f/@wszystkich*100, :precision => 0) %> zajęć.)
+	Na <%= @wszystkich %> odbytych zajęć uczeń był obecny na <%= @obecnosci.size %>, na <%= @spoznienia.size %> spóźnił się, a z <%= @zwolnienia.size %> godzin został zwolniony. (Uczen był obecny na <%= number_to_percentage((@obecnosci.size+@spoznienia.size).to_f/@wszystkich*100, :precision => 0) %> zajęć.)
 </p>
 <p>
 	Uczeń był nieobeny na <%= @nieobecnosci.size %> zajęciach w dniach:

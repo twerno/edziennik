@@ -15,22 +15,38 @@ module Acts
        end
      end
 
+## akcje:
+## 1 : create
+## 2 : edit
+## 3 : delete
+
+
 
      module InstanceMethods 
 
       @@separator = '|!|'
       @@zamiennik = "&#124;&#33;&#124;"
+      #@@action    = 0
   
+  
+      def init
+        super
+        @action = 0
+      end
       ## umiejszcza objekt w archiwum przed jego zapisaniem 
       def save
         temp = eval(self.class.name.to_s + ".find(" + self.id.to_s + ")") unless self.new_record? ## moze to zmienic, zeby nie odwolywac sie dodatkowo do bazy ? ;)
-
+        
+        @action = 1 unless !self.new_record?  ## ustawienie akcji na create, jesli nowy rekord
+        
+        changes = self.changes
+        
         wrk1 = self.changed?
         wrk2 = !self.new_record?
         wrk3 = super
 
         archiving temp unless !(wrk1 & wrk2 & wrk3)
-        create_blank self unless !((wrk1 | !wrk2) & wrk3)
+        create_blank self, changes unless !((wrk1 | !wrk2) & wrk3)
         
         wrk3
       end
@@ -62,11 +78,15 @@ module Acts
       
       def current_with_desc
         archive = Archive.find(:last, :conditions => ["class_name = ? AND class_id = ?", self.class.name, self.id.to_s])
-        { :class           => self,
+ 
+        { :id              => archive.id,
+          :class           => self,
           :edited_by       => archive.edited_by,
           #:editors_stamp   => archive.editors_stamp,
           :editors_ip      => archive.editors_stamp.to_s.split(@@separator)[1],
-          :editors_browser => archive.editors_stamp.to_s.split(@@separator)[3]
+          :editors_browser => archive.editors_stamp.to_s.split(@@separator)[3],
+          :changes         => anything.changes.to_s.split( ','),
+          :action          => ["Create", "Edit", "Delete"] [archive.action-1]
         }
       end
   
@@ -74,6 +94,7 @@ module Acts
       ## objekty nie sa uzuwane, pole destroyed jest ustawiane na true
       def destroy
         self.destroyed = true
+        @action = "3"       ## ustawienie akcji na delete
         save
       end
   
@@ -100,14 +121,23 @@ module Acts
       
       ## dodaje objekt do archiwum
       private
-      def create_blank temp
+      def create_blank temp, changes
         archive = Archive.new
         archive.class_name      = temp.class.name
         archive.class_id        = temp.id.to_s
-        #archive.version         = (temp.version.nil?) ? 0 : temp.version+1
+        #archive.version        = (temp.version.nil?) ? 0 : temp.version+1
         archive.edited_by       = (@current_user.nil?) ? nil : @current_user.id
         archive.editors_stamp   = @editors_stamp
         archive.class_destroyed = temp.destroyed
+        archive.action          = (@action.nil?) ? 2 : @action
+
+        keys = changes.keys
+        keys.delete "updated_at"
+        archive.changes = "" unless !(keys.size != 0)
+
+        for key in keys
+          archive.changes << key << ","
+        end 
         archive.save
       end
       
@@ -115,19 +145,22 @@ module Acts
       def archiving temp
         archive = Archive.find(:last, :conditions => ["class_name = ? AND class_id = ?", temp.class.name, temp.id.to_s])
         archive.class_destroyed = temp.destroyed        
-        archive.body            = ""
+        #archive.body            = ""
+        #archive.changes         = ""
 
         keys = temp.class.columns.collect{|c| c.name}
         for key in ["id", "edited_by", "editors_stamp", "destroyed", "updated_at"]
           keys.delete key
         end
 
+        archive.body = "" unless !(keys.size != 0)
+
         for key in keys
           archive.body << key << @@separator
           archive.body << eval("temp." << key).to_s.gsub(@@separator, @@zamiennik)
           archive.body << @@separator
-        end
-    
+        end       
+
         archive.save
       end
 
@@ -208,11 +241,14 @@ module Acts
             if @@desc == 0
               empty_set.add [temp]
             else
-              empty_set.add [{:class => temp,
+              empty_set.add [{:id    => anything.id,
+                              :class => temp,
                               :edited_by => anything.edited_by,
                               #:editors_stamp => anything.editors_stamp,
                               :editors_ip => anything.editors_stamp.to_s.split(@@separator)[1],
-                              :editors_browser => anything.editors_stamp.to_s.split(@@separator)[3]
+                              :editors_browser => anything.editors_stamp.to_s.split(@@separator)[3],
+                              :changes => anything.changes.to_s.split( ','),
+                              :action          => ["Create", "Edit", "Delete"] [anything.action-1]
                              }].to_a
             end
           end

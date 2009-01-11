@@ -31,6 +31,8 @@ class PrzedmiotyController < ApplicationController
 
   def create
     @przedmiot = Przedmiot.new(params[:przedmiot])
+    @przedmiot.set_editors_stamp get_editors_stamp
+    @przedmiot.set_current_user  current_user
 
     respond_to do |format|
       if @przedmiot.save
@@ -47,7 +49,9 @@ class PrzedmiotyController < ApplicationController
 
   def update
     @przedmiot = Przedmiot.find(params[:id])
-
+    @przedmiot.set_editors_stamp get_editors_stamp
+    @przedmiot.set_current_user  current_user
+    
     respond_to do |format|
       if @przedmiot.update_attributes(params[:przedmiot])
         flash[:notice] = 'Przedmiot was successfully updated.'
@@ -62,7 +66,7 @@ class PrzedmiotyController < ApplicationController
 
 
   def destroy
-    @przedmiot = Nauczyciel.find(params[:id])
+    @przedmiot = Przedmiot.find(params[:id])
     @przedmiot.set_editors_stamp get_editors_stamp
     @przedmiot.set_current_user current_user
     @przedmiot.pnjts.each do |pnjt|
@@ -73,7 +77,7 @@ class PrzedmiotyController < ApplicationController
     @przedmiot.destroy
 
     respond_to do |format|
-      format.html { redirect_to(przedmioty_url) }
+      format.html { redirect_to przedmioty_path }
       format.xml  { head :ok }
     end
   end

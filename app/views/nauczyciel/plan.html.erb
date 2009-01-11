@@ -15,7 +15,7 @@
 			<% for j in 0...7 %>
 				<td>
 					<% for k in 0...@plan[i][j].size %>
-						<%= link_to @plan[i][j][k].lista.grupa.nazwa + '(' + @plan[i][j][k].przedmiot.nazwa[0..4] + ')', nauczyciel_dziennik_path( {:date => (@tydzien +j.day), :lekcja => @plan[i][j][k].id, :layout => :true} )%><br />
+						<%= link_to @plan[i][j][k].lista.grupa.nazwa[0..5] + '(' + @plan[i][j][k].przedmiot.nazwa[0..6] + ')', nauczyciel_dziennik_path( {:date => (@tydzien +j.day), :lekcja => @plan[i][j][k].id, :layout => :true} )%><br />
 					<% end %>
 				</td>
 			<% end %>
