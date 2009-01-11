@@ -19,6 +19,7 @@ module Acts
 ## 1 : create
 ## 2 : edit
 ## 3 : delete
+## 4 : restore
 
 
 
@@ -36,22 +37,25 @@ module Acts
       ## umiejszcza objekt w archiwum przed jego zapisaniem 
       def save
         temp = eval(self.class.name.to_s + ".find(" + self.id.to_s + ")") unless self.new_record? ## moze to zmienic, zeby nie odwolywac sie dodatkowo do bazy ? ;)
-        
+
         @action = 1 unless !self.new_record?  ## ustawienie akcji na create, jesli nowy rekord
-        
+
         changes = self.changes
-        
+        changes.delete "updated_at"
+
         wrk1 = self.changed?
         wrk2 = !self.new_record?
         wrk3 = super
 
-        archiving temp unless !(wrk1 & wrk2 & wrk3)
-        create_blank self, changes unless !((wrk1 | !wrk2) & wrk3)
-        
+        (
+          archiving temp unless !(wrk1 & wrk2 & wrk3)
+          create_blank self, changes unless !((wrk1 | !wrk2) & wrk3)
+        ) unless !(changes.size > 0)
+
         wrk3
       end
-  
-  
+
+
 #      def continue_with_new_id
 #        #puts self.destroyed
 #        self.contiuned = true
@@ -86,7 +90,7 @@ module Acts
           :editors_ip      => archive.editors_stamp.to_s.split(@@separator)[1],
           :editors_browser => archive.editors_stamp.to_s.split(@@separator)[3],
           :changes         => anything.changes.to_s.split( ','),
-          :action          => ["Create", "Edit", "Delete"] [archive.action-1]
+          :action          => ["Create", "Edit", "Delete", "Restore"] [archive.action-1]
         }
       end
   
@@ -98,7 +102,15 @@ module Acts
         save
       end
   
-  
+      def restore id
+        archive = Archive.find_by_id id
+        @desc = 0
+        old     = rebuild_from_archive( archive)[0]
+        self.attributes = old.attributes
+        @action = 4
+        self.save
+      end
+
       def set_editors_stamp stamp
         @editors_stamp = stamp
       end
@@ -110,12 +122,12 @@ module Acts
   
       ## zwraca wszystkie 
       def archives
-        @@desc = 0
+        @desc = 0
         rebuild_from_archive Archive.find(:all, :conditions => ["class_name = ? AND class_id = ?", self.class.name, self.id.to_s], :order => :id)
       end
    
       def archives_with_desc
-        @@desc = 1
+        @desc = 1
         rebuild_from_archive Archive.find(:all, :conditions => ["class_name = ? AND class_id = ?", self.class.name, self.id.to_s], :order => :id)
       end
       
@@ -170,11 +182,11 @@ module Acts
         ## tworzymy pusty zbior
         empty_set = "".to_set
  
- 
+        set = set.to_a
         ## dla kazdej elementu w zbiorze
         for anything in set
-        puts anything.id
-        puts set.size
+        #puts anything.id
+        #puts set.size
       
       
         ## tworzymy nowy objekt i uzupełniamy, pola ktore sa wymagane w kazdym obiekcie
@@ -238,7 +250,7 @@ module Acts
             end
         
             ## wrzucamy obiekt do zbioru (set)
-            if @@desc == 0
+            if @desc == 0
               empty_set.add [temp]
             else
               empty_set.add [{:id    => anything.id,
@@ -248,14 +260,14 @@ module Acts
                               :editors_ip => anything.editors_stamp.to_s.split(@@separator)[1],
                               :editors_browser => anything.editors_stamp.to_s.split(@@separator)[3],
                               :changes => anything.changes.to_s.split( ','),
-                              :action          => ["Create", "Edit", "Delete"] [anything.action-1]
+                              :action          => ["Create", "Edit", "Delete", "Restore"] [anything.action-1]
                              }].to_a
             end
           end
         end
         puts empty_set.size
         ## zwracamy gotowy zbior
-        if @@desc == 0
+        if @desc == 0
           empty_set.add [self]             ## jesli rekord nie zostal zapisany, to nie wyswietla listy, a jedynie ten jeden rekord
           empty_set.to_a.flatten.reverse
         else

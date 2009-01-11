@@ -1,16 +1,24 @@
 class Archive < ActiveRecord::Base
-        @@separator = '|!|'
-      @@zamiennik = "&#124;&#33;&#124;"
-  
-  
+  @@separator = '|!|'
+  @@zamiennik = "&#124;&#33;&#124;"
   @@desc = 1
+  
+  
+  def self.restore id, editors_stamp, current_user
+    archive =  Archive.find_by_id id
+    obj = eval(archive.class_name + ".find_by_id " + archive.id.to_s)
+    obj.set_editors_stamp editors_stamp
+    obj.set_current_user  current_user
+    obj.restore id
+  end
+  
   
   def self.rebuild_from_archive set
   
     ## tworzymy pusty zbior
     empty_set = "".to_set
    
-   
+    set = set.to_a
     ## dla kazdej elementu w zbiorze
     for anything in set
     #puts anything.id.to_s + " " + anything.class_name
@@ -97,7 +105,7 @@ class Archive < ActiveRecord::Base
                           :editors_ip => anything.editors_stamp.to_s.split(@@separator)[1],
                           :editors_browser => anything.editors_stamp.to_s.split(@@separator)[3],
                           :changes => anything.changes.to_s.split( ','),
-                          :action => ["Create", "Edit", "Delete"] [anything.action-1]
+                          :action => ["Create", "Edit", "Delete", "Restore"] [anything.action-1]
                          }].to_a
         end
     

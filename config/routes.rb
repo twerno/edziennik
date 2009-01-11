@@ -1,6 +1,8 @@
 ActionController::Routing::Routes.draw do |map|
-  map.admin_index    '/admin/',                :controller => 'admin',  :action => 'index'
-  map.archives       '/archives/show',         :controller => 'archives', :action => 'show'
+  map.admin_index    '/admin/',                :controller => 'admin',    :action => 'index'
+  map.archives       '/archives/index',        :controller => 'archives', :action => 'index'
+  map.archives_show  '/archives/show',         :controller => 'archives', :action => 'show'
+  map.archives_restore '/archives/restore',    :controller => 'archives', :action => 'restore'
   
   map.rodzic_plan    '/rodzic/plan',           :controller => 'rodzic', :action => 'plan'
   map.rodzic_oceny   '/rodzic/oceny',          :controller => 'rodzic', :action => 'oceny'
