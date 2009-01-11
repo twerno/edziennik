@@ -4,6 +4,10 @@ class SessionsController < ApplicationController
   
   def intro
   end
+
+  def diagram
+    
+  end
   
   def index
     render :layout => "application"
